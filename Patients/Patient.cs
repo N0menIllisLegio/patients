@@ -1,143 +1,129 @@
-﻿using System;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
+﻿using Newtonsoft.Json;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 
 namespace Patients
 {
-    public partial class Patient : Form
+    public class Patient
     {
-        private static int _change = -1;
+        [Key] public int? Id { get; set; }
 
-        public Patient()
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string SecondName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Place { get; set; }
+        public string Address { get; set; }
+        public string ScreensDirectory { get; set; }
+        public string Diagnosis { get; set; }
+
+        [Column("Sex")] public string _sex { get; set; }
+        [Column("BirthDate")] public string _birthDate { get; set; }
+        [Column("LastVisitDate")] public string _lastVisitDate { get; set; }
+        [Column("Teeth")] public string _teeth { get; set; }
+
+        [NotMapped]
+        public Sex sex
         {
-            _change = -1;
-            InitializeComponent();
+            get => _sex == "Female" ? Sex.Female : Sex.Male;
+            set => _sex = value == Sex.Female ? "Female" : "Male";
         }
 
-        public Patient(int id) : this()
+        [NotMapped]
+        public DateTime BirthDate
         {
-            _change = id;
-            DataRow pkRow = Data.PatientsInfo.Rows.Find(id);
+            get => ConvertStringToDate(_birthDate);
+            set => _birthDate = ConvertDateToString(value);
+        }
 
-            sur_textBox.Text = pkRow["Фамилия"].ToString();
-            name_textBox.Text = pkRow["Имя"].ToString();
-            sec_textBox.Text = pkRow["Отчество"].ToString();
-            string place = pkRow["Место хранения информации"].ToString();
+        [NotMapped]
+        public DateTime LastVisitDate
+        {
+            get => ConvertStringToDate(_lastVisitDate);
+            set => _lastVisitDate = ConvertDateToString(value);
+        }
 
-            comp_radioButton_dental.Checked = false;
-            paper_radioButton.Checked = false;
-            patient_radioButton.Checked = false;
+        [NotMapped]
+        public Color[] Teeth
+        {
+            get => DeserializeColors(_teeth);
+            set => _teeth = SerializeColors(value);
+        }
 
-            switch (place)
+        public static string ConvertDateToString(DateTime date)
+        {
+            string strDate;
+
+            try
             {
-                case "Компьютер (Dental)":
-                    comp_radioButton_dental.Checked = true;
-                    break;
-                case "Компьютер (KartaWpf)":
-                    comp_radioButton_kartaWpf.Checked = true;
-                    break;
-                case "Бумажный носитель":
-                    paper_radioButton.Checked = true;
-                    break;
-                case "Пациент":
-                    patient_radioButton.Checked = true;
-                    break;
-                default:
-                    comp_radioButton_dental.Checked = true;
-                    break;
+                strDate = date.ToString("d");
             }
-        }
-
-        private bool Verification()
-        {
-            string rowPattern = @"^\w+$";
-            Regex valueParser = new Regex(rowPattern);
-
-            if (!valueParser.IsMatch(sec_textBox.Text.Trim()) && sec_textBox.Text.Trim() != "")
+            catch (Exception)
             {
-                return false;
-            }
-
-            return valueParser.IsMatch(name_textBox.Text.Trim()) && valueParser.IsMatch(sur_textBox.Text.Trim());
-        }
-
-        private string Register(string line)
-        {
-           
-            line = line.Trim();
-            line = line.ToLower();
-
-            if (line == "")
-            {
-                return " ";
+                strDate = DateTime.Today.ToString("d");
             }
 
-            StringBuilder result = new StringBuilder(line);
-            result[0] = char.ToUpper(result[0]);
-
-            return result.ToString();
+            return strDate;
         }
 
-        private void Ok_button_Click(object sender, EventArgs e)
+        public static DateTime ConvertStringToDate(string strDate)
         {
-            if (Verification())
-            {
-                string surname = Register(sur_textBox.Text);
-                string name = Register(name_textBox.Text);
-                string secName = Register(sec_textBox.Text);
-                string date = calendar.SelectionStart.ToString("dd.MM.yyyy");
-                string place = "Компьютер (Dental)";
+            DateTime date;
 
-                RadioButton radioBtn = groupBox1.Controls
-                    .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-                
-                if (radioBtn != null)
+            try
+            {
+                date = DateTime.ParseExact(strDate, "d", null);
+            }
+            catch (Exception)
+            {
+                date = DateTime.Today;
+            }
+
+            return date;
+        }
+
+        public static string SerializeColors(Color[] colors)
+        {
+            string json;
+
+            try
+            {
+                json = JsonConvert.SerializeObject(colors, Formatting.None);
+            }
+            catch (Exception)
+            {
+                json = "";
+            }
+
+            return json;
+        }
+
+        public static Color[] DeserializeColors(string strColors)
+        {
+            Color[] colors;
+
+            try
+            {
+                colors = JsonConvert.DeserializeObject<Color[]>(strColors);
+            }
+            catch (Exception)
+            {
+                colors = new Color[52];
+                for (int i = 0; i < 52; i++)
                 {
-                    switch (radioBtn.Name)
-                    {
-                        case "paper_radioButton":
-                            place = "Бумажный носитель";
-                            break;
-                        case "patient_radioButton":
-                            place = "Пациент";
-                            break;
-                        case "comp_radioButton_kartaWpf":
-                            place = "Компьютер (KartaWpf)";
-                            break;
-                        case "comp_radioButton_dental":
-                            place = "Компьютер (Dental)";
-                            break;
-                    }
+                    colors[i] = Color.Green;
                 }
-
-                if (_change == -1)
-                {
-                    Data.PatientsInfo.Rows.Add(new object[] { null, surname, name, secName, place, date });
-                }
-                else
-                {
-                    object[] row = { null, surname, name, secName, place, date };
-                    DataRow pkRow = Data.PatientsInfo.Rows.Find(_change);
-                    int pkIndex = Data.PatientsInfo.Rows.IndexOf(pkRow);
-
-                    Data.PatientsInfo.Rows[pkIndex].ItemArray = row;
-                }
-
-                DialogResult = DialogResult.OK;
-                Close();
             }
-            else
-            {
-                MessageBox.Show(@"Имя и фамилия должны быть указаны. Использование символов невозможно!", @"Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
-        private void cancel_button_Click(object sender, EventArgs e)
-        {
-           Close();
+            return colors;
         }
+    }
+
+    public enum Sex
+    {
+        Male,
+        Female
     }
 }

@@ -76,5 +76,11 @@ namespace Patients
 
             File.Copy(dbFile, Path.Combine(backupDir, newFileName));       
         }
+
+        public static void PrepareToConvertTables()
+        {
+            SetTables();
+            LoadTable("PatientsDB.xml");
+        }
     }
 }
