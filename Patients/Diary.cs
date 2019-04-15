@@ -10,7 +10,7 @@ namespace Patients
         public int? PatientId { get; set; }
 
         public string Diagnosis { get; set; }
-        [Column("Date")] private string _date;
+        [Column("Date")] public string _date { get; set; }
 
         [NotMapped]
         public DateTime Date
