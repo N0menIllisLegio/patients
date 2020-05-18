@@ -4,10 +4,10 @@
 
 |Снимок|Описание|
 |---|---|
-|![smth](../images/Picture1.png?raw=true =250x200)|Список всех пациентов|
-|![smth](../images/Picture2.png?raw=true =250x200)|Окно редактирование данных|
-|![smth](../images/Picture3.png?raw=true =250x200)|Зубная карта|
-|![smth](../images/Picture5.png?raw=true =250x200)|Изменение статуса зуба|
-|![smth](../images/Picture6.png?raw=true =250x200)|Добавление записи в дневник|
-|![smth](../images/Picture7.png?raw=true =250x200)|Дневник|
-|![smth](../images/Picture4.png?raw=true =250x200)|Снимки пациента|
+|<img src="../images/Picture1.png?raw=true" width="250" height="200">|Список всех пациентов|
+|<img src="../images/Picture2.png?raw=true" width="250" height="200">|Окно редактирование данных|
+|<img src="../images/Picture3.png?raw=true" width="250" height="200">|Зубная карта|
+|<img src="../images/Picture5.png?raw=true" width="250" height="200">|Изменение статуса зуба|
+|<img src="../images/Picture6.png?raw=true" width="250" height="200">|Добавление записи в дневник|
+|<img src="../images/Picture7.png?raw=true" width="250" height="200">|Дневник|
+|<img src="../images/Picture4.png?raw=true" width="250" height="200">|Снимки пациента|
