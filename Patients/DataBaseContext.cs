@@ -2,6 +2,7 @@
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
+using SQLite.CodeFirst;
 
 namespace Patients
 {
@@ -21,8 +22,6 @@ namespace Patients
         
         private DataBaseContext() : base("DefaultConnection")
         {
-            //Database.SetInitializer(new CreateDatabaseIfNotExists<DataBaseContext>());
-
             if (!Directory.Exists(ScreensDirectory))
             {
                 Directory.CreateDirectory(ScreensDirectory);
@@ -34,6 +33,12 @@ namespace Patients
             {
                 Directory.CreateDirectory(TempScreensDirectory);
             }
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            Database.SetInitializer(new SqliteCreateDatabaseIfNotExists<DataBaseContext>(modelBuilder));
         }
 
         //-----PATIENT------
