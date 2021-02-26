@@ -25,7 +25,7 @@
     },
     "namingRules": {
       "allowedHungarianPrefixes": [
-        "id"
+        "id", "db"
       ]
     }
   }

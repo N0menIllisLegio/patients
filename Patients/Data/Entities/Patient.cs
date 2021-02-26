@@ -5,7 +5,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using Patients.Enums;
 
-namespace Patients.Data.Entities
+namespace Patients.Data.Data.Entities
 {
   public class Patient
   {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Patients.Data.Entities;
+using Patients.Data.Data.Entities;
 
 namespace Patients
 {

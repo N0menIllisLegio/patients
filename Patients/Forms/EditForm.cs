@@ -5,8 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Patients.Data;
-using Patients.Data.Entities;
+using Patients.Data.Data;
+using Patients.Data.Data.Entities;
 using Patients.Enums;
 
 namespace Patients

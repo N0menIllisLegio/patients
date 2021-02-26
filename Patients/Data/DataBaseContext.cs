@@ -2,10 +2,10 @@
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using Patients.Data.Entities;
+using Patients.Data.Data.Entities;
 using SQLite.CodeFirst;
 
-namespace Patients.Data
+namespace Patients.Data.Data
 {
   public class DataBaseContext: DbContext
   {
@@ -28,6 +28,7 @@ namespace Patients.Data
     }
 
     public DbSet<Diary> Diaries { get; set; }
+
     public DbSet<Patient> Patients { get; set; }
 
     public static DataBaseContext GetInstance()

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="SoftTeco" ToolsVersion="15.0">
+<RuleSet Name="SoftTeco" ToolsVersion="16.0">
   <Include Path="basiccorrectnessrules.ruleset" Action="Default" />
   <Include Path="basicdesignguidelinerules.ruleset" Action="Default" />
   <Include Path="globalizationrules.ruleset" Action="Default" />
@@ -225,6 +225,8 @@
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA0000" Action="Error" />
+    <Rule Id="SA0001" Action="None" />
+    <Rule Id="SA0002" Action="Error" />
     <Rule Id="SA1000" Action="Error" />
     <Rule Id="SA1001" Action="Error" />
     <Rule Id="SA1002" Action="Error" />
@@ -273,6 +275,41 @@
     <Rule Id="SA1117" Action="None" />
     <Rule Id="SA1118" Action="None" />
     <Rule Id="SA1119" Action="Error" />
+    <Rule Id="SA1120" Action="Error" />
+    <Rule Id="SA1121" Action="None" />
+    <Rule Id="SA1122" Action="Error" />
+    <Rule Id="SA1123" Action="None" />
+    <Rule Id="SA1124" Action="None" />
+    <Rule Id="SA1125" Action="Error" />
+    <Rule Id="SA1127" Action="Error" />
+    <Rule Id="SA1128" Action="Error" />
+    <Rule Id="SA1129" Action="Error" />
+    <Rule Id="SA1130" Action="Error" />
+    <Rule Id="SA1131" Action="Error" />
+    <Rule Id="SA1132" Action="Error" />
+    <Rule Id="SA1133" Action="Error" />
+    <Rule Id="SA1134" Action="Error" />
+    <Rule Id="SA1135" Action="Error" />
+    <Rule Id="SA1136" Action="Error" />
+    <Rule Id="SA1137" Action="Error" />
+    <Rule Id="SA1139" Action="Error" />
+    <Rule Id="SA1200" Action="None" />
+    <Rule Id="SA1201" Action="Error" />
+    <Rule Id="SA1202" Action="None" />
+    <Rule Id="SA1203" Action="Error" />
+    <Rule Id="SA1204" Action="Error" />
+    <Rule Id="SA1205" Action="Error" />
+    <Rule Id="SA1206" Action="Error" />
+    <Rule Id="SA1207" Action="Error" />
+    <Rule Id="SA1208" Action="Error" />
+    <Rule Id="SA1209" Action="Error" />
+    <Rule Id="SA1210" Action="Error" />
+    <Rule Id="SA1211" Action="Error" />
+    <Rule Id="SA1212" Action="Error" />
+    <Rule Id="SA1213" Action="Error" />
+    <Rule Id="SA1214" Action="Error" />
+    <Rule Id="SA1216" Action="Error" />
+    <Rule Id="SA1217" Action="Error" />
     <Rule Id="SA1300" Action="Error" />
     <Rule Id="SA1302" Action="Error" />
     <Rule Id="SA1303" Action="Error" />
@@ -285,6 +322,7 @@
     <Rule Id="SA1311" Action="None" />
     <Rule Id="SA1312" Action="Error" />
     <Rule Id="SA1313" Action="Error" />
+    <Rule Id="SA1314" Action="Error" />
     <Rule Id="SA1400" Action="None" />
     <Rule Id="SA1401" Action="Error" />
     <Rule Id="SA1402" Action="None" />
@@ -296,6 +334,8 @@
     <Rule Id="SA1408" Action="Error" />
     <Rule Id="SA1410" Action="Error" />
     <Rule Id="SA1411" Action="Error" />
+    <Rule Id="SA1412" Action="Error" />
+    <Rule Id="SA1413" Action="None" />
     <Rule Id="SA1500" Action="Error" />
     <Rule Id="SA1501" Action="None" />
     <Rule Id="SA1502" Action="None" />
@@ -343,12 +383,14 @@
     <Rule Id="SA1625" Action="Error" />
     <Rule Id="SA1626" Action="Error" />
     <Rule Id="SA1627" Action="Error" />
+    <Rule Id="SA1629" Action="None" />
     <Rule Id="SA1633" Action="None" />
     <Rule Id="SA1634" Action="Error" />
     <Rule Id="SA1635" Action="Error" />
     <Rule Id="SA1636" Action="Error" />
     <Rule Id="SA1637" Action="Error" />
     <Rule Id="SA1638" Action="Error" />
+    <Rule Id="SA1639" Action="Error" />
     <Rule Id="SA1640" Action="Error" />
     <Rule Id="SA1641" Action="Error" />
     <Rule Id="SA1642" Action="Error" />
@@ -360,49 +402,5 @@
     <Rule Id="SX1101" Action="Error" />
     <Rule Id="SX1309" Action="Error" />
     <Rule Id="SX1309S" Action="Error" />
-    <Rule Id="SA1200" Action="None" />
-    <Rule Id="SA1121" Action="None" />
-    <Rule Id="SA1201" Action="Error" />
-    <Rule Id="SA1202" Action="None" />    <!-- 'public' members should come before 'private' members -->
-    <Rule Id="SA1203" Action="Error" />
-    <Rule Id="SA1204" Action="Error" />
-    <Rule Id="SA1205" Action="Error" />
-    <Rule Id="SA1206" Action="Error" />
-    <Rule Id="SA1207" Action="Error" />
-    <Rule Id="SA1208" Action="Error" />
-    <Rule Id="SA1209" Action="Error" />
-    <Rule Id="SA1210" Action="Error" />
-    <Rule Id="SA1211" Action="Error" />
-    <Rule Id="SA1212" Action="Error" />
-    <Rule Id="SA1213" Action="Error" />
-    <Rule Id="SA1214" Action="Error" />
-    <Rule Id="SA1216" Action="Error" />
-    <Rule Id="SA1217" Action="Error" />
-    <Rule Id="SA1120" Action="Error" />
-    <Rule Id="SA1122" Action="Error" />
-    <Rule Id="SA1123" Action="None" />
-    <Rule Id="SA1124" Action="None" />
-    <Rule Id="SA1125" Action="Error" />
-    <Rule Id="SA1127" Action="Error" />
-    <Rule Id="SA1128" Action="Error" />
-    <Rule Id="SA1129" Action="Error" />
-    <Rule Id="SA1130" Action="Error" />
-    <Rule Id="SA1131" Action="Error" />
-    <Rule Id="SA1132" Action="Error" />
-    <Rule Id="SA1133" Action="Error" />
-    <Rule Id="SA1134" Action="Error" />
-    <Rule Id="SA1413" Action="None" />
-    <Rule Id="SA1629" Action="None" />
-    <Rule Id="SA0002" Action="Error" />
-    <Rule Id="SA1136" Action="Error" />
-    <Rule Id="SA1135" Action="Error" />
-    <Rule Id="SA1137" Action="Error" />
-    <Rule Id="SA1139" Action="Error" />
-    <Rule Id="SA1314" Action="Error" />
-    <Rule Id="SA1305" Action="Error" />
-    <Rule Id="SA1412" Action="Error" />
-    <Rule Id="SA1609" Action="None" />
-    <Rule Id="SA1639" Action="Error" />
-    <Rule Id="SA0001" Action="None" />
   </Rules>
 </RuleSet>

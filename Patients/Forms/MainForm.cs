@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
-using Patients.Data;
-using Patients.Data.Entities;
+using Patients.Data.Data;
+using Patients.Data.Data.Entities;
 
 namespace Patients
 {
@@ -23,14 +23,16 @@ namespace Patients
         _db.Patients.Load();
         RefreshTable(null);
       }
-      catch
+      catch (Exception ex)
       {
+        Console.WriteLine(ex);
         addButton.Enabled = false;
         deleteButton.Enabled = false;
         searchField.Enabled = false;
         patientsTable.Enabled = false;
 
-        MessageBox.Show("Ну удалось загрузить базу данных!\nПроверьте файл базы данных PatientsDB.db в корневом каталоге.",
+        MessageBox.Show(
+            "Ну удалось загрузить базу данных!\nПроверьте файл базы данных PatientsDB.db в корневом каталоге.",
             @"Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
