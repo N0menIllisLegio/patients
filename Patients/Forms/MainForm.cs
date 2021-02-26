@@ -4,7 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
 using Patients.Data.Data;
-using Patients.Data.Data.Entities;
+using Patients.Data.Entities;
 
 namespace Patients
 {
@@ -23,9 +23,8 @@ namespace Patients
         _db.Patients.Load();
         RefreshTable(null);
       }
-      catch (Exception ex)
+      catch
       {
-        Console.WriteLine(ex);
         addButton.Enabled = false;
         deleteButton.Enabled = false;
         searchField.Enabled = false;

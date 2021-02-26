@@ -17,6 +17,8 @@ namespace Patients
       services.AddDbContext<AppDbContext>(options =>
         options.UseSqlite(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString));
 
+      services.AddTransient<UnitOfWork>();
+
       ServiceProvider = services.BuildServiceProvider();
     }
 

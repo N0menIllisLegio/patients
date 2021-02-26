@@ -3,7 +3,7 @@ using Patients.Data.Entities;
 
 namespace Patients.Data
 {
-  class AppDbContext : DbContext
+  public class AppDbContext : DbContext
   {
     public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
       : base(contextOptions)
