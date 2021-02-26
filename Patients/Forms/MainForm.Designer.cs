@@ -70,7 +70,7 @@
             this.patientsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.patientsTable.Size = new System.Drawing.Size(738, 606);
             this.patientsTable.TabIndex = 0;
-            this.patientsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.patientsTable_CellDoubleClick);
+            this.patientsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PatientsTable_CellDoubleClick);
             // 
             // addButton
             // 
@@ -81,7 +81,7 @@
             this.addButton.TabIndex = 1;
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // deleteButton
             // 
@@ -93,7 +93,7 @@
             this.deleteButton.TabIndex = 2;
             this.deleteButton.Text = "Удалить";
             this.deleteButton.UseVisualStyleBackColor = false;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // searchField
             // 
@@ -101,7 +101,7 @@
             this.searchField.Name = "searchField";
             this.searchField.Size = new System.Drawing.Size(205, 20);
             this.searchField.TabIndex = 3;
-            this.searchField.TextChanged += new System.EventHandler(this.searchField_TextChanged);
+            this.searchField.TextChanged += new System.EventHandler(this.SearchField_TextChanged);
             // 
             // SurnameRadioButton
             // 

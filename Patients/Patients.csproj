@@ -31,6 +31,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <CodeAnalysisRuleSet>..\Softteco.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -41,6 +42,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;1591;SA1600;SA1601;SA1602;SA1412</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -52,7 +54,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>reportorium.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\reportorium.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>65685F422F98EBB213168599325F8C580313D51A</ManifestCertificateThumbprint>
@@ -113,42 +115,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBaseContext.cs" />
-    <Compile Include="Diary.cs" />
-    <Compile Include="EditForm.cs">
+    <Compile Include="Data\DataBaseContext.cs" />
+    <Compile Include="Data\Entities\Diary.cs" />
+    <Compile Include="Enums\Sex.cs" />
+    <Compile Include="Forms\EditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditForm.Designer.cs">
+    <Compile Include="Forms\EditForm.Designer.cs">
       <DependentUpon>EditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="DiaryEventForm.cs">
+    <Compile Include="Forms\DiaryEventForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DiaryEventForm.Designer.cs">
+    <Compile Include="Forms\DiaryEventForm.Designer.cs">
       <DependentUpon>DiaryEventForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Patient.cs" />
+    <Compile Include="Data\Entities\Patient.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeethStatusForm.cs">
+    <Compile Include="Forms\TeethStatusForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="TeethStatusForm.Designer.cs">
+    <Compile Include="Forms\TeethStatusForm.Designer.cs">
       <DependentUpon>TeethStatusForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="EditForm.resx">
+    <EmbeddedResource Include="Forms\EditForm.resx">
       <DependentUpon>EditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DiaryEventForm.resx">
+    <EmbeddedResource Include="Forms\DiaryEventForm.resx">
       <DependentUpon>DiaryEventForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -161,7 +164,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="TeethStatusForm.resx">
+    <EmbeddedResource Include="Forms\TeethStatusForm.resx">
       <DependentUpon>TeethStatusForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -181,9 +184,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\InitImg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="reportorium.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -208,6 +208,13 @@
       <IncludeHash>True</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\reportorium.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net46\System.Data.SQLite.Core.targets')" />

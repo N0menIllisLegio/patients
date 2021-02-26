@@ -365,7 +365,7 @@
             this.deleteButton.TabIndex = 2;
             this.deleteButton.Text = "Удалить";
             this.deleteButton.UseVisualStyleBackColor = false;
-            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // addButton
             // 
@@ -376,7 +376,7 @@
             this.addButton.TabIndex = 0;
             this.addButton.Text = "Добавить";
             this.addButton.UseVisualStyleBackColor = true;
-            this.addButton.Click += new System.EventHandler(this.addButton_Click);
+            this.addButton.Click += new System.EventHandler(this.AddButton_Click);
             // 
             // groupBox3
             // 
@@ -498,7 +498,7 @@
             this.diaryTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.diaryTable.Size = new System.Drawing.Size(749, 315);
             this.diaryTable.TabIndex = 20;
-            this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.diaryTable_CellDoubleClick);
+            this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
             // 
             // id
             // 
@@ -1851,7 +1851,7 @@
             this.refreshButton.TabIndex = 9;
             this.refreshButton.Text = " Обновить";
             this.refreshButton.UseVisualStyleBackColor = true;
-            this.refreshButton.Click += new System.EventHandler(this.refreshButton_Click);
+            this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // delButton
             // 
@@ -1861,7 +1861,7 @@
             this.delButton.TabIndex = 8;
             this.delButton.Text = "Удалить снимок";
             this.delButton.UseVisualStyleBackColor = true;
-            this.delButton.Click += new System.EventHandler(this.delButton_Click);
+            this.delButton.Click += new System.EventHandler(this.DelButton_Click);
             // 
             // currImgLabel
             // 
@@ -1890,7 +1890,7 @@
             this.addScreenButton.TabIndex = 3;
             this.addScreenButton.Text = "Добавить снимки";
             this.addScreenButton.UseVisualStyleBackColor = true;
-            this.addScreenButton.Click += new System.EventHandler(this.addScreenButton_Click);
+            this.addScreenButton.Click += new System.EventHandler(this.AddScreenButton_Click);
             // 
             // prevButton
             // 
@@ -1900,7 +1900,7 @@
             this.prevButton.TabIndex = 2;
             this.prevButton.Text = "Предыдущий снимок";
             this.prevButton.UseVisualStyleBackColor = true;
-            this.prevButton.Click += new System.EventHandler(this.prevButton_Click);
+            this.prevButton.Click += new System.EventHandler(this.PrevButton_Click);
             // 
             // nextButton
             // 
@@ -1910,7 +1910,7 @@
             this.nextButton.TabIndex = 1;
             this.nextButton.Text = "Следующий снимок";
             this.nextButton.UseVisualStyleBackColor = true;
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // screenBox
             // 
@@ -2013,7 +2013,7 @@
             this.saveButton.TabIndex = 1;
             this.saveButton.Text = "Сохранить";
             this.saveButton.UseVisualStyleBackColor = true;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
             // 
             // cancelButton
             // 
@@ -2025,7 +2025,7 @@
             this.cancelButton.TabIndex = 2;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // EditForm
             // 
