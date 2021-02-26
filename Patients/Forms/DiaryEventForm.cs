@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using Patients.Data.Data.Entities;
+using Patients.Data.Entities;
 
 namespace Patients
 {

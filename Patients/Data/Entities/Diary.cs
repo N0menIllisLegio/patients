@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Patients.Data.Data.Entities
+namespace Patients.Data.Entities
 {
   public class Diary: ICloneable
   {

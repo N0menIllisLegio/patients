@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
-using Patients.Data.Data.Entities;
+using Patients.Data.Entities;
 using SQLite.CodeFirst;
 
 namespace Patients.Data.Data
