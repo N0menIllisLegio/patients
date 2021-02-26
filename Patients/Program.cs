@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows.Forms;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Patients.Data.Data.Entities;
+using Patients.Data;
 
 namespace Patients
 {
@@ -12,7 +14,8 @@ namespace Patients
     static void ConfigureServices()
     {
       var services = new ServiceCollection();
-      services.AddTransient<Patient>();
+      services.AddDbContext<AppDbContext>(options =>
+        options.UseSqlite(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString));
 
       ServiceProvider = services.BuildServiceProvider();
     }
@@ -22,8 +25,17 @@ namespace Patients
     {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
+
       ConfigureServices();
+      InitApp();
+
       Application.Run(new MainForm());
+    }
+
+    private static void InitApp()
+    {
+      var context = ServiceProvider.GetService<AppDbContext>();
+      context.Database.Migrate();
     }
   }
 }
