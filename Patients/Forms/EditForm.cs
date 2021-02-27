@@ -5,7 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Patients.Data.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Patients.Data;
 using Patients.Data.Entities;
 using Patients.Enums;
 
@@ -13,9 +14,12 @@ namespace Patients
 {
   public partial class EditForm: Form
   {
+    private const string ScreensDirectory = "Screens";
+    private const string TempScreensDirectory = @"Screens\Temp";
+
     private readonly List<DiaryRecord> _backUpDiaries;
 
-    private readonly DataBaseContext _db = DataBaseContext.GetInstance();
+    private readonly AppDbContext _db;
     private readonly bool _newPatient;
     private readonly Patient _patient;
 
@@ -44,7 +48,9 @@ namespace Patients
 
     public EditForm()
     {
-      _screensDir = DataBaseContext.TempScreensDirectory;
+      _screensDir = TempScreensDirectory;
+
+      _db = Program.ServiceProvider.GetService<AppDbContext>();
 
       InitializeComponent();
       _newPatient = true;
@@ -54,11 +60,11 @@ namespace Patients
       phoneNumberTextBox.Text = @"+375";
     }
 
-    public EditForm(ref Patient patient)
+    public EditForm(Patient patient)
     {
       if (patient.ScreensDirectory == null || !Directory.Exists(patient.ScreensDirectory))
       {
-        patient.ScreensDirectory = Path.Combine(DataBaseContext.ScreensDirectory, patient.Id.ToString());
+        patient.ScreensDirectory = Path.Combine(ScreensDirectory, patient.Id.ToString());
         Directory.CreateDirectory(patient.ScreensDirectory);
       }
 
@@ -402,7 +408,7 @@ namespace Patients
       {
         _db.AddPatient(_patient);
         _db.SaveChanges();
-        _patient.ScreensDirectory = Path.Combine(DataBaseContext.ScreensDirectory, _patient.Id.ToString());
+        _patient.ScreensDirectory = Path.Combine(ScreensDirectory, _patient.Id.ToString());
         Directory.CreateDirectory(_patient.ScreensDirectory);
         _db.MoveScreens(_screensDir, _patient.ScreensDirectory);
         _db.MoveDiary(0, _patient.Id ?? 0);

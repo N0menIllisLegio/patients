@@ -1,39 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
-using Patients.Data.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Patients.Data;
 using Patients.Data.Entities;
 
 namespace Patients
 {
   public partial class MainForm: Form
   {
-    private readonly DataBaseContext _db;
+    private readonly AppDbContext _db;
 
     public MainForm()
     {
+      _db = Program.ServiceProvider.GetService<AppDbContext>();
+
       InitializeComponent();
 
-      try
-      {
-        _db = DataBaseContext.GetInstance();
-        _db.Diaries.Load();
-        _db.Patients.Load();
-        RefreshTable(null);
-      }
-      catch
-      {
-        addButton.Enabled = false;
-        deleteButton.Enabled = false;
-        searchField.Enabled = false;
-        patientsTable.Enabled = false;
-
-        MessageBox.Show(
-            "Ну удалось загрузить базу данных!\nПроверьте файл базы данных PatientsDB.db в корневом каталоге.",
-            @"Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      }
+      RefreshTable(null);
     }
 
     private void AddButton_Click(object sender, EventArgs e)
@@ -84,7 +69,7 @@ namespace Patients
       }
       else
       {
-        MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(@"Не выбран пациент.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
 
@@ -93,7 +78,7 @@ namespace Patients
       if (patientsTable.SelectedRows.Count == 1)
       {
         var patient = _db.GetPatientById((int)patientsTable.SelectedRows[0].Cells[0].Value);
-        var form = new EditForm(ref patient);
+        var form = new EditForm(patient);
 
         if (form.ShowDialog() == DialogResult.OK)
         {
@@ -102,7 +87,7 @@ namespace Patients
       }
       else
       {
-        MessageBox.Show(@"Выбрано неверное количество строк.",
+        MessageBox.Show(@"Выбран более чем один пациент.",
             @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
