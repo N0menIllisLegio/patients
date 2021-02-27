@@ -27,7 +27,7 @@ namespace Patients.Data.Data
       }
     }
 
-    public DbSet<Diary> Diaries { get; set; }
+    public DbSet<DiaryRecord> Diaries { get; set; }
 
     public DbSet<Patient> Patients { get; set; }
 
@@ -36,12 +36,12 @@ namespace Patients.Data.Data
       return _instance ?? (_instance = new DataBaseContext());
     }
 
-    public void AddDiaryEvent(Diary diaryEvent)
+    public void AddDiaryEvent(DiaryRecord diaryEvent)
     {
       Diaries.Add(diaryEvent);
     }
 
-    public void AddDiaryEvents(List<Diary> diaryEvents)
+    public void AddDiaryEvents(List<DiaryRecord> diaryEvents)
     {
       Diaries.AddRange(diaryEvents);
     }
@@ -51,7 +51,7 @@ namespace Patients.Data.Data
       Patients.Add(patient);
     }
 
-    public void DeleteDiaryEvent(List<Diary> diaryEvents)
+    public void DeleteDiaryEvent(List<DiaryRecord> diaryEvents)
     {
       Diaries.RemoveRange(diaryEvents);
     }
@@ -74,7 +74,7 @@ namespace Patients.Data.Data
       return Patients.ToList();
     }
 
-    public Diary GetDiaryEventById(int patientId, int rowId)
+    public DiaryRecord GetDiaryEventById(int patientId, int rowId)
     {
       return Diaries.Single(diary => diary.PatientId == patientId && diary.Id == rowId);
     }
@@ -84,7 +84,7 @@ namespace Patients.Data.Data
       return Patients.Single(o => o.Id == id);
     }
 
-    public List<Diary> GetPatientDiary(int id)
+    public List<DiaryRecord> GetPatientDiary(int id)
     {
       return Diaries.Local.Where(diary => diary.PatientId == id).ToList();
     }

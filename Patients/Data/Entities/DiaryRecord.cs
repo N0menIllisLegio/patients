@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Patients.Data.Entities
 {
-  public class Diary: ICloneable
+  public class DiaryRecord: ICloneable
   {
     [Key]
     public int? Id { get; set; }
@@ -29,7 +29,7 @@ namespace Patients.Data.Entities
 
     public object Clone()
     {
-      return new Diary
+      return new DiaryRecord
       {
         Id = Id,
         PatientId = PatientId,

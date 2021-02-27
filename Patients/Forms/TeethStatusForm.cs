@@ -23,9 +23,9 @@ namespace Patients
       { "radioButton7", Color.White }
     };
 
-    private Diary _diaryEvent;
+    private DiaryRecord _diaryEvent;
 
-    public TeethStatusForm(ref Button button, ref Diary diaryEvent)
+    public TeethStatusForm(ref Button button, ref DiaryRecord diaryEvent)
     {
       _button = button;
       _diaryEvent = diaryEvent;
@@ -54,7 +54,7 @@ namespace Patients
 
         _diaryEvent.Date = DateTime.Today;
 
-        var eventForm = new DiaryEventForm(ref _diaryEvent);
+        var eventForm = new DiaryRecordForm(_diaryEvent);
         if (eventForm.ShowDialog() == DialogResult.OK)
         {
           IsOK = true;

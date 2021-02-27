@@ -2,6 +2,6 @@
 
 namespace Patients.Data.Repositories.Interfaces
 {
-  public interface IDiariesRepository : IRepositoryBase<Diary>
+  public interface IDiaryRecordsRepository : IRepositoryBase<DiaryRecord>
   { }
 }

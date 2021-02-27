@@ -9,7 +9,7 @@ namespace Patients.Data
   {
     private readonly AppDbContext _context;
     private IPatientsRepository _patientsRepository;
-    private IDiariesRepository _diariesRepository;
+    private IDiaryRecordsRepository _diaryRecordsRepository;
     private bool _disposedValue = false;
 
     public UnitOfWork(AppDbContext context)
@@ -18,7 +18,7 @@ namespace Patients.Data
     }
 
     public IPatientsRepository Patients => _patientsRepository = _patientsRepository ?? new PatientsRepository(_context);
-    public IDiariesRepository Diaries => _diariesRepository = _diariesRepository ?? new DiariesRepository(_context);
+    public IDiaryRecordsRepository DiaryRecords => _diaryRecordsRepository = _diaryRecordsRepository ?? new DiaryRecordsRepository(_context);
 
     public async Task<bool> SaveAsync()
     {

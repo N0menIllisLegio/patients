@@ -11,6 +11,6 @@ namespace Patients.Data
 
     public DbSet<Patient> Patients { get; set; }
 
-    public DbSet<Diary> Diaries { get; set; }
+    public DbSet<DiaryRecord> DiaryRecords { get; set; }
   }
 }

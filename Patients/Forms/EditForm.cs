@@ -13,7 +13,7 @@ namespace Patients
 {
   public partial class EditForm: Form
   {
-    private readonly List<Diary> _backUpDiaries;
+    private readonly List<DiaryRecord> _backUpDiaries;
 
     private readonly DataBaseContext _db = DataBaseContext.GetInstance();
     private readonly bool _newPatient;
@@ -49,7 +49,7 @@ namespace Patients
       InitializeComponent();
       _newPatient = true;
       _patient = new Patient();
-      _backUpDiaries = new List<Diary>();
+      _backUpDiaries = new List<DiaryRecord>();
       ReadScreens();
       phoneNumberTextBox.Text = @"+375";
     }
@@ -67,7 +67,7 @@ namespace Patients
       InitializeComponent();
       _patient = patient;
       _newPatient = false;
-      _backUpDiaries = _db.GetPatientDiary(patient.Id ?? 0).ConvertAll(item => (Diary)item.Clone());
+      _backUpDiaries = _db.GetPatientDiary(patient.Id ?? 0).ConvertAll(item => (DiaryRecord)item.Clone());
 
       nameTextBox.Text = patient.Name;
       surnameTextBox.Text = patient.Surname;
@@ -116,8 +116,8 @@ namespace Patients
 
     private void AddButton_Click(object sender, EventArgs e)
     {
-      var diaryEvent = new Diary { PatientId = _patient.Id ?? 0 };
-      var eventForm = new DiaryEventForm(ref diaryEvent);
+      var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
+      var eventForm = new DiaryRecordForm(diaryEvent);
 
       if (eventForm.ShowDialog() == DialogResult.OK)
       {
@@ -162,7 +162,7 @@ namespace Patients
     private void ChangeToothStatus(object sender, EventArgs e)
     {
       var button = sender as Button;
-      var diaryEvent = new Diary { PatientId = _patient.Id ?? 0 };
+      var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
       var teethStatusForm = new TeethStatusForm(ref button, ref diaryEvent);
 
       if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.IsOK)
@@ -189,7 +189,7 @@ namespace Patients
     {
       if (diaryTable.SelectedRows.Count > 0)
       {
-        var forDeletion = new List<Diary>();
+        var forDeletion = new List<DiaryRecord>();
 
         foreach (DataGridViewRow selectedRow in diaryTable.SelectedRows)
         {
@@ -234,7 +234,7 @@ namespace Patients
       {
         int rowId = (int)diaryTable.SelectedRows[0].Cells[0].Value;
         var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
-        var form = new DiaryEventForm(ref diaryEvent);
+        var form = new DiaryRecordForm(diaryEvent);
 
         if (form.ShowDialog() == DialogResult.OK)
         {

@@ -3,9 +3,9 @@ using Patients.Data.Repositories.Interfaces;
 
 namespace Patients.Data.Repositories
 {
-  public class DiariesRepository: RepositoryBase<Diary>, IDiariesRepository
+  public class DiaryRecordsRepository: RepositoryBase<DiaryRecord>, IDiaryRecordsRepository
   {
-    public DiariesRepository(AppDbContext context)
+    public DiaryRecordsRepository(AppDbContext context)
       : base(context)
     { }
   }
