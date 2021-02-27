@@ -11,6 +11,7 @@ namespace Patients
   {
     private readonly Button _button;
     private readonly string _changedFrom;
+    private readonly DiaryRecord _diaryEvent;
 
     private readonly Dictionary<string, Color> _colorDictionary = new Dictionary<string, Color>
     {
@@ -23,16 +24,13 @@ namespace Patients
       { "radioButton7", Color.White }
     };
 
-    private DiaryRecord _diaryEvent;
-
-    public TeethStatusForm(ref Button button, ref DiaryRecord diaryEvent)
+    public TeethStatusForm(Button button, DiaryRecord diaryEvent)
     {
       _button = button;
       _diaryEvent = diaryEvent;
       InitializeComponent();
 
-      var radioBtn = Controls
-          .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
+      var radioBtn = Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
       _changedFrom = radioBtn?.Text;
     }
 

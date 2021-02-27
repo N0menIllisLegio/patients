@@ -163,7 +163,7 @@ namespace Patients
     {
       var button = sender as Button;
       var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
-      var teethStatusForm = new TeethStatusForm(ref button, ref diaryEvent);
+      var teethStatusForm = new TeethStatusForm(button, diaryEvent);
 
       if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.IsOK)
       {
