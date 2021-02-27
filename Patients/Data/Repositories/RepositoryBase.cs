@@ -76,6 +76,11 @@ namespace Patients.Data.Repositories
       return DbSet.Remove(entity).Entity;
     }
 
+    public virtual void RemoveRange(IEnumerable<TEntity> entity)
+    {
+      DbSet.RemoveRange(entity);
+    }
+
     public async Task<TEntity> ReloadAsync(TEntity entity)
     {
       await Context.Entry(entity).ReloadAsync();

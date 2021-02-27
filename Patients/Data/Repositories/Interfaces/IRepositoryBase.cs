@@ -26,6 +26,8 @@ namespace Patients.Data.Repositories.Interfaces
 
     TEntity Remove(TEntity entity);
 
+    void RemoveRange(IEnumerable<TEntity> entity);
+
     Task<TEntity> ReloadAsync(TEntity entity);
   }
 }
