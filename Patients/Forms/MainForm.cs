@@ -18,7 +18,7 @@ namespace Patients
 
       InitializeComponent();
 
-      RefreshTable(null);
+      RefreshTable();
     }
 
     private void AddButton_Click(object sender, EventArgs e)
@@ -27,7 +27,7 @@ namespace Patients
 
       if (form.ShowDialog() == DialogResult.OK)
       {
-        RefreshTable(null);
+        RefreshTable();
       }
     }
 
@@ -39,7 +39,7 @@ namespace Patients
 
         foreach (DataGridViewRow selectedRow in patientsTable.SelectedRows)
         {
-          var patient = _db.GetPatientById((int)selectedRow.Cells[0].Value);
+          var patient = _db.GetPatientById((Guid)selectedRow.Cells[0].Value);
 
           switch (MessageBox.Show($@"Вы действительно хотите удалить {patient.Surname} {patient.Name} {patient.SecondName}?",
               @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
@@ -64,7 +64,7 @@ namespace Patients
         {
           _db.DeletePatient(forDeletion);
           _db.SaveChanges();
-          RefreshTable(null);
+          RefreshTable();
         }
       }
       else
@@ -77,12 +77,12 @@ namespace Patients
     {
       if (patientsTable.SelectedRows.Count == 1)
       {
-        var patient = _db.GetPatientById((int)patientsTable.SelectedRows[0].Cells[0].Value);
+        var patient = _db.GetPatientById((Guid)patientsTable.SelectedRows[0].Cells[0].Value);
         var form = new EditForm(patient);
 
         if (form.ShowDialog() == DialogResult.OK)
         {
-          RefreshTable(null);
+          RefreshTable();
         }
       }
       else
@@ -92,15 +92,17 @@ namespace Patients
       }
     }
 
-    private void RefreshTable(List<Patient> patients)
+    private void RefreshTable(List<Patient> patients = null)
     {
       patientsTable.Rows.Clear();
+      int rowNumber = 0;
 
       foreach (var patient in patients ?? _db.GetAllPatients())
       {
-        patientsTable.Rows.Add(patient.Id, patient.Surname, patient.Name,
-            patient.SecondName, patient.PhoneNumber, patient.LastVisitDate.ToString("dd MMMM yyyy"),
-            patient.Place);
+        patientsTable.Rows.Add(patient.ID, ++rowNumber, patient.Surname, patient.Name,
+            patient.SecondName, patient.PhoneNumber,
+            patient.LastVisitDate.ToString("dd MMMM yyyy"),
+            patient.Storage);
       }
     }
 

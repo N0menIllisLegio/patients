@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Patients.Data.Entities;
@@ -11,48 +9,40 @@ namespace Patients
   {
     private readonly Button _button;
     private readonly string _changedFrom;
-    private readonly DiaryRecord _diaryEvent;
-
-    private readonly Dictionary<string, Color> _colorDictionary = new Dictionary<string, Color>
-    {
-      { "radioButton1", Color.Green },
-      { "radioButton2", Color.Orange },
-      { "radioButton3", Color.Blue },
-      { "radioButton4", Color.Black },
-      { "radioButton5", Color.Red },
-      { "radioButton6", Color.Gold },
-      { "radioButton7", Color.White }
-    };
+    private readonly DiaryRecord _diaryRecord;
 
     public TeethStatusForm(Button button, DiaryRecord diaryEvent)
     {
       _button = button;
-      _diaryEvent = diaryEvent;
+      _diaryRecord = diaryEvent;
       InitializeComponent();
 
-      var radioBtn = Controls.OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-      _changedFrom = radioBtn?.Text;
+      var radioBtn = teethStatusesPanel.Controls.OfType<RadioButton>()
+        .FirstOrDefault(x => x.Checked);
+
+      _changedFrom = radioBtn.Text;
     }
 
     public bool IsOK { get; set; }
 
     private void SaveButton_Click(object sender, EventArgs e)
     {
-      var radioBtn = Controls
-          .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-      _button.BackColor = _colorDictionary[radioBtn?.Name ?? "radioButton1"];
+      var toothRadioButton = teethStatusesPanel.Controls
+        .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
-      string changedTo = radioBtn?.Text;
+      _button.BackColor = toothRadioButton.ForeColor;
+
+      string changedTo = toothRadioButton.Text;
 
       if (!changedTo.Equals(_changedFrom))
       {
-        _diaryEvent.Diagnosis = $"Зуб №{_button.Name.Replace("button_", String.Empty)} " +
+        _diaryRecord.Diagnosis = $"Зуб №{_button.Name.Replace("button_", String.Empty)} " +
                                $"сменил статус с: {_changedFrom} на: {changedTo}. " +
                                $"Причина: {dataTextBox.Text}";
 
-        _diaryEvent.Date = DateTime.Today;
+        _diaryRecord.Date = DateTime.Today;
 
-        var eventForm = new DiaryRecordForm(_diaryEvent);
+        var eventForm = new DiaryRecordForm(_diaryRecord);
         if (eventForm.ShowDialog() == DialogResult.OK)
         {
           IsOK = true;

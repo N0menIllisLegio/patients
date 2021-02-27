@@ -62,35 +62,37 @@ namespace Patients
 
     public EditForm(Patient patient)
     {
-      if (patient.ScreensDirectory == null || !Directory.Exists(patient.ScreensDirectory))
-      {
-        patient.ScreensDirectory = Path.Combine(ScreensDirectory, patient.Id.ToString());
-        Directory.CreateDirectory(patient.ScreensDirectory);
-      }
+      _db = Program.ServiceProvider.GetService<AppDbContext>();
 
-      _screensDir = patient.ScreensDirectory;
+      //if (patient.ScreensDirectory == null || !Directory.Exists(patient.ScreensDirectory))
+      //{
+      //  patient.ScreensDirectory = Path.Combine(ScreensDirectory, patient.Id.ToString());
+      //  Directory.CreateDirectory(patient.ScreensDirectory);
+      //}
 
-      InitializeComponent();
-      _patient = patient;
-      _newPatient = false;
-      _backUpDiaries = _db.GetPatientDiary(patient.Id ?? 0).ConvertAll(item => (DiaryRecord)item.Clone());
+      //_screensDir = patient.ScreensDirectory;
 
-      nameTextBox.Text = patient.Name;
-      surnameTextBox.Text = patient.Surname;
-      secnameTextBox.Text = patient.SecondName;
-      lastVisitDatePicker.Value = patient.LastVisitDate;
-      dateOfBirthPicker.Value = patient.BirthDate;
+      //InitializeComponent();
+      //_patient = patient;
+      //_newPatient = false;
+      //_backUpDiaries = _db.GetPatientDiary(patient.Id ?? 0).ConvertAll(item => (DiaryRecord)item.Clone());
 
-      phoneNumberTextBox.Text = patient.PhoneNumber == null || patient.PhoneNumber.Trim() == String.Empty ? @"+375" : patient.PhoneNumber;
+      //nameTextBox.Text = patient.Name;
+      //surnameTextBox.Text = patient.Surname;
+      //secnameTextBox.Text = patient.SecondName;
+      //lastVisitDatePicker.Value = patient.LastVisitDate;
+      //dateOfBirthPicker.Value = patient.BirthDate;
 
-      adressTextBox.Text = patient.Address;
-      diagnosisTextBox.Text = patient.Diagnosis;
-      SexSelect(patient.sex);
-      PlaceOfStoring(patient.Place);
+      //phoneNumberTextBox.Text = patient.PhoneNumber == null || patient.PhoneNumber.Trim() == String.Empty ? @"+375" : patient.PhoneNumber;
 
-      RefreshButtons(patient.Teeth);
-      RefreshDiary();
-      ReadScreens();
+      //adressTextBox.Text = patient.Address;
+      //diagnosisTextBox.Text = patient.Diagnosis;
+      //SexSelect(patient.sex);
+      //PlaceOfStoring(patient.Storage);
+
+      //RefreshButtons(patient.Teeth);
+      //RefreshDiary();
+      //ReadScreens();
     }
 
     public static string Register(string line)
@@ -122,15 +124,15 @@ namespace Patients
 
     private void AddButton_Click(object sender, EventArgs e)
     {
-      var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
-      var eventForm = new DiaryRecordForm(diaryEvent);
+      //var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
+      //var eventForm = new DiaryRecordForm(diaryEvent);
 
-      if (eventForm.ShowDialog() == DialogResult.OK)
-      {
-        _db.AddDiaryEvent(diaryEvent);
-        _db.SaveChanges();
-        RefreshDiary();
-      }
+      //if (eventForm.ShowDialog() == DialogResult.OK)
+      //{
+      //  _db.AddDiaryEvent(diaryEvent);
+      //  _db.SaveChanges();
+      //  RefreshDiary();
+      //}
     }
 
     private void AddScreenButton_Click(object sender, EventArgs e)
@@ -167,16 +169,16 @@ namespace Patients
 
     private void ChangeToothStatus(object sender, EventArgs e)
     {
-      var button = sender as Button;
-      var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
-      var teethStatusForm = new TeethStatusForm(button, diaryEvent);
+      //var button = sender as Button;
+      //var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
+      //var teethStatusForm = new TeethStatusForm(button, diaryEvent);
 
-      if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.IsOK)
-      {
-        _db.AddDiaryEvent(diaryEvent);
-        _db.SaveChanges();
-        RefreshDiary();
-      }
+      //if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.IsOK)
+      //{
+      //  _db.AddDiaryEvent(diaryEvent);
+      //  _db.SaveChanges();
+      //  RefreshDiary();
+      //}
     }
 
     private void DelButton_Click(object sender, EventArgs e)
@@ -193,66 +195,66 @@ namespace Patients
 
     private void DeleteButton_Click(object sender, EventArgs e)
     {
-      if (diaryTable.SelectedRows.Count > 0)
-      {
-        var forDeletion = new List<DiaryRecord>();
+      //if (diaryTable.SelectedRows.Count > 0)
+      //{
+      //  var forDeletion = new List<DiaryRecord>();
 
-        foreach (DataGridViewRow selectedRow in diaryTable.SelectedRows)
-        {
-          int rowId = (int)selectedRow.Cells[0].Value;
-          var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
+      //  foreach (DataGridViewRow selectedRow in diaryTable.SelectedRows)
+      //  {
+      //    int rowId = (int)selectedRow.Cells[0].Value;
+      //    var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
 
-          switch (MessageBox.Show($@"Вы действительно хотите удалить запись {diaryEvent.Diagnosis}?",
-              @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
-          {
-            case DialogResult.Yes:
-              forDeletion.Add(diaryEvent);
-              break;
+      //    switch (MessageBox.Show($@"Вы действительно хотите удалить запись {diaryEvent.Diagnosis}?",
+      //        @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
+      //    {
+      //      case DialogResult.Yes:
+      //        forDeletion.Add(diaryEvent);
+      //        break;
 
-            case DialogResult.No:
-              break;
+      //      case DialogResult.No:
+      //        break;
 
-            case DialogResult.Cancel:
-              return;
+      //      case DialogResult.Cancel:
+      //        return;
 
-            default:
-              MessageBox.Show(@"Для выхода нажмите отмена");
-              break;
-          }
-        }
+      //      default:
+      //        MessageBox.Show(@"Для выхода нажмите отмена");
+      //        break;
+      //    }
+      //  }
 
-        if (forDeletion.Count > 0)
-        {
-          _db.DeleteDiaryEvent(forDeletion);
-          _db.SaveChanges();
-          RefreshDiary();
-        }
-      }
-      else
-      {
-        MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      }
+      //  if (forDeletion.Count > 0)
+      //  {
+      //    _db.DeleteDiaryEvent(forDeletion);
+      //    _db.SaveChanges();
+      //    RefreshDiary();
+      //  }
+      //}
+      //else
+      //{
+      //  MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      //}
     }
 
     private void DiaryTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
     {
-      if (diaryTable.SelectedRows.Count == 1)
-      {
-        int rowId = (int)diaryTable.SelectedRows[0].Cells[0].Value;
-        var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
-        var form = new DiaryRecordForm(diaryEvent);
+      //if (diaryTable.SelectedRows.Count == 1)
+      //{
+      //  int rowId = (int)diaryTable.SelectedRows[0].Cells[0].Value;
+      //  var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
+      //  var form = new DiaryRecordForm(diaryEvent);
 
-        if (form.ShowDialog() == DialogResult.OK)
-        {
-          _db.SaveChanges();
-          RefreshDiary();
-        }
-      }
-      else
-      {
-        MessageBox.Show(@"Выбрано неверное количество строк.",
-            @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      }
+      //  if (form.ShowDialog() == DialogResult.OK)
+      //  {
+      //    _db.SaveChanges();
+      //    RefreshDiary();
+      //  }
+      //}
+      //else
+      //{
+      //  MessageBox.Show(@"Выбрано неверное количество строк.",
+      //      @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      //}
     }
 
     private void DisplayScreen()
@@ -301,7 +303,7 @@ namespace Patients
       var radioBtn = groupBox5.Controls
           .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
-      _patient.Place = _storingPlace.TryGetValue(radioBtn.Name, out string value) ? value : "Бумажный носитель";
+      //_patient.Storage = _storingPlace.TryGetValue(radioBtn.Name, out string value) ? value : "Бумажный носитель";
     }
 
     private void PlaceOfStoring(string place)
@@ -360,17 +362,18 @@ namespace Patients
       if (_patient != null)
       {
         diaryTable.Rows.Clear();
+        //int rowNumber = 0;
 
-        foreach (var diagnosis in _db.GetPatientDiary(_patient.Id ?? 0))
-        {
-          diaryTable.Rows.Add(diagnosis.Id, diagnosis.Date.ToString("D"), diagnosis.Diagnosis);
-        }
+        //foreach (var diagnosis in _db.GetPatientDiary(_patient.Id ?? 0))
+        //{
+        //  diaryTable.Rows.Add(++rowNumber, diagnosis.Date.ToString("D"), diagnosis.Diagnosis);
+        //}
       }
     }
 
     private void RejectChanges()
     {
-      _db.DeleteDiaryEvent(_db.GetPatientDiary(_patient.Id ?? 0));
+      //_db.DeleteDiaryEvent(_db.GetPatientDiary(_patient.Id ?? 0));
 
       if (!_newPatient)
       {
@@ -389,45 +392,45 @@ namespace Patients
 
     private void SaveButton_Click(object sender, EventArgs e)
     {
-      _patient.Name = Register(nameTextBox.Text);
-      _patient.Surname = Register(surnameTextBox.Text);
-      _patient.SecondName = Register(secnameTextBox.Text);
+      //_patient.Name = Register(nameTextBox.Text);
+      //_patient.Surname = Register(surnameTextBox.Text);
+      //_patient.SecondName = Register(secnameTextBox.Text);
 
-      _patient.PhoneNumber = phoneNumberTextBox.Text;
-      _patient.Address = adressTextBox.Text;
-      _patient.Diagnosis = diagnosisTextBox.Text;
+      //_patient.PhoneNumber = phoneNumberTextBox.Text;
+      //_patient.Address = adressTextBox.Text;
+      //_patient.Diagnosis = diagnosisTextBox.Text;
 
-      _patient.LastVisitDate = lastVisitDatePicker.Value;
-      _patient.BirthDate = dateOfBirthPicker.Value;
+      //_patient.LastVisitDate = lastVisitDatePicker.Value;
+      //_patient.BirthDate = dateOfBirthPicker.Value;
 
-      _patient.sex = SexSelect();
-      _patient.Teeth = GetColors();
-      PlaceOfStoring();
+      //_patient.sex = SexSelect();
+      //_patient.Teeth = GetColors();
+      //PlaceOfStoring();
 
-      if (_newPatient)
-      {
-        _db.AddPatient(_patient);
-        _db.SaveChanges();
-        _patient.ScreensDirectory = Path.Combine(ScreensDirectory, _patient.Id.ToString());
-        Directory.CreateDirectory(_patient.ScreensDirectory);
-        _db.MoveScreens(_screensDir, _patient.ScreensDirectory);
-        _db.MoveDiary(0, _patient.Id ?? 0);
-      }
+      //if (_newPatient)
+      //{
+      //  _db.AddPatient(_patient);
+      //  _db.SaveChanges();
+      //  _patient.ScreensDirectory = Path.Combine(ScreensDirectory, _patient.Id.ToString());
+      //  Directory.CreateDirectory(_patient.ScreensDirectory);
+      //  _db.MoveScreens(_screensDir, _patient.ScreensDirectory);
+      //  _db.MoveDiary(0, _patient.Id ?? 0);
+      //}
 
-      _db.SaveChanges();
+      //_db.SaveChanges();
     }
 
-    private Sex SexSelect()
+    private Gender SexSelect()
     {
       var radioBtn = groupBox1.Controls
           .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
 
-      return radioBtn?.Name == "maleRadioButton" ? Sex.Male : Sex.Female;
+      return radioBtn?.Name == "maleRadioButton" ? Gender.Male : Gender.Female;
     }
 
-    private void SexSelect(Sex sex)
+    private void SexSelect(Gender sex)
     {
-      if (sex != Sex.Male)
+      if (sex != Gender.Male)
       {
         maleRadioButton.Checked = false;
         femaleRadioButton.Checked = true;

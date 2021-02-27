@@ -1,74 +1,30 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Patients.Enums;
 
 namespace Patients.Data.Entities
 {
+  [Index(nameof(Surname))]
   public class Patient
   {
-#pragma warning disable IDE1006 // Naming Styles
-#pragma warning disable SA1300 // Element should begin with upper-case letter
-
-    [Column("BirthDate")]
-    public string _birthDate { get; set; }
-
-    [Column("LastVisitDate")]
-    public string _lastVisitDate { get; set; }
-
-    [Column("Sex")]
-    public string _sex { get; set; }
-
-    [NotMapped]
-    public Sex sex
-    {
-      get => _sex == "Female" ? Sex.Female : Sex.Male;
-      set => _sex = value == Sex.Female ? "Female" : "Male";
-    }
-
-    [Column("Teeth")]
-    public string _teeth { get; set; }
-
-#pragma warning restore SA1300 // Element should begin with upper-case letter
-#pragma warning restore IDE1006 // Naming Styles
-
-    public string Address { get; set; }
-
-    [NotMapped]
-    public DateTime BirthDate
-    {
-      get => ConvertStringToDate(_birthDate);
-      set => _birthDate = ConvertDateToString(value);
-    }
-
-    public string Diagnosis { get; set; }
-
-    [Key]
-    public int? Id { get; set; }
-
-    [NotMapped]
-    public DateTime LastVisitDate
-    {
-      get => ConvertStringToDate(_lastVisitDate);
-      set => _lastVisitDate = ConvertDateToString(value);
-    }
+    public Guid ID { get; set; }
 
     public string Name { get; set; }
-    public string PhoneNumber { get; set; }
-    public string Place { get; set; }
-    public string ScreensDirectory { get; set; }
-    public string SecondName { get; set; }
-
     public string Surname { get; set; }
+    public string SecondName { get; set; }
+    public Gender Gender { get; set; }
+    public DateTime BirthDate { get; set; }
+    public string Address { get; set; }
+    public string PhoneNumber { get; set; }
+    public Storage Storage { get; set; }
 
-    [NotMapped]
-    public Color[] Teeth
-    {
-      get => DeserializeColors(_teeth);
-      set => _teeth = SerializeColors(value);
-    }
+    public string Diagnosis { get; set; }
+    public DateTime LastVisitDate { get; set; }
+    public virtual DentalRecord DentalRecord { get; set; }
+    public virtual ICollection<DiaryRecord> Diary { get; set; }
 
     public static string ConvertDateToString(DateTime date)
     {
