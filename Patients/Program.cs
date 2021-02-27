@@ -4,6 +4,8 @@ using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Patients.Data;
+using Patients.Services;
+using Patients.Services.Interfaces;
 
 namespace Patients
 {
@@ -17,7 +19,8 @@ namespace Patients
       services.AddDbContext<AppDbContext>(options =>
         options.UseSqlite(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString));
 
-      services.AddTransient<UnitOfWork>();
+      services.AddScoped<UnitOfWork>();
+      services.AddScoped<IPatientsService, PatientsService>();
 
       ServiceProvider = services.BuildServiceProvider();
     }
