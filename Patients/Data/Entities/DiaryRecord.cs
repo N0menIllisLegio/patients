@@ -2,7 +2,7 @@
 
 namespace Patients.Data.Entities
 {
-  public class DiaryRecord: ICloneable
+  public class DiaryRecord
   {
     public Guid ID { get; set; }
     public string Diagnosis { get; set; }
@@ -10,16 +10,5 @@ namespace Patients.Data.Entities
 
     public virtual Patient Patient { get; set; }
     public Guid PatientID { get; set; }
-
-    public object Clone()
-    {
-      return new DiaryRecord
-      {
-        ID = ID,
-        PatientID = PatientID,
-        Diagnosis = Diagnosis,
-        Date = Date
-      };
-    }
   }
 }
