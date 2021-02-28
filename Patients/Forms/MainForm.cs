@@ -37,7 +37,6 @@ namespace Patients
 
         foreach (DataGridViewRow selectedRow in patientsTable.SelectedRows)
         {
-          var id = (Guid)selectedRow.Cells[0].Value;
           string surname = selectedRow.Cells[2].Value as string;
           string name = selectedRow.Cells[3].Value as string;
           string secondName = selectedRow.Cells[4].Value as string;
@@ -46,17 +45,13 @@ namespace Patients
               @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
           {
             case DialogResult.Yes:
-              forDeletion.Add(id);
-              break;
-
-            case DialogResult.No:
+              forDeletion.Add((Guid)selectedRow.Cells[0].Value);
               break;
 
             case DialogResult.Cancel:
               return;
 
             default:
-              MessageBox.Show(@"Для выхода нажмите отмена");
               break;
           }
         }
