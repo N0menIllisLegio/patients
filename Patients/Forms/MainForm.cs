@@ -73,9 +73,8 @@ namespace Patients
       if (patientsTable.SelectedRows.Count == 1)
       {
         var patientID = (Guid)patientsTable.SelectedRows[0].Cells[0].Value;
-        var patient = await _patientsService.GetPatientAsync(patientID);
 
-        if (new EditForm(patient).ShowDialog() == DialogResult.OK)
+        if (new EditForm(patientID).ShowDialog() == DialogResult.OK)
         {
           await RefreshTable();
         }

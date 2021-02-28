@@ -1,141 +1,408 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using Patients.Data;
 using Patients.Data.Entities;
 using Patients.Enums;
+using Patients.Extensions;
+using Patients.Services;
+using Patients.Services.Interfaces;
 
 namespace Patients
 {
   public partial class EditForm: Form
   {
-    private const string ScreensDirectory = "Screens";
-    private const string TempScreensDirectory = @"Screens\Temp";
+    private readonly IPatientsService _patientsService;
+    private readonly IDiaryRecordsService _diaryRecordsService;
 
-    private readonly List<DiaryRecord> _backUpDiaries;
+    private readonly PatientPicturesManager _patientPicturesManager;
 
-    private readonly AppDbContext _db;
-    private readonly bool _newPatient;
-    private readonly Patient _patient;
-
-    private readonly Dictionary<string, string> _revStoringPlace = new Dictionary<string, string>
-    {
-      { "Бумажный носитель", "paper_radioButton" },
-      { "Пациент", "patient_radioButton" },
-      { "Компьютер (KartaWpf)", "comp_radioButton_kartaWpf" },
-      { "Компьютер", "comp_radioButton" },
-      { "Компьютер (Dental)", "comp_radioButton_dental" }
-    };
-
-    private readonly string _screensDir;
-    private readonly List<string> _screensPaths = new List<string>();
-
-    private readonly Dictionary<string, string> _storingPlace = new Dictionary<string, string>
-    {
-      { "paper_radioButton", "Бумажный носитель" },
-      { "patient_radioButton", "Пациент" },
-      { "comp_radioButton_kartaWpf", "Компьютер (KartaWpf)" },
-      { "comp_radioButton", "Компьютер" },
-      { "comp_radioButton_dental", "Компьютер (Dental)" }
-    };
-
-    private int _currentScreenDisplayed;
+    private readonly Guid? _patientID;
+    private readonly List<DiaryRecord> _diary;
 
     public EditForm()
     {
-      _screensDir = TempScreensDirectory;
-
-      _db = Program.ServiceProvider.GetService<AppDbContext>();
+      _patientsService = Program.ServiceProvider.GetService<IPatientsService>();
+      _diaryRecordsService = Program.ServiceProvider.GetService<IDiaryRecordsService>();
 
       InitializeComponent();
-      _newPatient = true;
-      _patient = new Patient();
-      _backUpDiaries = new List<DiaryRecord>();
-      ReadScreens();
-      phoneNumberTextBox.Text = @"+375";
+
+      _patientPicturesManager = new PatientPicturesManager();
+      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+      RefreshDisplayedPatientPicture();
+
+      _diary = new List<DiaryRecord>();
+
+      string[] storages = Enum.GetValues<Storage>()
+        .Select(storage => storage.GetDescription()).ToArray();
+
+      storageComboBox.Items.AddRange(storages);
+      storageComboBox.SelectedIndex = 0;
     }
 
-    public EditForm(Patient patient)
+    public EditForm(Guid patientID)
+      : this()
     {
-      _db = Program.ServiceProvider.GetService<AppDbContext>();
+      _patientID = patientID;
+      var patient = _patientsService.GetPatientAsync(patientID).Result;
 
-      //if (patient.ScreensDirectory == null || !Directory.Exists(patient.ScreensDirectory))
-      //{
-      //  patient.ScreensDirectory = Path.Combine(ScreensDirectory, patient.Id.ToString());
-      //  Directory.CreateDirectory(patient.ScreensDirectory);
-      //}
+      _patientPicturesManager = new PatientPicturesManager(patientID);
+      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+      RefreshDisplayedPatientPicture();
 
-      //_screensDir = patient.ScreensDirectory;
+      nameTextBox.Text = patient.Name;
+      surnameTextBox.Text = patient.Surname;
+      secnameTextBox.Text = patient.SecondName;
+      lastVisitDatePicker.Value = patient.LastVisitDate;
+      dateOfBirthPicker.Value = patient.BirthDate;
 
-      //InitializeComponent();
-      //_patient = patient;
-      //_newPatient = false;
-      //_backUpDiaries = _db.GetPatientDiary(patient.Id ?? 0).ConvertAll(item => (DiaryRecord)item.Clone());
+      phoneNumberTextBox.Text = String.IsNullOrEmpty(patient.PhoneNumber?.Trim())
+        ? phoneNumberTextBox.Text
+        : patient.PhoneNumber;
 
-      //nameTextBox.Text = patient.Name;
-      //surnameTextBox.Text = patient.Surname;
-      //secnameTextBox.Text = patient.SecondName;
-      //lastVisitDatePicker.Value = patient.LastVisitDate;
-      //dateOfBirthPicker.Value = patient.BirthDate;
+      addressTextBox.Text = patient.Address;
+      diagnosisTextBox.Text = patient.Diagnosis;
 
-      //phoneNumberTextBox.Text = patient.PhoneNumber == null || patient.PhoneNumber.Trim() == String.Empty ? @"+375" : patient.PhoneNumber;
+      switch (patient.Gender)
+      {
+        case Gender.Male:
+          maleRadioButton.Checked = true;
+          break;
 
-      //adressTextBox.Text = patient.Address;
-      //diagnosisTextBox.Text = patient.Diagnosis;
-      //SexSelect(patient.sex);
-      //PlaceOfStoring(patient.Storage);
+        case Gender.Female:
+          femaleRadioButton.Checked = true;
+          break;
+      }
 
-      //RefreshButtons(patient.Teeth);
-      //RefreshDiary();
-      //ReadScreens();
+      storageComboBox.SelectedIndex = (int)patient.Storage;
+
+      var dentalRecord = patient.DentalRecord;
+
+      #region Set buttons colors
+
+      button_11.BackColor = dentalRecord.Tooth11.ConvertToColor();
+      button_12.BackColor = dentalRecord.Tooth12.ConvertToColor();
+      button_13.BackColor = dentalRecord.Tooth13.ConvertToColor();
+      button_14.BackColor = dentalRecord.Tooth14.ConvertToColor();
+      button_15.BackColor = dentalRecord.Tooth15.ConvertToColor();
+      button_16.BackColor = dentalRecord.Tooth16.ConvertToColor();
+      button_17.BackColor = dentalRecord.Tooth17.ConvertToColor();
+      button_18.BackColor = dentalRecord.Tooth18.ConvertToColor();
+
+      button_21.BackColor = dentalRecord.Tooth21.ConvertToColor();
+      button_22.BackColor = dentalRecord.Tooth22.ConvertToColor();
+      button_23.BackColor = dentalRecord.Tooth23.ConvertToColor();
+      button_24.BackColor = dentalRecord.Tooth24.ConvertToColor();
+      button_25.BackColor = dentalRecord.Tooth25.ConvertToColor();
+      button_26.BackColor = dentalRecord.Tooth26.ConvertToColor();
+      button_27.BackColor = dentalRecord.Tooth27.ConvertToColor();
+      button_28.BackColor = dentalRecord.Tooth28.ConvertToColor();
+
+      button_31.BackColor = dentalRecord.Tooth31.ConvertToColor();
+      button_32.BackColor = dentalRecord.Tooth32.ConvertToColor();
+      button_33.BackColor = dentalRecord.Tooth33.ConvertToColor();
+      button_34.BackColor = dentalRecord.Tooth34.ConvertToColor();
+      button_35.BackColor = dentalRecord.Tooth35.ConvertToColor();
+      button_36.BackColor = dentalRecord.Tooth36.ConvertToColor();
+      button_37.BackColor = dentalRecord.Tooth37.ConvertToColor();
+      button_38.BackColor = dentalRecord.Tooth38.ConvertToColor();
+
+      button_41.BackColor = dentalRecord.Tooth41.ConvertToColor();
+      button_42.BackColor = dentalRecord.Tooth42.ConvertToColor();
+      button_43.BackColor = dentalRecord.Tooth43.ConvertToColor();
+      button_44.BackColor = dentalRecord.Tooth44.ConvertToColor();
+      button_45.BackColor = dentalRecord.Tooth45.ConvertToColor();
+      button_46.BackColor = dentalRecord.Tooth46.ConvertToColor();
+      button_47.BackColor = dentalRecord.Tooth47.ConvertToColor();
+      button_48.BackColor = dentalRecord.Tooth48.ConvertToColor();
+
+      button_51.BackColor = dentalRecord.Tooth51.ConvertToColor();
+      button_52.BackColor = dentalRecord.Tooth52.ConvertToColor();
+      button_53.BackColor = dentalRecord.Tooth53.ConvertToColor();
+      button_54.BackColor = dentalRecord.Tooth54.ConvertToColor();
+      button_55.BackColor = dentalRecord.Tooth55.ConvertToColor();
+
+      button_61.BackColor = dentalRecord.Tooth61.ConvertToColor();
+      button_62.BackColor = dentalRecord.Tooth62.ConvertToColor();
+      button_63.BackColor = dentalRecord.Tooth63.ConvertToColor();
+      button_64.BackColor = dentalRecord.Tooth64.ConvertToColor();
+      button_65.BackColor = dentalRecord.Tooth65.ConvertToColor();
+
+      button_71.BackColor = dentalRecord.Tooth71.ConvertToColor();
+      button_72.BackColor = dentalRecord.Tooth72.ConvertToColor();
+      button_73.BackColor = dentalRecord.Tooth73.ConvertToColor();
+      button_74.BackColor = dentalRecord.Tooth74.ConvertToColor();
+      button_75.BackColor = dentalRecord.Tooth75.ConvertToColor();
+
+      button_81.BackColor = dentalRecord.Tooth81.ConvertToColor();
+      button_82.BackColor = dentalRecord.Tooth82.ConvertToColor();
+      button_83.BackColor = dentalRecord.Tooth83.ConvertToColor();
+      button_84.BackColor = dentalRecord.Tooth84.ConvertToColor();
+      button_85.BackColor = dentalRecord.Tooth85.ConvertToColor();
+
+      #endregion Set buttons colors
+
+      _diary = patient.Diary.ToList();
+      RefreshDiary();
     }
 
-    public static string Register(string line)
-    {
-      line = line.Trim();
-      line = line.ToLower();
-      line = line == String.Empty ? " " : line;
+    private bool NewPatient => !_patientID.HasValue;
 
-      var result = new StringBuilder(line);
-      result[0] = Char.ToUpper(result[0]);
-
-      return result.ToString();
-    }
-
-    protected override void OnFormClosing(FormClosingEventArgs e)
+    protected override async void OnFormClosing(FormClosingEventArgs e)
     {
       base.OnFormClosing(e);
 
       if (e.CloseReason == CloseReason.WindowsShutDown)
       {
-        return;
+        await SavePatient();
       }
-
-      if (e.CloseReason == CloseReason.UserClosing)
+      else if (e.CloseReason == CloseReason.UserClosing)
       {
-        RejectChanges();
+        _patientPicturesManager.RejectChanges();
       }
     }
 
-    private void AddButton_Click(object sender, EventArgs e)
-    {
-      //var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
-      //var eventForm = new DiaryRecordForm(diaryEvent);
+    #region Diary
 
-      //if (eventForm.ShowDialog() == DialogResult.OK)
-      //{
-      //  _db.AddDiaryEvent(diaryEvent);
-      //  _db.SaveChanges();
-      //  RefreshDiary();
-      //}
+    private void AddDiaryRecordButton_Click(object sender, EventArgs e)
+    {
+      var diaryRecordForm = new DiaryRecordForm();
+
+      if (diaryRecordForm.ShowDialog() == DialogResult.OK)
+      {
+        _diary.Add(new DiaryRecord
+        {
+          ID = Guid.NewGuid(),
+          Date = diaryRecordForm.Date,
+          Diagnosis = diaryRecordForm.Diagnosis
+        });
+
+        RefreshDiary();
+      }
     }
 
-    private void AddScreenButton_Click(object sender, EventArgs e)
+    private void DeleteDiaryRecordButton_Click(object sender, EventArgs e)
+    {
+      if (diaryTable.SelectedRows.Count > 0)
+      {
+        foreach (DataGridViewRow selectedRow in diaryTable.SelectedRows)
+        {
+          switch (MessageBox.Show($@"Вы действительно хотите удалить запись {selectedRow.Cells[2].Value}?",
+              @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+          {
+            case DialogResult.Yes:
+              var diaryRecordID = (Guid)selectedRow.Cells[0].Value;
+              _diary.Remove(_diary.First(diaryRecord => diaryRecord.ID == diaryRecordID));
+              break;
+
+            default:
+              break;
+          }
+        }
+
+        RefreshDiary();
+      }
+      else
+      {
+        MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+    }
+
+    private void DiaryTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if (diaryTable.SelectedRows.Count == 1)
+      {
+        var diaryRecordID = (Guid)diaryTable.SelectedRows[0].Cells[0].Value;
+        var diaryRecord = _diary.FirstOrDefault(record => record.ID == diaryRecordID);
+
+        var diaryRecordForm = new DiaryRecordForm(diaryRecord.Date, diaryRecord.Diagnosis);
+
+        if (diaryRecordForm.ShowDialog() == DialogResult.OK)
+        {
+          diaryRecord.Diagnosis = diaryRecordForm.Diagnosis;
+          diaryRecord.Date = diaryRecordForm.Date;
+
+          RefreshDiary();
+        }
+      }
+      else
+      {
+        MessageBox.Show(@"Выбрана более чем одна запись в дневнике.",
+            @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+    }
+
+    private void RefreshDiary()
+    {
+      diaryTable.Rows.Clear();
+
+      foreach (var diaryRecord in _diary)
+      {
+        diaryTable.Rows.Add(diaryRecord.ID, diaryRecord.Date.ToString("D"), diaryRecord.Diagnosis);
+      }
+    }
+
+    #endregion Diary
+
+    private void ChangeToothStatus(object sender, EventArgs e)
+    {
+      var toothButton = sender as Button;
+      var previousStatus = toothButton.BackColor.ConvertToToothStatus();
+      var teethStatusForm = new TeethStatusForm(previousStatus);
+
+      if (teethStatusForm.ShowDialog() == DialogResult.OK)
+      {
+        string diagnosis = $"Зуб №{toothButton.Name.Replace("button_", String.Empty)} " +
+          $"сменил статус с: {previousStatus.GetDescription()} " +
+          $"на: {teethStatusForm.ToothStatus.GetDescription()}.";
+
+        if (!String.IsNullOrEmpty(teethStatusForm.Cause.Trim()))
+        {
+          diagnosis += $" Причина: {teethStatusForm.Cause}";
+        }
+
+        toothButton.BackColor = teethStatusForm.ToothStatus.ConvertToColor();
+
+        var diaryRecordForm = new DiaryRecordForm(DateTime.Today, diagnosis);
+
+        if (diaryRecordForm.ShowDialog() == DialogResult.OK)
+        {
+          _diary.Add(new DiaryRecord
+          {
+            ID = Guid.NewGuid(),
+            Date = diaryRecordForm.Date,
+            Diagnosis = diaryRecordForm.Diagnosis
+          });
+
+          RefreshDiary();
+        }
+      }
+    }
+
+    private void CancelButton_Click(object sender, EventArgs e)
+    {
+      string cancelWarning = NewPatient
+        ? @"Вы действительно хотите удалить создаваемого пациента?"
+        : @"Вы действительно хотите отменить все внесенные изменения?";
+
+      if (MessageBox.Show(cancelWarning, @"Внимание!",
+        MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+      {
+        _patientPicturesManager.RejectChanges();
+        Close();
+      }
+    }
+
+    private async void SaveButton_Click(object sender, EventArgs e)
+    {
+      await SavePatient();
+    }
+
+    private async Task SavePatient()
+    {
+      var patient = !NewPatient
+        ? await _patientsService.GetPatientAsync(_patientID.Value)
+        : new Patient { DentalRecord = new DentalRecord() };
+
+      patient.Name = nameTextBox.Text.TrimLowerCapitalizeFirstLetter();
+      patient.Surname = surnameTextBox.Text.TrimLowerCapitalizeFirstLetter();
+      patient.SecondName = secnameTextBox.Text.TrimLowerCapitalizeFirstLetter();
+
+      patient.PhoneNumber = phoneNumberTextBox.Text;
+      patient.Address = addressTextBox.Text;
+      patient.Diagnosis = diagnosisTextBox.Text;
+
+      patient.LastVisitDate = lastVisitDatePicker.Value;
+      patient.BirthDate = dateOfBirthPicker.Value;
+
+      patient.Gender = maleRadioButton.Checked ? Gender.Male : Gender.Female;
+      patient.Storage = (Storage)storageComboBox.SelectedIndex;
+
+      _patientPicturesManager.ApplyChanges();
+
+      #region Get teeth statuses from buttons
+
+      patient.DentalRecord.Tooth11 = button_11.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth12 = button_12.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth13 = button_13.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth14 = button_14.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth15 = button_15.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth16 = button_16.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth17 = button_17.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth18 = button_18.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth21 = button_21.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth22 = button_22.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth23 = button_23.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth24 = button_24.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth25 = button_25.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth26 = button_26.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth27 = button_27.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth28 = button_28.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth31 = button_31.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth32 = button_32.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth33 = button_33.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth34 = button_34.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth35 = button_35.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth36 = button_36.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth37 = button_37.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth38 = button_38.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth41 = button_41.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth42 = button_42.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth43 = button_43.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth44 = button_44.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth45 = button_45.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth46 = button_46.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth47 = button_47.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth48 = button_48.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth51 = button_51.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth52 = button_52.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth53 = button_53.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth54 = button_54.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth55 = button_55.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth61 = button_61.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth62 = button_62.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth63 = button_63.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth64 = button_64.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth65 = button_65.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth71 = button_71.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth72 = button_72.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth73 = button_73.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth74 = button_74.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth75 = button_75.BackColor.ConvertToToothStatus();
+
+      patient.DentalRecord.Tooth81 = button_81.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth82 = button_82.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth83 = button_83.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth84 = button_84.BackColor.ConvertToToothStatus();
+      patient.DentalRecord.Tooth85 = button_85.BackColor.ConvertToToothStatus();
+
+      #endregion Get teeth statuses from buttons
+
+      if (NewPatient)
+      {
+        patient.Diary = _diary;
+        patient = await _patientsService.AddPatientAsync(patient);
+
+        _patientPicturesManager.MoveDisplayedPicturesToPatientDirectory(patient.ID);
+      }
+      else
+      {
+        await _diaryRecordsService.UpdatePatientDairyRecordsAsync(patient, _diary);
+        await _patientsService.UpdatePatientAsync(patient);
+      }
+    }
+
+    #region Pictures
+
+    private void AddPictureButton_Click(object sender, EventArgs e)
     {
       using (var openFileDialog = new OpenFileDialog())
       {
@@ -147,122 +414,27 @@ namespace Patients
 
         if (openFileDialog.ShowDialog() == DialogResult.OK)
         {
-          string[] filePaths = openFileDialog.FileNames;
-          int i = 0;
-          foreach (string filePath in filePaths)
-          {
-            string newFileName = DateTime.Now.ToString("dd.MM.yyyy hh.mm.ss_") + i + Path.GetExtension(filePath);
-            string newFilePath = Path.Combine(_screensDir, newFileName);
-            _screensPaths.Add(newFilePath);
-            File.Move(filePath, newFilePath);
-            totalImgCountLabel.Text = @"Всего снимков: " + _screensPaths.Count;
-            i++;
-          }
+          _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
+          totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
         }
       }
     }
 
-    private void CancelButton_Click(object sender, EventArgs e)
-    {
-      RejectChanges();
-    }
-
-    private void ChangeToothStatus(object sender, EventArgs e)
-    {
-      //var button = sender as Button;
-      //var diaryEvent = new DiaryRecord { PatientId = _patient.Id ?? 0 };
-      //var teethStatusForm = new TeethStatusForm(button, diaryEvent);
-
-      //if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.IsOK)
-      //{
-      //  _db.AddDiaryEvent(diaryEvent);
-      //  _db.SaveChanges();
-      //  RefreshDiary();
-      //}
-    }
-
     private void DelButton_Click(object sender, EventArgs e)
     {
-      if (_screensPaths.Count > 0)
+      _patientPicturesManager.DeleteDisplayedPatientPicture();
+      RefreshDisplayedPatientPicture();
+      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+    }
+
+    private void RefreshDisplayedPatientPicture()
+    {
+      string displayedPatientPicture = _patientPicturesManager.CurrentlyDisplayedPatientPicture;
+
+      if (displayedPatientPicture is not null)
       {
-        File.Delete(_screensPaths[_currentScreenDisplayed]);
-        _screensPaths.RemoveAt(_currentScreenDisplayed);
-        _currentScreenDisplayed = 0;
-        DisplayScreen();
-        totalImgCountLabel.Text = @"Всего снимков: " + _screensPaths.Count;
-      }
-    }
-
-    private void DeleteButton_Click(object sender, EventArgs e)
-    {
-      //if (diaryTable.SelectedRows.Count > 0)
-      //{
-      //  var forDeletion = new List<DiaryRecord>();
-
-      //  foreach (DataGridViewRow selectedRow in diaryTable.SelectedRows)
-      //  {
-      //    int rowId = (int)selectedRow.Cells[0].Value;
-      //    var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
-
-      //    switch (MessageBox.Show($@"Вы действительно хотите удалить запись {diaryEvent.Diagnosis}?",
-      //        @"Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning))
-      //    {
-      //      case DialogResult.Yes:
-      //        forDeletion.Add(diaryEvent);
-      //        break;
-
-      //      case DialogResult.No:
-      //        break;
-
-      //      case DialogResult.Cancel:
-      //        return;
-
-      //      default:
-      //        MessageBox.Show(@"Для выхода нажмите отмена");
-      //        break;
-      //    }
-      //  }
-
-      //  if (forDeletion.Count > 0)
-      //  {
-      //    _db.DeleteDiaryEvent(forDeletion);
-      //    _db.SaveChanges();
-      //    RefreshDiary();
-      //  }
-      //}
-      //else
-      //{
-      //  MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //}
-    }
-
-    private void DiaryTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-    {
-      //if (diaryTable.SelectedRows.Count == 1)
-      //{
-      //  int rowId = (int)diaryTable.SelectedRows[0].Cells[0].Value;
-      //  var diaryEvent = _db.GetDiaryEventById(_patient.Id ?? 0, rowId);
-      //  var form = new DiaryRecordForm(diaryEvent);
-
-      //  if (form.ShowDialog() == DialogResult.OK)
-      //  {
-      //    _db.SaveChanges();
-      //    RefreshDiary();
-      //  }
-      //}
-      //else
-      //{
-      //  MessageBox.Show(@"Выбрано неверное количество строк.",
-      //      @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-      //}
-    }
-
-    private void DisplayScreen()
-    {
-      if (_screensPaths.Count > 0)
-      {
-        screenBox.ImageLocation = _screensPaths[_currentScreenDisplayed];
-        currImgLabel.Text = @"Текущий снимок: " + (_currentScreenDisplayed + 1);
+        screenBox.ImageLocation = displayedPatientPicture;
+        currImgLabel.Text = $"Текущий снимок: {_patientPicturesManager.DisplayedPatientPictureNumber}";
       }
       else
       {
@@ -271,170 +443,18 @@ namespace Patients
       }
     }
 
-    private Color[] GetColors()
-    {
-      var teeth = new Color[52];
-
-      foreach (object element in teethGroupBox.Controls)
-      {
-        if (element is Button button)
-        {
-          int buttonNum = Int32.Parse(button.AccessibleDescription);
-          teeth[buttonNum - 1] = button.BackColor;
-        }
-      }
-
-      return teeth;
-    }
-
     private void NextButton_Click(object sender, EventArgs e)
     {
-      _currentScreenDisplayed++;
-      if (_currentScreenDisplayed > _screensPaths.Count - 1)
-      {
-        _currentScreenDisplayed = _screensPaths.Count - 1;
-      }
-
-      DisplayScreen();
-    }
-
-    private void PlaceOfStoring()
-    {
-      var radioBtn = groupBox5.Controls
-          .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-
-      //_patient.Storage = _storingPlace.TryGetValue(radioBtn.Name, out string value) ? value : "Бумажный носитель";
-    }
-
-    private void PlaceOfStoring(string place)
-    {
-      if (_revStoringPlace.TryGetValue(place, out string value))
-      {
-        var radioBtn = groupBox5.Controls
-            .OfType<RadioButton>().FirstOrDefault(x => x.Name == value);
-
-        paper_radioButton.Checked = false;
-        radioBtn.Checked = true;
-      }
+      _patientPicturesManager.NextPatientPicture();
+      RefreshDisplayedPatientPicture();
     }
 
     private void PrevButton_Click(object sender, EventArgs e)
     {
-      _currentScreenDisplayed--;
-      if (_currentScreenDisplayed < 0)
-      {
-        _currentScreenDisplayed = 0;
-      }
-
-      DisplayScreen();
+      _patientPicturesManager.PreviousPatientPicture();
+      RefreshDisplayedPatientPicture();
     }
 
-    private void ReadScreens()
-    {
-      _screensPaths.Clear();
-      var files = Directory.GetFiles(_screensDir).
-          Where(str => str.EndsWith(".jpg") || str.EndsWith(".jpeg") || str.EndsWith(".png"));
-      _screensPaths.AddRange(files);
-      totalImgCountLabel.Text = @"Всего снимков: " + _screensPaths.Count;
-      _currentScreenDisplayed = 0;
-      DisplayScreen();
-    }
-
-    private void RefreshButton_Click(object sender, EventArgs e)
-    {
-      ReadScreens();
-    }
-
-    private void RefreshButtons(Color[] teeth)
-    {
-      foreach (object element in teethGroupBox.Controls)
-      {
-        if (element is Button button)
-        {
-          int buttonNum = Int32.Parse(button.AccessibleDescription);
-          button.BackColor = teeth[buttonNum - 1];
-        }
-      }
-    }
-
-    private void RefreshDiary()
-    {
-      if (_patient != null)
-      {
-        diaryTable.Rows.Clear();
-        //int rowNumber = 0;
-
-        //foreach (var diagnosis in _db.GetPatientDiary(_patient.Id ?? 0))
-        //{
-        //  diaryTable.Rows.Add(++rowNumber, diagnosis.Date.ToString("D"), diagnosis.Diagnosis);
-        //}
-      }
-    }
-
-    private void RejectChanges()
-    {
-      //_db.DeleteDiaryEvent(_db.GetPatientDiary(_patient.Id ?? 0));
-
-      if (!_newPatient)
-      {
-        _db.AddDiaryEvents(_backUpDiaries);
-      }
-      else
-      {
-        foreach (string screensPath in _screensPaths)
-        {
-          File.Delete(screensPath);
-        }
-      }
-
-      _db.SaveChanges();
-    }
-
-    private void SaveButton_Click(object sender, EventArgs e)
-    {
-      //_patient.Name = Register(nameTextBox.Text);
-      //_patient.Surname = Register(surnameTextBox.Text);
-      //_patient.SecondName = Register(secnameTextBox.Text);
-
-      //_patient.PhoneNumber = phoneNumberTextBox.Text;
-      //_patient.Address = adressTextBox.Text;
-      //_patient.Diagnosis = diagnosisTextBox.Text;
-
-      //_patient.LastVisitDate = lastVisitDatePicker.Value;
-      //_patient.BirthDate = dateOfBirthPicker.Value;
-
-      //_patient.sex = SexSelect();
-      //_patient.Teeth = GetColors();
-      //PlaceOfStoring();
-
-      //if (_newPatient)
-      //{
-      //  _db.AddPatient(_patient);
-      //  _db.SaveChanges();
-      //  _patient.ScreensDirectory = Path.Combine(ScreensDirectory, _patient.Id.ToString());
-      //  Directory.CreateDirectory(_patient.ScreensDirectory);
-      //  _db.MoveScreens(_screensDir, _patient.ScreensDirectory);
-      //  _db.MoveDiary(0, _patient.Id ?? 0);
-      //}
-
-      //_db.SaveChanges();
-    }
-
-    private Gender SexSelect()
-    {
-      var radioBtn = groupBox1.Controls
-          .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-
-      return radioBtn?.Name == "maleRadioButton" ? Gender.Male : Gender.Female;
-    }
-
-    private void SexSelect(Gender sex)
-    {
-      if (sex != Gender.Male)
-      {
-        maleRadioButton.Checked = false;
-        femaleRadioButton.Checked = true;
-      }
-    }
+    #endregion Screens
   }
 }
