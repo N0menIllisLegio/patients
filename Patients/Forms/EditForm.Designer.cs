@@ -45,8 +45,8 @@
       this.deleteButton = new System.Windows.Forms.Button();
       this.addButton = new System.Windows.Forms.Button();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.adressTextBox = new System.Windows.Forms.RichTextBox();
-      this.phoneNumberTextBox = new System.Windows.Forms.TextBox();
+      this.phoneNumberTextBox = new System.Windows.Forms.MaskedTextBox();
+      this.addressTextBox = new System.Windows.Forms.RichTextBox();
       this.label5 = new System.Windows.Forms.Label();
       this.label8 = new System.Windows.Forms.Label();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -55,7 +55,7 @@
       this.label7 = new System.Windows.Forms.Label();
       this.dateOfBirthPicker = new System.Windows.Forms.DateTimePicker();
       this.diaryTable = new System.Windows.Forms.DataGridView();
-      this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.statusTabPage = new System.Windows.Forms.TabPage();
@@ -168,7 +168,6 @@
       this.diagnosisTextBox = new System.Windows.Forms.RichTextBox();
       this.label9 = new System.Windows.Forms.Label();
       this.picturesTabPage = new System.Windows.Forms.TabPage();
-      this.refreshButton = new System.Windows.Forms.Button();
       this.delButton = new System.Windows.Forms.Button();
       this.currImgLabel = new System.Windows.Forms.Label();
       this.totalImgCountLabel = new System.Windows.Forms.Label();
@@ -176,15 +175,10 @@
       this.prevButton = new System.Windows.Forms.Button();
       this.nextButton = new System.Windows.Forms.Button();
       this.screenBox = new System.Windows.Forms.PictureBox();
-      this.placeOfStoring = new System.Windows.Forms.TabPage();
-      this.groupBox5 = new System.Windows.Forms.GroupBox();
-      this.comp_radioButton = new System.Windows.Forms.RadioButton();
-      this.patient_radioButton = new System.Windows.Forms.RadioButton();
-      this.comp_radioButton_dental = new System.Windows.Forms.RadioButton();
-      this.paper_radioButton = new System.Windows.Forms.RadioButton();
-      this.comp_radioButton_kartaWpf = new System.Windows.Forms.RadioButton();
       this.saveButton = new System.Windows.Forms.Button();
       this.cancelButton = new System.Windows.Forms.Button();
+      this.storageLabel = new System.Windows.Forms.Label();
+      this.storageComboBox = new System.Windows.Forms.ComboBox();
       this.editTabs.SuspendLayout();
       this.patientInfoTabPage.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -197,8 +191,6 @@
       this.teethGroupBox.SuspendLayout();
       this.picturesTabPage.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.screenBox)).BeginInit();
-      this.placeOfStoring.SuspendLayout();
-      this.groupBox5.SuspendLayout();
       this.SuspendLayout();
       // 
       // editTabs
@@ -209,7 +201,6 @@
       this.editTabs.Controls.Add(this.patientInfoTabPage);
       this.editTabs.Controls.Add(this.statusTabPage);
       this.editTabs.Controls.Add(this.picturesTabPage);
-      this.editTabs.Controls.Add(this.placeOfStoring);
       this.editTabs.Location = new System.Drawing.Point(14, 14);
       this.editTabs.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.editTabs.Name = "editTabs";
@@ -374,6 +365,7 @@
       // 
       this.deleteButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
       this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
+      this.deleteButton.ForeColor = System.Drawing.Color.White;
       this.deleteButton.Location = new System.Drawing.Point(231, 37);
       this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.deleteButton.Name = "deleteButton";
@@ -381,24 +373,26 @@
       this.deleteButton.TabIndex = 2;
       this.deleteButton.Text = "Удалить";
       this.deleteButton.UseVisualStyleBackColor = false;
-      this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+      this.deleteButton.Click += new System.EventHandler(this.DeleteDiaryRecordButton_Click);
       // 
       // addButton
       // 
       this.addButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+      this.addButton.BackColor = System.Drawing.Color.DarkGreen;
+      this.addButton.ForeColor = System.Drawing.Color.White;
       this.addButton.Location = new System.Drawing.Point(63, 37);
       this.addButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.addButton.Name = "addButton";
       this.addButton.Size = new System.Drawing.Size(106, 50);
       this.addButton.TabIndex = 0;
       this.addButton.Text = "Добавить";
-      this.addButton.UseVisualStyleBackColor = true;
-      this.addButton.Click += new System.EventHandler(this.AddButton_Click);
+      this.addButton.UseVisualStyleBackColor = false;
+      this.addButton.Click += new System.EventHandler(this.AddDiaryRecordButton_Click);
       // 
       // groupBox3
       // 
-      this.groupBox3.Controls.Add(this.adressTextBox);
       this.groupBox3.Controls.Add(this.phoneNumberTextBox);
+      this.groupBox3.Controls.Add(this.addressTextBox);
       this.groupBox3.Controls.Add(this.label5);
       this.groupBox3.Controls.Add(this.label8);
       this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -411,24 +405,24 @@
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Контактная информация";
       // 
-      // adressTextBox
-      // 
-      this.adressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.adressTextBox.Location = new System.Drawing.Point(128, 60);
-      this.adressTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.adressTextBox.Name = "adressTextBox";
-      this.adressTextBox.Size = new System.Drawing.Size(293, 48);
-      this.adressTextBox.TabIndex = 13;
-      this.adressTextBox.Text = "";
-      // 
       // phoneNumberTextBox
       // 
       this.phoneNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.phoneNumberTextBox.Location = new System.Drawing.Point(128, 30);
-      this.phoneNumberTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.phoneNumberTextBox.Mask = "+375 (00) 000-0000";
       this.phoneNumberTextBox.Name = "phoneNumberTextBox";
       this.phoneNumberTextBox.Size = new System.Drawing.Size(293, 23);
-      this.phoneNumberTextBox.TabIndex = 11;
+      this.phoneNumberTextBox.TabIndex = 14;
+      // 
+      // addressTextBox
+      // 
+      this.addressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.addressTextBox.Location = new System.Drawing.Point(128, 60);
+      this.addressTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.addressTextBox.Name = "addressTextBox";
+      this.addressTextBox.Size = new System.Drawing.Size(293, 48);
+      this.addressTextBox.TabIndex = 13;
+      this.addressTextBox.Text = "";
       // 
       // label5
       // 
@@ -518,7 +512,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.diaryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.diaryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
+            this.ID,
             this.date,
             this.data});
       this.diaryTable.Location = new System.Drawing.Point(7, 252);
@@ -530,13 +524,12 @@
       this.diaryTable.TabIndex = 20;
       this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
       // 
-      // id
+      // ID
       // 
-      this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-      this.id.HeaderText = "№";
-      this.id.Name = "id";
-      this.id.ReadOnly = true;
-      this.id.Visible = false;
+      this.ID.HeaderText = "ID";
+      this.ID.Name = "ID";
+      this.ID.ReadOnly = true;
+      this.ID.Visible = false;
       // 
       // date
       // 
@@ -1967,7 +1960,6 @@
       // 
       // picturesTabPage
       // 
-      this.picturesTabPage.Controls.Add(this.refreshButton);
       this.picturesTabPage.Controls.Add(this.delButton);
       this.picturesTabPage.Controls.Add(this.currImgLabel);
       this.picturesTabPage.Controls.Add(this.totalImgCountLabel);
@@ -1983,33 +1975,23 @@
       this.picturesTabPage.Text = "Снимки";
       this.picturesTabPage.UseVisualStyleBackColor = true;
       // 
-      // refreshButton
-      // 
-      this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-      this.refreshButton.Location = new System.Drawing.Point(4, 558);
-      this.refreshButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.refreshButton.Name = "refreshButton";
-      this.refreshButton.Size = new System.Drawing.Size(145, 27);
-      this.refreshButton.TabIndex = 9;
-      this.refreshButton.Text = " Обновить";
-      this.refreshButton.UseVisualStyleBackColor = true;
-      this.refreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
-      // 
       // delButton
       // 
-      this.delButton.Location = new System.Drawing.Point(4, 72);
+      this.delButton.BackColor = System.Drawing.Color.DarkRed;
+      this.delButton.ForeColor = System.Drawing.Color.White;
+      this.delButton.Location = new System.Drawing.Point(4, 36);
       this.delButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.delButton.Name = "delButton";
       this.delButton.Size = new System.Drawing.Size(145, 27);
       this.delButton.TabIndex = 8;
       this.delButton.Text = "Удалить снимок";
-      this.delButton.UseVisualStyleBackColor = true;
+      this.delButton.UseVisualStyleBackColor = false;
       this.delButton.Click += new System.EventHandler(this.DelButton_Click);
       // 
       // currImgLabel
       // 
       this.currImgLabel.AutoSize = true;
-      this.currImgLabel.Location = new System.Drawing.Point(5, 140);
+      this.currImgLabel.Location = new System.Drawing.Point(5, 104);
       this.currImgLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.currImgLabel.Name = "currImgLabel";
       this.currImgLabel.Size = new System.Drawing.Size(104, 15);
@@ -2019,7 +2001,7 @@
       // totalImgCountLabel
       // 
       this.totalImgCountLabel.AutoSize = true;
-      this.totalImgCountLabel.Location = new System.Drawing.Point(5, 115);
+      this.totalImgCountLabel.Location = new System.Drawing.Point(5, 79);
       this.totalImgCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.totalImgCountLabel.Name = "totalImgCountLabel";
       this.totalImgCountLabel.Size = new System.Drawing.Size(92, 15);
@@ -2029,34 +2011,36 @@
       // addScreenButton
       // 
       this.addScreenButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.addScreenButton.BackColor = System.Drawing.Color.DarkGreen;
+      this.addScreenButton.ForeColor = System.Drawing.Color.White;
       this.addScreenButton.Location = new System.Drawing.Point(4, 592);
       this.addScreenButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.addScreenButton.Name = "addScreenButton";
       this.addScreenButton.Size = new System.Drawing.Size(145, 27);
       this.addScreenButton.TabIndex = 3;
       this.addScreenButton.Text = "Добавить снимки";
-      this.addScreenButton.UseVisualStyleBackColor = true;
-      this.addScreenButton.Click += new System.EventHandler(this.AddScreenButton_Click);
+      this.addScreenButton.UseVisualStyleBackColor = false;
+      this.addScreenButton.Click += new System.EventHandler(this.AddPictureButton_Click);
       // 
       // prevButton
       // 
-      this.prevButton.Location = new System.Drawing.Point(4, 37);
+      this.prevButton.Location = new System.Drawing.Point(5, 3);
       this.prevButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.prevButton.Name = "prevButton";
-      this.prevButton.Size = new System.Drawing.Size(145, 27);
+      this.prevButton.Size = new System.Drawing.Size(68, 27);
       this.prevButton.TabIndex = 2;
-      this.prevButton.Text = "Предыдущий снимок";
+      this.prevButton.Text = "<";
       this.prevButton.UseVisualStyleBackColor = true;
       this.prevButton.Click += new System.EventHandler(this.PrevButton_Click);
       // 
       // nextButton
       // 
-      this.nextButton.Location = new System.Drawing.Point(4, 3);
+      this.nextButton.Location = new System.Drawing.Point(83, 3);
       this.nextButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.nextButton.Name = "nextButton";
-      this.nextButton.Size = new System.Drawing.Size(145, 27);
+      this.nextButton.Size = new System.Drawing.Size(68, 27);
       this.nextButton.TabIndex = 1;
-      this.nextButton.Text = "Следующий снимок";
+      this.nextButton.Text = ">";
       this.nextButton.UseVisualStyleBackColor = true;
       this.nextButton.Click += new System.EventHandler(this.NextButton_Click);
       // 
@@ -2066,6 +2050,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.screenBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.screenBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("screenBox.InitialImage")));
       this.screenBox.Location = new System.Drawing.Point(156, 3);
       this.screenBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.screenBox.Name = "screenBox";
@@ -2074,124 +2059,63 @@
       this.screenBox.TabIndex = 0;
       this.screenBox.TabStop = false;
       // 
-      // placeOfStoring
-      // 
-      this.placeOfStoring.Controls.Add(this.groupBox5);
-      this.placeOfStoring.Location = new System.Drawing.Point(4, 24);
-      this.placeOfStoring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.placeOfStoring.Name = "placeOfStoring";
-      this.placeOfStoring.Size = new System.Drawing.Size(889, 624);
-      this.placeOfStoring.TabIndex = 4;
-      this.placeOfStoring.Text = "Место хранения";
-      this.placeOfStoring.UseVisualStyleBackColor = true;
-      // 
-      // groupBox5
-      // 
-      this.groupBox5.Controls.Add(this.comp_radioButton);
-      this.groupBox5.Controls.Add(this.patient_radioButton);
-      this.groupBox5.Controls.Add(this.comp_radioButton_dental);
-      this.groupBox5.Controls.Add(this.paper_radioButton);
-      this.groupBox5.Controls.Add(this.comp_radioButton_kartaWpf);
-      this.groupBox5.Location = new System.Drawing.Point(336, 196);
-      this.groupBox5.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox5.Name = "groupBox5";
-      this.groupBox5.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox5.Size = new System.Drawing.Size(223, 204);
-      this.groupBox5.TabIndex = 4;
-      this.groupBox5.TabStop = false;
-      this.groupBox5.Text = "Место хранения";
-      // 
-      // comp_radioButton
-      // 
-      this.comp_radioButton.AutoSize = true;
-      this.comp_radioButton.Location = new System.Drawing.Point(35, 153);
-      this.comp_radioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.comp_radioButton.Name = "comp_radioButton";
-      this.comp_radioButton.Size = new System.Drawing.Size(89, 19);
-      this.comp_radioButton.TabIndex = 4;
-      this.comp_radioButton.TabStop = true;
-      this.comp_radioButton.Text = "Компьютер";
-      this.comp_radioButton.UseVisualStyleBackColor = true;
-      // 
-      // patient_radioButton
-      // 
-      this.patient_radioButton.AutoSize = true;
-      this.patient_radioButton.Location = new System.Drawing.Point(35, 70);
-      this.patient_radioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.patient_radioButton.Name = "patient_radioButton";
-      this.patient_radioButton.Size = new System.Drawing.Size(72, 19);
-      this.patient_radioButton.TabIndex = 1;
-      this.patient_radioButton.Text = "Пациент";
-      this.patient_radioButton.UseVisualStyleBackColor = true;
-      // 
-      // comp_radioButton_dental
-      // 
-      this.comp_radioButton_dental.AutoSize = true;
-      this.comp_radioButton_dental.Location = new System.Drawing.Point(35, 126);
-      this.comp_radioButton_dental.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.comp_radioButton_dental.Name = "comp_radioButton_dental";
-      this.comp_radioButton_dental.Size = new System.Drawing.Size(134, 19);
-      this.comp_radioButton_dental.TabIndex = 3;
-      this.comp_radioButton_dental.Text = "Компьютер (Dental)";
-      this.comp_radioButton_dental.UseVisualStyleBackColor = true;
-      // 
-      // paper_radioButton
-      // 
-      this.paper_radioButton.AutoSize = true;
-      this.paper_radioButton.Checked = true;
-      this.paper_radioButton.Location = new System.Drawing.Point(35, 43);
-      this.paper_radioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.paper_radioButton.Name = "paper_radioButton";
-      this.paper_radioButton.Size = new System.Drawing.Size(139, 19);
-      this.paper_radioButton.TabIndex = 0;
-      this.paper_radioButton.TabStop = true;
-      this.paper_radioButton.Text = "Бумажный носитель";
-      this.paper_radioButton.UseVisualStyleBackColor = true;
-      // 
-      // comp_radioButton_kartaWpf
-      // 
-      this.comp_radioButton_kartaWpf.AutoSize = true;
-      this.comp_radioButton_kartaWpf.Location = new System.Drawing.Point(35, 98);
-      this.comp_radioButton_kartaWpf.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.comp_radioButton_kartaWpf.Name = "comp_radioButton_kartaWpf";
-      this.comp_radioButton_kartaWpf.Size = new System.Drawing.Size(149, 19);
-      this.comp_radioButton_kartaWpf.TabIndex = 2;
-      this.comp_radioButton_kartaWpf.Text = "Компьютер (KartaWpf)";
-      this.comp_radioButton_kartaWpf.UseVisualStyleBackColor = true;
-      // 
       // saveButton
       // 
       this.saveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+      this.saveButton.BackColor = System.Drawing.Color.DarkGreen;
       this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+      this.saveButton.ForeColor = System.Drawing.Color.White;
       this.saveButton.Location = new System.Drawing.Point(729, 673);
       this.saveButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.saveButton.Name = "saveButton";
       this.saveButton.Size = new System.Drawing.Size(88, 27);
       this.saveButton.TabIndex = 1;
-      this.saveButton.Text = "Сохранить";
-      this.saveButton.UseVisualStyleBackColor = true;
+      this.saveButton.Text = "СОХРАНИТЬ";
+      this.saveButton.UseVisualStyleBackColor = false;
       this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
       // 
       // cancelButton
       // 
       this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      this.cancelButton.BackColor = System.Drawing.Color.DarkRed;
+      this.cancelButton.ForeColor = System.Drawing.Color.White;
       this.cancelButton.Location = new System.Drawing.Point(824, 673);
       this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(88, 27);
       this.cancelButton.TabIndex = 2;
-      this.cancelButton.Text = "Отмена";
-      this.cancelButton.UseVisualStyleBackColor = true;
+      this.cancelButton.Text = "ОТМЕНА";
+      this.cancelButton.UseVisualStyleBackColor = false;
       this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+      // 
+      // storageLabel
+      // 
+      this.storageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.storageLabel.AutoSize = true;
+      this.storageLabel.Location = new System.Drawing.Point(14, 678);
+      this.storageLabel.Name = "storageLabel";
+      this.storageLabel.Size = new System.Drawing.Size(100, 15);
+      this.storageLabel.TabIndex = 3;
+      this.storageLabel.Text = "Место хранения:";
+      // 
+      // storageComboBox
+      // 
+      this.storageComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+      this.storageComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.storageComboBox.FormattingEnabled = true;
+      this.storageComboBox.Location = new System.Drawing.Point(120, 675);
+      this.storageComboBox.Name = "storageComboBox";
+      this.storageComboBox.Size = new System.Drawing.Size(203, 23);
+      this.storageComboBox.TabIndex = 4;
       // 
       // EditForm
       // 
       this.AcceptButton = this.saveButton;
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.CancelButton = this.cancelButton;
       this.ClientSize = new System.Drawing.Size(925, 713);
+      this.Controls.Add(this.storageComboBox);
+      this.Controls.Add(this.storageLabel);
       this.Controls.Add(this.cancelButton);
       this.Controls.Add(this.saveButton);
       this.Controls.Add(this.editTabs);
@@ -2200,6 +2124,7 @@
       this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.MinimumSize = new System.Drawing.Size(941, 752);
       this.Name = "EditForm";
+      this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Редактор данных";
       this.editTabs.ResumeLayout(false);
@@ -2220,10 +2145,8 @@
       this.picturesTabPage.ResumeLayout(false);
       this.picturesTabPage.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.screenBox)).EndInit();
-      this.placeOfStoring.ResumeLayout(false);
-      this.groupBox5.ResumeLayout(false);
-      this.groupBox5.PerformLayout();
       this.ResumeLayout(false);
+      this.PerformLayout();
 
         }
 
@@ -2235,7 +2158,6 @@
         private System.Windows.Forms.RadioButton maleRadioButton;
         private System.Windows.Forms.DateTimePicker lastVisitDatePicker;
         private System.Windows.Forms.DateTimePicker dateOfBirthPicker;
-        private System.Windows.Forms.TextBox phoneNumberTextBox;
         private System.Windows.Forms.TextBox secnameTextBox;
         private System.Windows.Forms.TextBox nameTextBox;
         private System.Windows.Forms.Label label8;
@@ -2371,19 +2293,14 @@
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.DataGridView diaryTable;
-        private System.Windows.Forms.RichTextBox adressTextBox;
-        private System.Windows.Forms.TabPage placeOfStoring;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.RadioButton patient_radioButton;
-        private System.Windows.Forms.RadioButton comp_radioButton_dental;
-        private System.Windows.Forms.RadioButton paper_radioButton;
-        private System.Windows.Forms.RadioButton comp_radioButton_kartaWpf;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn date;
-        private System.Windows.Forms.DataGridViewTextBoxColumn data;
+        private System.Windows.Forms.RichTextBox addressTextBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Button delButton;
-        private System.Windows.Forms.Button refreshButton;
-        private System.Windows.Forms.RadioButton comp_radioButton;
-    }
+    private System.Windows.Forms.Label storageLabel;
+    private System.Windows.Forms.ComboBox storageComboBox;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+    private System.Windows.Forms.DataGridViewTextBoxColumn date;
+    private System.Windows.Forms.DataGridViewTextBoxColumn data;
+    private System.Windows.Forms.MaskedTextBox phoneNumberTextBox;
+  }
 }
