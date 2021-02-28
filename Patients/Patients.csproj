@@ -9,6 +9,7 @@
     <AssemblyName>Patients</AssemblyName>
     <ApplicationIcon>Resources\reportorium.ico</ApplicationIcon>
     <CodeAnalysisRuleSet>..\Softteco.ruleset</CodeAnalysisRuleSet>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,4 +55,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="; Move all assemblies and related files to lib folder&#xD;&#xA;ROBOCOPY &quot;$(TargetDir) &quot; &quot;$(TargetDir)Libraries\ &quot; /XF *.exe *.config *.manifest *.json Patients.dll *.db /XD lib logs data ref runtimes Screens /E /IS /MOVE&#xD;&#xA;if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25" />
+  </Target>
 </Project>
