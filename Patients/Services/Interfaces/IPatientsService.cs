@@ -11,6 +11,8 @@ namespace Patients.Services.Interfaces
     Task<List<Patient>> GetPatientsAsync();
     Task<List<Patient>> SearchPatientsBySurname(string surname);
     Task<List<Patient>> SearchPatientsByName(string name);
+    Task<Patient> AddPatientAsync(Patient patient);
+    Task<Patient> UpdatePatientAsync(Patient patient);
     Task DeletePatients(List<Guid> patientIDs);
   }
 }
