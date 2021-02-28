@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 using Patients.Data.Repositories;
 using Patients.Data.Repositories.Interfaces;
@@ -29,8 +30,9 @@ namespace Patients.Data
         await _context.SaveChangesAsync();
         return true;
       }
-      catch
+      catch (Exception ex)
       {
+        Console.WriteLine(ex.Message);
         return false;
       }
     }
@@ -53,18 +55,9 @@ namespace Patients.Data
       }
     }
 
-    // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-    // ~UnitOfWork()
-    // {
-    //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-    //   Dispose(false);
-    // }
-
     public void Dispose()
     {
       Dispose(true);
-      // TODO: uncomment the following line if the finalizer is overridden above.
-      // GC.SuppressFinalize(this);
     }
   }
 }
