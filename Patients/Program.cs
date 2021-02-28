@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace Patients
 
       services.AddScoped<UnitOfWork>();
       services.AddScoped<IPatientsService, PatientsService>();
+      services.AddScoped<IDiaryRecordsService, DiaryRecordsService>();
 
       ServiceProvider = services.BuildServiceProvider();
     }
@@ -39,6 +41,16 @@ namespace Patients
 
     private static void InitApp()
     {
+      if (!Directory.Exists(PatientPicturesManager.ScreensDirectory))
+      {
+        Directory.CreateDirectory(PatientPicturesManager.ScreensDirectory);
+      }
+
+      if (!Directory.Exists(PatientPicturesManager.TempScreensDirectory))
+      {
+        Directory.CreateDirectory(PatientPicturesManager.TempScreensDirectory);
+      }
+
       var context = ServiceProvider.GetService<AppDbContext>();
       context.Database.Migrate();
     }
