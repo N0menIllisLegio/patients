@@ -30,11 +30,6 @@
         {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.patientsTable = new System.Windows.Forms.DataGridView();
-      this.addButton = new System.Windows.Forms.Button();
-      this.deleteButton = new System.Windows.Forms.Button();
-      this.searchField = new System.Windows.Forms.TextBox();
-      this.SurnameRadioButton = new System.Windows.Forms.RadioButton();
-      this.NameRadioButton = new System.Windows.Forms.RadioButton();
       this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,6 +38,11 @@
       this.phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.place = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.addButton = new System.Windows.Forms.Button();
+      this.deleteButton = new System.Windows.Forms.Button();
+      this.searchField = new System.Windows.Forms.TextBox();
+      this.SurnameRadioButton = new System.Windows.Forms.RadioButton();
+      this.NameRadioButton = new System.Windows.Forms.RadioButton();
       ((System.ComponentModel.ISupportInitialize)(this.patientsTable)).BeginInit();
       this.SuspendLayout();
       // 
@@ -74,64 +74,6 @@
       this.patientsTable.Size = new System.Drawing.Size(861, 699);
       this.patientsTable.TabIndex = 0;
       this.patientsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PatientsTable_CellDoubleClick);
-      // 
-      // addButton
-      // 
-      this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.addButton.Location = new System.Drawing.Point(693, 14);
-      this.addButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.addButton.Name = "addButton";
-      this.addButton.Size = new System.Drawing.Size(88, 29);
-      this.addButton.TabIndex = 1;
-      this.addButton.Text = "Добавить";
-      this.addButton.UseVisualStyleBackColor = true;
-      this.addButton.Click += new System.EventHandler(this.AddButton_Click);
-      // 
-      // deleteButton
-      // 
-      this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
-      this.deleteButton.Location = new System.Drawing.Point(788, 14);
-      this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.deleteButton.Name = "deleteButton";
-      this.deleteButton.Size = new System.Drawing.Size(88, 29);
-      this.deleteButton.TabIndex = 2;
-      this.deleteButton.Text = "Удалить";
-      this.deleteButton.UseVisualStyleBackColor = false;
-      this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
-      // 
-      // searchField
-      // 
-      this.searchField.Location = new System.Drawing.Point(14, 14);
-      this.searchField.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.searchField.Name = "searchField";
-      this.searchField.Size = new System.Drawing.Size(238, 23);
-      this.searchField.TabIndex = 3;
-      this.searchField.TextChanged += new System.EventHandler(this.SearchField_TextChanged);
-      // 
-      // SurnameRadioButton
-      // 
-      this.SurnameRadioButton.AutoSize = true;
-      this.SurnameRadioButton.Checked = true;
-      this.SurnameRadioButton.Location = new System.Drawing.Point(260, 15);
-      this.SurnameRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.SurnameRadioButton.Name = "SurnameRadioButton";
-      this.SurnameRadioButton.Size = new System.Drawing.Size(76, 19);
-      this.SurnameRadioButton.TabIndex = 4;
-      this.SurnameRadioButton.TabStop = true;
-      this.SurnameRadioButton.Text = "Фамилия";
-      this.SurnameRadioButton.UseVisualStyleBackColor = true;
-      // 
-      // NameRadioButton
-      // 
-      this.NameRadioButton.AutoSize = true;
-      this.NameRadioButton.Location = new System.Drawing.Point(368, 15);
-      this.NameRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.NameRadioButton.Name = "NameRadioButton";
-      this.NameRadioButton.Size = new System.Drawing.Size(49, 19);
-      this.NameRadioButton.TabIndex = 5;
-      this.NameRadioButton.Text = "Имя";
-      this.NameRadioButton.UseVisualStyleBackColor = true;
       // 
       // ID
       // 
@@ -188,6 +130,67 @@
       this.place.Name = "place";
       this.place.ReadOnly = true;
       this.place.Width = 112;
+      // 
+      // addButton
+      // 
+      this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.addButton.BackColor = System.Drawing.Color.DarkGreen;
+      this.addButton.ForeColor = System.Drawing.Color.White;
+      this.addButton.Location = new System.Drawing.Point(693, 14);
+      this.addButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.addButton.Name = "addButton";
+      this.addButton.Size = new System.Drawing.Size(88, 29);
+      this.addButton.TabIndex = 1;
+      this.addButton.Text = "Добавить";
+      this.addButton.UseVisualStyleBackColor = false;
+      this.addButton.Click += new System.EventHandler(this.AddButton_Click);
+      // 
+      // deleteButton
+      // 
+      this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
+      this.deleteButton.ForeColor = System.Drawing.Color.White;
+      this.deleteButton.Location = new System.Drawing.Point(788, 14);
+      this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.deleteButton.Name = "deleteButton";
+      this.deleteButton.Size = new System.Drawing.Size(88, 29);
+      this.deleteButton.TabIndex = 2;
+      this.deleteButton.Text = "Удалить";
+      this.deleteButton.UseVisualStyleBackColor = false;
+      this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+      // 
+      // searchField
+      // 
+      this.searchField.Location = new System.Drawing.Point(14, 14);
+      this.searchField.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.searchField.Name = "searchField";
+      this.searchField.Size = new System.Drawing.Size(238, 23);
+      this.searchField.TabIndex = 3;
+      this.searchField.TextChanged += new System.EventHandler(this.SearchField_TextChanged);
+      // 
+      // SurnameRadioButton
+      // 
+      this.SurnameRadioButton.AutoSize = true;
+      this.SurnameRadioButton.Checked = true;
+      this.SurnameRadioButton.Location = new System.Drawing.Point(260, 15);
+      this.SurnameRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.SurnameRadioButton.Name = "SurnameRadioButton";
+      this.SurnameRadioButton.Size = new System.Drawing.Size(76, 19);
+      this.SurnameRadioButton.TabIndex = 4;
+      this.SurnameRadioButton.TabStop = true;
+      this.SurnameRadioButton.Text = "Фамилия";
+      this.SurnameRadioButton.UseVisualStyleBackColor = true;
+      // 
+      // NameRadioButton
+      // 
+      this.NameRadioButton.AutoSize = true;
+      this.NameRadioButton.Location = new System.Drawing.Point(368, 15);
+      this.NameRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.NameRadioButton.Name = "NameRadioButton";
+      this.NameRadioButton.Size = new System.Drawing.Size(49, 19);
+      this.NameRadioButton.TabIndex = 5;
+      this.NameRadioButton.Text = "Имя";
+      this.NameRadioButton.UseVisualStyleBackColor = true;
       // 
       // MainForm
       // 
