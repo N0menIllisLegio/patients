@@ -1,53 +1,82 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
-using Patients.Data.Entities;
+using Patients.Enums;
 
 namespace Patients
 {
   public partial class TeethStatusForm: Form
   {
-    private readonly Button _button;
-    private readonly string _changedFrom;
-    private readonly DiaryRecord _diaryRecord;
-
-    public TeethStatusForm(Button button, DiaryRecord diaryEvent)
+    public TeethStatusForm(ToothStatus toothStatus)
     {
-      _button = button;
-      _diaryRecord = diaryEvent;
       InitializeComponent();
 
-      var radioBtn = teethStatusesPanel.Controls.OfType<RadioButton>()
-        .FirstOrDefault(x => x.Checked);
-
-      _changedFrom = radioBtn.Text;
+      switch (toothStatus)
+      {
+        case ToothStatus.Healthy:
+          healthyTooth.Checked = true;
+          break;
+        case ToothStatus.Caries:
+          cariesTooth.Checked = true;
+          break;
+        case ToothStatus.Seal:
+          sealTooth.Checked = true;
+          break;
+        case ToothStatus.Removed:
+          removedTooth.Checked = true;
+          break;
+        case ToothStatus.Root:
+          rootTooth.Checked = true;
+          break;
+        case ToothStatus.ArtificialCrown:
+          artificialCrownTooth.Checked = true;
+          break;
+        case ToothStatus.Artificial:
+          artificialTooth.Checked = true;
+          break;
+      }
     }
 
-    public bool IsOK { get; set; }
+    public string Cause { get; set; }
+    public ToothStatus ToothStatus
+    {
+      get
+      {
+        if (healthyTooth.Checked)
+        {
+          return ToothStatus.Healthy;
+        }
+        else if (cariesTooth.Checked)
+        {
+          return ToothStatus.Caries;
+        }
+        else if (sealTooth.Checked)
+        {
+          return ToothStatus.Seal;
+        }
+        else if (removedTooth.Checked)
+        {
+          return ToothStatus.Removed;
+        }
+        else if (rootTooth.Checked)
+        {
+          return ToothStatus.Root;
+        }
+        else if (artificialCrownTooth.Checked)
+        {
+          return ToothStatus.ArtificialCrown;
+        }
+        else if (artificialTooth.Checked)
+        {
+          return ToothStatus.Artificial;
+        }
+
+        return ToothStatus.Healthy;
+      }
+    }
 
     private void SaveButton_Click(object sender, EventArgs e)
     {
-      var toothRadioButton = teethStatusesPanel.Controls
-        .OfType<RadioButton>().FirstOrDefault(x => x.Checked);
-
-      _button.BackColor = toothRadioButton.ForeColor;
-
-      string changedTo = toothRadioButton.Text;
-
-      if (!changedTo.Equals(_changedFrom))
-      {
-        _diaryRecord.Diagnosis = $"Зуб №{_button.Name.Replace("button_", String.Empty)} " +
-                               $"сменил статус с: {_changedFrom} на: {changedTo}. " +
-                               $"Причина: {dataTextBox.Text}";
-
-        _diaryRecord.Date = DateTime.Today;
-
-        var eventForm = new DiaryRecordForm(_diaryRecord);
-        if (eventForm.ShowDialog() == DialogResult.OK)
-        {
-          IsOK = true;
-        }
-      }
+      Cause = dataTextBox.Text;
     }
   }
 }

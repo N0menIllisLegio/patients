@@ -86,6 +86,7 @@
       // removedTooth
       // 
       this.removedTooth.AutoSize = true;
+      this.removedTooth.ForeColor = System.Drawing.Color.Black;
       this.removedTooth.Location = new System.Drawing.Point(14, 85);
       this.removedTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.removedTooth.Name = "removedTooth";
@@ -203,6 +204,7 @@
       this.MaximizeBox = false;
       this.MinimumSize = new System.Drawing.Size(598, 294);
       this.Name = "TeethStatusForm";
+      this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Статус локалис";
       this.teethStatusesPanel.ResumeLayout(false);
