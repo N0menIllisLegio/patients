@@ -104,7 +104,7 @@
       this.cancelButton.Text = "Отмена";
       this.cancelButton.UseVisualStyleBackColor = true;
       // 
-      // DiaryEventForm
+      // DiaryRecordForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -119,7 +119,8 @@
       this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.MaximizeBox = false;
       this.MinimumSize = new System.Drawing.Size(394, 254);
-      this.Name = "DiaryEventForm";
+      this.Name = "DiaryRecordForm";
+      this.ShowInTaskbar = false;
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
       this.Text = "Новая запись в дневнике";
       this.ResumeLayout(false);
