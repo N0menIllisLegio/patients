@@ -53,6 +53,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.dateTimePicker.Location = new System.Drawing.Point(80, 25);
       this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.dateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.dateTimePicker.Name = "dateTimePicker";
       this.dateTimePicker.Size = new System.Drawing.Size(263, 23);
       this.dateTimePicker.TabIndex = 1;

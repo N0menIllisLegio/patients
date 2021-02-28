@@ -467,6 +467,7 @@
       this.lastVisitDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.lastVisitDatePicker.Location = new System.Drawing.Point(201, 59);
       this.lastVisitDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.lastVisitDatePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.lastVisitDatePicker.Name = "lastVisitDatePicker";
       this.lastVisitDatePicker.Size = new System.Drawing.Size(221, 23);
       this.lastVisitDatePicker.TabIndex = 14;
@@ -498,6 +499,7 @@
       this.dateOfBirthPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.dateOfBirthPicker.Location = new System.Drawing.Point(201, 29);
       this.dateOfBirthPicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.dateOfBirthPicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.dateOfBirthPicker.Name = "dateOfBirthPicker";
       this.dateOfBirthPicker.Size = new System.Drawing.Size(221, 23);
       this.dateOfBirthPicker.TabIndex = 13;
