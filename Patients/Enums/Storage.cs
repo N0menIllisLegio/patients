@@ -8,8 +8,6 @@ namespace Patients.Enums
     Paper,
     [Description("Пациент")]
     Patient,
-    [Description("Компьютер (KartaWpf)")]
-    KartaWpf,
     [Description("Компьютер (Dental)")]
     Dental,
     [Description("Компьютер")]
