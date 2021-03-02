@@ -455,6 +455,14 @@ namespace Patients
       RefreshDisplayedPatientPicture();
     }
 
-    #endregion Screens
+    #endregion Pictures
+
+    private void AddMoneyButton_Click(object sender, EventArgs e)
+    {
+    }
+
+    private void DeleteMoneyButton_Click(object sender, EventArgs e)
+    {
+    }
   }
 }
