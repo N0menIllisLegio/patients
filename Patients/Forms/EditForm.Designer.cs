@@ -32,7 +32,7 @@
             this.editTabs = new System.Windows.Forms.TabControl();
             this.patientInfoTabPage = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.moneyTable = new System.Windows.Forms.DataGridView();
+            this.paymentsTable = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -192,7 +192,7 @@
             this.editTabs.SuspendLayout();
             this.patientInfoTabPage.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.moneyTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paymentsTable)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -243,7 +243,7 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.moneyTable, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.paymentsTable, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 1, 0);
@@ -259,25 +259,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(999, 476);
             this.tableLayoutPanel1.TabIndex = 22;
             // 
-            // moneyTable
+            // paymentsTable
             // 
-            this.moneyTable.AllowUserToAddRows = false;
-            this.moneyTable.AllowUserToDeleteRows = false;
-            this.moneyTable.AllowUserToResizeRows = false;
-            this.moneyTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.moneyTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.paymentsTable.AllowUserToAddRows = false;
+            this.paymentsTable.AllowUserToDeleteRows = false;
+            this.paymentsTable.AllowUserToResizeRows = false;
+            this.paymentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.paymentsTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
-            this.moneyTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.moneyTable.Location = new System.Drawing.Point(504, 320);
-            this.moneyTable.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
-            this.moneyTable.Name = "moneyTable";
-            this.moneyTable.RowHeadersVisible = false;
-            this.moneyTable.RowHeadersWidth = 51;
-            this.moneyTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.moneyTable.Size = new System.Drawing.Size(490, 152);
-            this.moneyTable.TabIndex = 23;
+            this.paymentsTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paymentsTable.Location = new System.Drawing.Point(504, 320);
+            this.paymentsTable.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
+            this.paymentsTable.Name = "paymentsTable";
+            this.paymentsTable.RowHeadersVisible = false;
+            this.paymentsTable.RowHeadersWidth = 51;
+            this.paymentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.paymentsTable.Size = new System.Drawing.Size(490, 152);
+            this.paymentsTable.TabIndex = 23;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -2277,7 +2277,7 @@
             this.editTabs.ResumeLayout(false);
             this.patientInfoTabPage.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.moneyTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.paymentsTable)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -2458,7 +2458,7 @@
     private System.Windows.Forms.Button deleteMoneyButton;
     private System.Windows.Forms.Button addMoneyButton;
     private System.Windows.Forms.RichTextBox descriptionTextBox;
-    private System.Windows.Forms.DataGridView moneyTable;
+    private System.Windows.Forms.DataGridView paymentsTable;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;

@@ -21,6 +21,7 @@ namespace Patients
 
     private readonly Guid? _patientID;
     private readonly List<DiaryRecord> _diary;
+    private readonly List<Payment> _payments;
 
     public EditForm()
     {
@@ -145,7 +146,9 @@ namespace Patients
       #endregion Set buttons colors
 
       _diary = patient.Diary.ToList();
+      _payments = patient.Payments.ToList();
       RefreshDiary();
+      RefreshPayments();
     }
 
     private bool NewPatient => !_patientID.HasValue;
@@ -245,6 +248,16 @@ namespace Patients
     }
 
     #endregion Diary
+
+    private void RefreshPayments()
+    {
+      paymentsTable.Rows.Clear();
+
+      //foreach (var diaryRecord in _diary)
+      //{
+      //  diaryTable.Rows.Add(diaryRecord.ID, diaryRecord.Date.ToString("D"), diaryRecord.Diagnosis);
+      //}
+    }
 
     private void ChangeToothStatus(object sender, EventArgs e)
     {

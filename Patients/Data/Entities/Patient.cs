@@ -22,6 +22,8 @@ namespace Patients.Data.Entities
     public string Diagnosis { get; set; }
     public DateTime LastVisitDate { get; set; }
 
+    public string Description { get; set; }
+
     public virtual DentalRecord DentalRecord { get; set; }
     public virtual ICollection<DiaryRecord> Diary { get; set; }
     public virtual ICollection<Payment> Payments { get; set; }
