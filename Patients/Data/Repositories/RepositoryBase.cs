@@ -71,14 +71,19 @@ namespace Patients.Data.Repositories
       return DbSet.Add(entity).Entity;
     }
 
+    public virtual void AddRange(IEnumerable<TEntity> entities)
+    {
+      DbSet.AddRange(entities);
+    }
+
     public virtual TEntity Remove(TEntity entity)
     {
       return DbSet.Remove(entity).Entity;
     }
 
-    public virtual void RemoveRange(IEnumerable<TEntity> entity)
+    public virtual void RemoveRange(IEnumerable<TEntity> entities)
     {
-      DbSet.RemoveRange(entity);
+      DbSet.RemoveRange(entities);
     }
 
     public async Task<TEntity> ReloadAsync(TEntity entity)

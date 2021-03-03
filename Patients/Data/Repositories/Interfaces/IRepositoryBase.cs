@@ -24,6 +24,8 @@ namespace Patients.Data.Repositories.Interfaces
 
     TEntity Add(TEntity entity);
 
+    void AddRange(IEnumerable<TEntity> entities);
+
     TEntity Remove(TEntity entity);
 
     void RemoveRange(IEnumerable<TEntity> entity);
