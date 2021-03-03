@@ -240,9 +240,8 @@
       this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tableLayoutPanel1.ColumnCount = 2;
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.99999F));
       this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
-      this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 18F));
       this.tableLayoutPanel1.Controls.Add(this.paymentsTable, 1, 2);
       this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
       this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 1);
@@ -253,10 +252,10 @@
       this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       this.tableLayoutPanel1.RowCount = 3;
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-      this.tableLayoutPanel1.Size = new System.Drawing.Size(874, 357);
+      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
+      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 28.57143F));
+      this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 42.85714F));
+      this.tableLayoutPanel1.Size = new System.Drawing.Size(874, 396);
       this.tableLayoutPanel1.TabIndex = 22;
       // 
       // paymentsTable
@@ -270,13 +269,13 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
       this.paymentsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.paymentsTable.Location = new System.Drawing.Point(440, 241);
+      this.paymentsTable.Location = new System.Drawing.Point(440, 229);
       this.paymentsTable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.paymentsTable.Name = "paymentsTable";
       this.paymentsTable.RowHeadersVisible = false;
       this.paymentsTable.RowHeadersWidth = 51;
       this.paymentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-      this.paymentsTable.Size = new System.Drawing.Size(430, 113);
+      this.paymentsTable.Size = new System.Drawing.Size(430, 164);
       this.paymentsTable.TabIndex = 23;
       this.paymentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PaymentsTable_CellDoubleClick);
       // 
@@ -321,7 +320,7 @@
       this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox1.Size = new System.Drawing.Size(428, 113);
+      this.groupBox1.Size = new System.Drawing.Size(428, 107);
       this.groupBox1.TabIndex = 17;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "ФИО, Пол";
@@ -330,7 +329,7 @@
       // 
       this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(7, 23);
+      this.label1.Location = new System.Drawing.Point(7, 20);
       this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(61, 15);
@@ -340,7 +339,7 @@
       // surnameTextBox
       // 
       this.surnameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.surnameTextBox.Location = new System.Drawing.Point(83, 20);
+      this.surnameTextBox.Location = new System.Drawing.Point(83, 17);
       this.surnameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.surnameTextBox.Name = "surnameTextBox";
       this.surnameTextBox.Size = new System.Drawing.Size(232, 23);
@@ -350,7 +349,7 @@
       // 
       this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(9, 53);
+      this.label2.Location = new System.Drawing.Point(9, 50);
       this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(34, 15);
@@ -361,7 +360,7 @@
       // 
       this.femaleRadioButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
       this.femaleRadioButton.AutoSize = true;
-      this.femaleRadioButton.Location = new System.Drawing.Point(345, 63);
+      this.femaleRadioButton.Location = new System.Drawing.Point(345, 60);
       this.femaleRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.femaleRadioButton.Name = "femaleRadioButton";
       this.femaleRadioButton.Size = new System.Drawing.Size(75, 19);
@@ -373,7 +372,7 @@
       // 
       this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(9, 83);
+      this.label3.Location = new System.Drawing.Point(9, 80);
       this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(61, 15);
@@ -385,7 +384,7 @@
       this.maleRadioButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
       this.maleRadioButton.AutoSize = true;
       this.maleRadioButton.Checked = true;
-      this.maleRadioButton.Location = new System.Drawing.Point(344, 33);
+      this.maleRadioButton.Location = new System.Drawing.Point(344, 30);
       this.maleRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.maleRadioButton.Name = "maleRadioButton";
       this.maleRadioButton.Size = new System.Drawing.Size(77, 19);
@@ -397,7 +396,7 @@
       // nameTextBox
       // 
       this.nameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.nameTextBox.Location = new System.Drawing.Point(83, 50);
+      this.nameTextBox.Location = new System.Drawing.Point(83, 47);
       this.nameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.nameTextBox.Name = "nameTextBox";
       this.nameTextBox.Size = new System.Drawing.Size(232, 23);
@@ -406,7 +405,7 @@
       // secnameTextBox
       // 
       this.secnameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.secnameTextBox.Location = new System.Drawing.Point(83, 80);
+      this.secnameTextBox.Location = new System.Drawing.Point(83, 77);
       this.secnameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.secnameTextBox.Name = "secnameTextBox";
       this.secnameTextBox.Size = new System.Drawing.Size(232, 23);
@@ -417,11 +416,11 @@
       this.groupBox4.Controls.Add(this.groupBox6);
       this.groupBox4.Controls.Add(this.groupBox5);
       this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.groupBox4.Location = new System.Drawing.Point(440, 122);
+      this.groupBox4.Location = new System.Drawing.Point(440, 116);
       this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox4.Name = "groupBox4";
       this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox4.Size = new System.Drawing.Size(430, 113);
+      this.groupBox4.Size = new System.Drawing.Size(430, 107);
       this.groupBox4.TabIndex = 21;
       this.groupBox4.TabStop = false;
       this.groupBox4.Text = "Управление";
@@ -435,7 +434,7 @@
       this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.groupBox6.Name = "groupBox6";
       this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-      this.groupBox6.Size = new System.Drawing.Size(203, 91);
+      this.groupBox6.Size = new System.Drawing.Size(203, 85);
       this.groupBox6.TabIndex = 4;
       this.groupBox6.TabStop = false;
       this.groupBox6.Text = "Деньги";
@@ -446,7 +445,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.deleteMoneyButton.BackColor = System.Drawing.Color.DarkRed;
       this.deleteMoneyButton.ForeColor = System.Drawing.Color.White;
-      this.deleteMoneyButton.Location = new System.Drawing.Point(5, 58);
+      this.deleteMoneyButton.Location = new System.Drawing.Point(5, 52);
       this.deleteMoneyButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.deleteMoneyButton.Name = "deleteMoneyButton";
       this.deleteMoneyButton.Size = new System.Drawing.Size(192, 28);
@@ -479,7 +478,7 @@
       this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.groupBox5.Name = "groupBox5";
       this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-      this.groupBox5.Size = new System.Drawing.Size(203, 91);
+      this.groupBox5.Size = new System.Drawing.Size(203, 85);
       this.groupBox5.TabIndex = 3;
       this.groupBox5.TabStop = false;
       this.groupBox5.Text = "Дневник";
@@ -505,7 +504,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
       this.deleteButton.ForeColor = System.Drawing.Color.White;
-      this.deleteButton.Location = new System.Drawing.Point(7, 58);
+      this.deleteButton.Location = new System.Drawing.Point(7, 52);
       this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.deleteButton.Name = "deleteButton";
       this.deleteButton.Size = new System.Drawing.Size(189, 28);
@@ -525,7 +524,7 @@
       this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox3.Name = "groupBox3";
       this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox3.Size = new System.Drawing.Size(430, 113);
+      this.groupBox3.Size = new System.Drawing.Size(430, 107);
       this.groupBox3.TabIndex = 19;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Контактная информация";
@@ -533,7 +532,7 @@
       // phoneNumberTextBox
       // 
       this.phoneNumberTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.phoneNumberTextBox.Location = new System.Drawing.Point(128, 30);
+      this.phoneNumberTextBox.Location = new System.Drawing.Point(128, 27);
       this.phoneNumberTextBox.Mask = "+375 (00) 000-0000";
       this.phoneNumberTextBox.Name = "phoneNumberTextBox";
       this.phoneNumberTextBox.Size = new System.Drawing.Size(294, 23);
@@ -543,7 +542,7 @@
       // addressTextBox
       // 
       this.addressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.addressTextBox.Location = new System.Drawing.Point(128, 60);
+      this.addressTextBox.Location = new System.Drawing.Point(128, 57);
       this.addressTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.addressTextBox.Name = "addressTextBox";
       this.addressTextBox.Size = new System.Drawing.Size(294, 48);
@@ -554,7 +553,7 @@
       // 
       this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.label5.AutoSize = true;
-      this.label5.Location = new System.Drawing.Point(9, 33);
+      this.label5.Location = new System.Drawing.Point(9, 30);
       this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label5.Name = "label5";
       this.label5.Size = new System.Drawing.Size(104, 15);
@@ -565,7 +564,7 @@
       // 
       this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(9, 63);
+      this.label8.Location = new System.Drawing.Point(9, 60);
       this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(43, 15);
@@ -579,11 +578,11 @@
       this.groupBox2.Controls.Add(this.label7);
       this.groupBox2.Controls.Add(this.dateOfBirthPicker);
       this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.groupBox2.Location = new System.Drawing.Point(4, 122);
+      this.groupBox2.Location = new System.Drawing.Point(4, 116);
       this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox2.Name = "groupBox2";
       this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-      this.groupBox2.Size = new System.Drawing.Size(428, 113);
+      this.groupBox2.Size = new System.Drawing.Size(428, 107);
       this.groupBox2.TabIndex = 18;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Даты";
@@ -591,7 +590,7 @@
       // lastVisitDatePicker
       // 
       this.lastVisitDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.lastVisitDatePicker.Location = new System.Drawing.Point(201, 59);
+      this.lastVisitDatePicker.Location = new System.Drawing.Point(201, 56);
       this.lastVisitDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.lastVisitDatePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.lastVisitDatePicker.Name = "lastVisitDatePicker";
@@ -602,7 +601,7 @@
       // 
       this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(9, 33);
+      this.label6.Location = new System.Drawing.Point(9, 30);
       this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(93, 15);
@@ -613,7 +612,7 @@
       // 
       this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(9, 63);
+      this.label7.Location = new System.Drawing.Point(9, 60);
       this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(168, 15);
@@ -623,7 +622,7 @@
       // dateOfBirthPicker
       // 
       this.dateOfBirthPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.dateOfBirthPicker.Location = new System.Drawing.Point(201, 29);
+      this.dateOfBirthPicker.Location = new System.Drawing.Point(201, 26);
       this.dateOfBirthPicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dateOfBirthPicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.dateOfBirthPicker.Name = "dateOfBirthPicker";
@@ -634,21 +633,24 @@
       // 
       this.groupBox7.Controls.Add(this.descriptionTextBox);
       this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.groupBox7.Location = new System.Drawing.Point(3, 240);
+      this.groupBox7.Location = new System.Drawing.Point(3, 228);
       this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.groupBox7.Name = "groupBox7";
       this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-      this.groupBox7.Size = new System.Drawing.Size(430, 115);
+      this.groupBox7.Size = new System.Drawing.Size(430, 166);
       this.groupBox7.TabIndex = 22;
       this.groupBox7.TabStop = false;
       this.groupBox7.Text = "Особые отметки";
       // 
       // descriptionTextBox
       // 
+      this.descriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.descriptionTextBox.Location = new System.Drawing.Point(10, 20);
       this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
       this.descriptionTextBox.Name = "descriptionTextBox";
-      this.descriptionTextBox.Size = new System.Drawing.Size(413, 92);
+      this.descriptionTextBox.Size = new System.Drawing.Size(413, 143);
       this.descriptionTextBox.TabIndex = 25;
       this.descriptionTextBox.Text = "";
       // 
@@ -665,13 +667,13 @@
             this.ID,
             this.date,
             this.data});
-      this.diaryTable.Location = new System.Drawing.Point(10, 370);
+      this.diaryTable.Location = new System.Drawing.Point(10, 409);
       this.diaryTable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.diaryTable.Name = "diaryTable";
       this.diaryTable.RowHeadersVisible = false;
       this.diaryTable.RowHeadersWidth = 51;
       this.diaryTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-      this.diaryTable.Size = new System.Drawing.Size(867, 254);
+      this.diaryTable.Size = new System.Drawing.Size(867, 215);
       this.diaryTable.TabIndex = 20;
       this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
       // 
