@@ -543,7 +543,16 @@ namespace Patients.Forms
       else
       {
         await _diaryRecordsService.UpdatePatientDairyRecordsAsync(patient, _diary);
+        await _paymentsService.UpdatePatientPaymentsAsync(patient, _payments);
         await _patientsService.UpdatePatientAsync(patient);
+      }
+    }
+
+    private void MaskedTextBox_Enter(object sender, EventArgs e)
+    {
+      if (sender is MaskedTextBox maskedTextBox)
+      {
+        BeginInvoke((MethodInvoker)(() => maskedTextBox.Select(6, 0)));
       }
     }
   }

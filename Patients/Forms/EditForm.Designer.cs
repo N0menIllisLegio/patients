@@ -538,6 +538,7 @@
       this.phoneNumberTextBox.Name = "phoneNumberTextBox";
       this.phoneNumberTextBox.Size = new System.Drawing.Size(294, 23);
       this.phoneNumberTextBox.TabIndex = 14;
+      this.phoneNumberTextBox.Enter += new System.EventHandler(this.MaskedTextBox_Enter);
       // 
       // addressTextBox
       // 
