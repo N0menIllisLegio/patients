@@ -36,7 +36,7 @@ namespace Patients.Forms
       }
     }
 
-    public string Cause { get; set; }
+    public string Cause { get; private set; }
     public ToothStatus ToothStatus
     {
       get

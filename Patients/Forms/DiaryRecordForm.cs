@@ -17,9 +17,9 @@ namespace Patients.Forms
       dateTimePicker.Value = date;
     }
 
-    public string Diagnosis { get; set; }
+    public string Diagnosis { get; private set; }
 
-    public DateTime Date { get; set; }
+    public DateTime Date { get; private set; }
 
     private void AddButton_Click(object sender, EventArgs e)
     {
