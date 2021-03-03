@@ -285,8 +285,8 @@ namespace Patients.Forms
       {
         foreach (DataGridViewRow selectedRow in paymentsTable.SelectedRows)
         {
-          switch (MessageBox.Show($"Вы действительно хотите удалить платеж " +
-            $"{(DateTime)selectedRow.Cells[1].Value:D} — {selectedRow.Cells[2].Value} у.е.?",
+          switch (MessageBox.Show($"Вы действительно хотите удалить платеж:\n" +
+            $"{selectedRow.Cells[1].Value} — {selectedRow.Cells[2].Value} у.е.?",
               @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
           {
             case DialogResult.Yes:
@@ -349,6 +349,12 @@ namespace Patients.Forms
         {
           _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
           totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+
+          if (_patientPicturesManager.DisplayedPatientPicturesCount == 1)
+          {
+            _patientPicturesManager.NextPatientPicture();
+            RefreshDisplayedPatientPicture();
+          }
         }
       }
     }
