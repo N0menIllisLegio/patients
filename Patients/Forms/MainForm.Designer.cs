@@ -1,4 +1,4 @@
-﻿namespace Patients
+﻿namespace Patients.Forms
 {
     partial class MainForm
     {

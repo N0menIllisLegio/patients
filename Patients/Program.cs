@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Patients.Data;
+using Patients.Forms;
 using Patients.Services;
 using Patients.Services.Interfaces;
 

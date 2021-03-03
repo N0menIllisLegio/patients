@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Patients
+namespace Patients.Forms
 {
   public partial class DiaryRecordForm: Form
   {

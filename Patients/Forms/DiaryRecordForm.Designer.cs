@@ -1,4 +1,4 @@
-﻿namespace Patients
+﻿namespace Patients.Forms
 {
     partial class DiaryRecordForm
     {
@@ -55,7 +55,7 @@
       this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.dateTimePicker.Name = "dateTimePicker";
-      this.dateTimePicker.Size = new System.Drawing.Size(263, 23);
+      this.dateTimePicker.Size = new System.Drawing.Size(290, 23);
       this.dateTimePicker.TabIndex = 1;
       // 
       // label2
@@ -76,7 +76,7 @@
       this.complaintTextBox.Location = new System.Drawing.Point(80, 55);
       this.complaintTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.complaintTextBox.Name = "complaintTextBox";
-      this.complaintTextBox.Size = new System.Drawing.Size(263, 110);
+      this.complaintTextBox.Size = new System.Drawing.Size(290, 138);
       this.complaintTextBox.TabIndex = 3;
       this.complaintTextBox.Text = "";
       // 
@@ -84,7 +84,7 @@
       // 
       this.addButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.addButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.addButton.Location = new System.Drawing.Point(121, 173);
+      this.addButton.Location = new System.Drawing.Point(120, 199);
       this.addButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.addButton.Name = "addButton";
       this.addButton.Size = new System.Drawing.Size(88, 27);
@@ -97,7 +97,7 @@
       // 
       this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.cancelButton.Location = new System.Drawing.Point(216, 173);
+      this.cancelButton.Location = new System.Drawing.Point(216, 199);
       this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(88, 27);
@@ -109,7 +109,8 @@
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(383, 215);
+      this.ClientSize = new System.Drawing.Size(383, 238);
+      this.ControlBox = false;
       this.Controls.Add(this.cancelButton);
       this.Controls.Add(this.addButton);
       this.Controls.Add(this.complaintTextBox);

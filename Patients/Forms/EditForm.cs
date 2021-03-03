@@ -10,7 +10,7 @@ using Patients.Extensions;
 using Patients.Services;
 using Patients.Services.Interfaces;
 
-namespace Patients
+namespace Patients.Forms
 {
   public partial class EditForm: Form
   {

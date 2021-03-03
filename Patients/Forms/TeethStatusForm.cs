@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Patients.Enums;
 
-namespace Patients
+namespace Patients.Forms
 {
   public partial class TeethStatusForm: Form
   {

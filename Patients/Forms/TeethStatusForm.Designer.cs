@@ -1,4 +1,4 @@
-﻿namespace Patients
+﻿namespace Patients.Forms
 {
     partial class TeethStatusForm
     {
@@ -191,10 +191,10 @@
       // 
       // TeethStatusForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+      this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
       this.BackColor = System.Drawing.SystemColors.Control;
       this.ClientSize = new System.Drawing.Size(583, 257);
+      this.ControlBox = false;
       this.Controls.Add(this.teethStatusesPanel);
       this.Controls.Add(this.cancelButton);
       this.Controls.Add(this.saveButton);
