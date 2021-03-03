@@ -24,6 +24,7 @@ namespace Patients
       services.AddScoped<UnitOfWork>();
       services.AddScoped<IPatientsService, PatientsService>();
       services.AddScoped<IDiaryRecordsService, DiaryRecordsService>();
+      services.AddScoped<IPaymentsService, PaymentsService>();
 
       ServiceProvider = services.BuildServiceProvider();
     }
