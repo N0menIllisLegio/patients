@@ -11,6 +11,7 @@ namespace Patients.Forms
     }
 
     public PaymentForm(DateTime date, decimal amount)
+      : this()
     {
       paymentDatePicker.Value = date;
       paymentAmountNumeric.Value = amount;
