@@ -61,7 +61,7 @@
       // 
       this.cariesTooth.AutoSize = true;
       this.cariesTooth.ForeColor = System.Drawing.Color.Peru;
-      this.cariesTooth.Location = new System.Drawing.Point(14, 33);
+      this.cariesTooth.Location = new System.Drawing.Point(14, 32);
       this.cariesTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.cariesTooth.Name = "cariesTooth";
       this.cariesTooth.Size = new System.Drawing.Size(186, 19);
@@ -74,7 +74,7 @@
       // 
       this.sealTooth.AutoSize = true;
       this.sealTooth.ForeColor = System.Drawing.Color.Blue;
-      this.sealTooth.Location = new System.Drawing.Point(14, 60);
+      this.sealTooth.Location = new System.Drawing.Point(14, 57);
       this.sealTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.sealTooth.Name = "sealTooth";
       this.sealTooth.Size = new System.Drawing.Size(70, 19);
@@ -87,7 +87,7 @@
       // 
       this.removedTooth.AutoSize = true;
       this.removedTooth.ForeColor = System.Drawing.Color.Black;
-      this.removedTooth.Location = new System.Drawing.Point(14, 85);
+      this.removedTooth.Location = new System.Drawing.Point(14, 82);
       this.removedTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.removedTooth.Name = "removedTooth";
       this.removedTooth.Size = new System.Drawing.Size(111, 19);
@@ -100,7 +100,7 @@
       // 
       this.rootTooth.AutoSize = true;
       this.rootTooth.ForeColor = System.Drawing.Color.Red;
-      this.rootTooth.Location = new System.Drawing.Point(14, 109);
+      this.rootTooth.Location = new System.Drawing.Point(14, 108);
       this.rootTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.rootTooth.Name = "rootTooth";
       this.rootTooth.Size = new System.Drawing.Size(65, 19);
@@ -113,7 +113,7 @@
       // 
       this.artificialCrownTooth.AutoSize = true;
       this.artificialCrownTooth.ForeColor = System.Drawing.Color.Gold;
-      this.artificialCrownTooth.Location = new System.Drawing.Point(14, 136);
+      this.artificialCrownTooth.Location = new System.Drawing.Point(14, 133);
       this.artificialCrownTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.artificialCrownTooth.Name = "artificialCrownTooth";
       this.artificialCrownTooth.Size = new System.Drawing.Size(156, 19);
@@ -126,7 +126,7 @@
       // 
       this.artificialTooth.AutoSize = true;
       this.artificialTooth.ForeColor = System.Drawing.Color.White;
-      this.artificialTooth.Location = new System.Drawing.Point(14, 162);
+      this.artificialTooth.Location = new System.Drawing.Point(14, 158);
       this.artificialTooth.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.artificialTooth.Name = "artificialTooth";
       this.artificialTooth.Size = new System.Drawing.Size(132, 19);
@@ -143,7 +143,7 @@
       this.dataTextBox.Location = new System.Drawing.Point(244, 14);
       this.dataTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dataTextBox.Name = "dataTextBox";
-      this.dataTextBox.Size = new System.Drawing.Size(322, 197);
+      this.dataTextBox.Size = new System.Drawing.Size(322, 219);
       this.dataTextBox.TabIndex = 7;
       this.dataTextBox.Text = "";
       // 
@@ -151,7 +151,7 @@
       // 
       this.saveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.saveButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.saveButton.Location = new System.Drawing.Point(149, 217);
+      this.saveButton.Location = new System.Drawing.Point(149, 239);
       this.saveButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.saveButton.Name = "saveButton";
       this.saveButton.Size = new System.Drawing.Size(88, 27);
@@ -164,7 +164,7 @@
       // 
       this.cancelButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
       this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.cancelButton.Location = new System.Drawing.Point(244, 217);
+      this.cancelButton.Location = new System.Drawing.Point(244, 239);
       this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(88, 27);
@@ -186,14 +186,14 @@
       this.teethStatusesPanel.Controls.Add(this.rootTooth);
       this.teethStatusesPanel.Location = new System.Drawing.Point(12, 14);
       this.teethStatusesPanel.Name = "teethStatusesPanel";
-      this.teethStatusesPanel.Size = new System.Drawing.Size(225, 197);
+      this.teethStatusesPanel.Size = new System.Drawing.Size(225, 219);
       this.teethStatusesPanel.TabIndex = 10;
       // 
       // TeethStatusForm
       // 
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
       this.BackColor = System.Drawing.SystemColors.Control;
-      this.ClientSize = new System.Drawing.Size(583, 257);
+      this.ClientSize = new System.Drawing.Size(583, 278);
       this.ControlBox = false;
       this.Controls.Add(this.teethStatusesPanel);
       this.Controls.Add(this.cancelButton);
