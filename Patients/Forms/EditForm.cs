@@ -333,6 +333,63 @@ namespace Patients.Forms
 
     #endregion Payments
 
+    #region Pictures
+
+    private void AddPictureButton_Click(object sender, EventArgs e)
+    {
+      using (var openFileDialog = new OpenFileDialog())
+      {
+        openFileDialog.InitialDirectory = "c:\\";
+        openFileDialog.Filter = @"Image Files(*.jpeg;*.jpg;*.png)|*.jpeg;*.jpg;*.png|All files (*.*)|*.*";
+        openFileDialog.FilterIndex = 2;
+        openFileDialog.RestoreDirectory = true;
+        openFileDialog.Multiselect = true;
+
+        if (openFileDialog.ShowDialog() == DialogResult.OK)
+        {
+          _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
+          totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+        }
+      }
+    }
+
+    private void DelButton_Click(object sender, EventArgs e)
+    {
+      _patientPicturesManager.DeleteDisplayedPatientPicture();
+      RefreshDisplayedPatientPicture();
+      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+    }
+
+    private void RefreshDisplayedPatientPicture()
+    {
+      string displayedPatientPicture = _patientPicturesManager.CurrentlyDisplayedPatientPicture;
+
+      if (displayedPatientPicture is not null)
+      {
+        screenBox.ImageLocation = displayedPatientPicture;
+        currImgLabel.Text = $"Текущий снимок: {_patientPicturesManager.DisplayedPatientPictureNumber}";
+      }
+      else
+      {
+        screenBox.Image = screenBox.InitialImage;
+        currImgLabel.Text = @"Текущий снимок: 0";
+      }
+    }
+
+    private void NextButton_Click(object sender, EventArgs e)
+    {
+      _patientPicturesManager.NextPatientPicture();
+      RefreshDisplayedPatientPicture();
+    }
+
+    private void PrevButton_Click(object sender, EventArgs e)
+    {
+      _patientPicturesManager.PreviousPatientPicture();
+      RefreshDisplayedPatientPicture();
+    }
+
+    #endregion Pictures
+
     private void ChangeToothStatus(object sender, EventArgs e)
     {
       var toothButton = sender as Button;
@@ -478,6 +535,7 @@ namespace Patients.Forms
       if (NewPatient)
       {
         patient.Diary = _diary;
+        patient.Payments = _payments;
         patient = await _patientsService.AddPatientAsync(patient);
 
         _patientPicturesManager.MoveDisplayedPicturesToPatientDirectory(patient.ID);
@@ -488,62 +546,5 @@ namespace Patients.Forms
         await _patientsService.UpdatePatientAsync(patient);
       }
     }
-
-    #region Pictures
-
-    private void AddPictureButton_Click(object sender, EventArgs e)
-    {
-      using (var openFileDialog = new OpenFileDialog())
-      {
-        openFileDialog.InitialDirectory = "c:\\";
-        openFileDialog.Filter = @"Image Files(*.jpeg;*.jpg;*.png)|*.jpeg;*.jpg;*.png|All files (*.*)|*.*";
-        openFileDialog.FilterIndex = 2;
-        openFileDialog.RestoreDirectory = true;
-        openFileDialog.Multiselect = true;
-
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
-        {
-          _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
-          totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
-        }
-      }
-    }
-
-    private void DelButton_Click(object sender, EventArgs e)
-    {
-      _patientPicturesManager.DeleteDisplayedPatientPicture();
-      RefreshDisplayedPatientPicture();
-      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
-    }
-
-    private void RefreshDisplayedPatientPicture()
-    {
-      string displayedPatientPicture = _patientPicturesManager.CurrentlyDisplayedPatientPicture;
-
-      if (displayedPatientPicture is not null)
-      {
-        screenBox.ImageLocation = displayedPatientPicture;
-        currImgLabel.Text = $"Текущий снимок: {_patientPicturesManager.DisplayedPatientPictureNumber}";
-      }
-      else
-      {
-        screenBox.Image = screenBox.InitialImage;
-        currImgLabel.Text = @"Текущий снимок: 0";
-      }
-    }
-
-    private void NextButton_Click(object sender, EventArgs e)
-    {
-      _patientPicturesManager.NextPatientPicture();
-      RefreshDisplayedPatientPicture();
-    }
-
-    private void PrevButton_Click(object sender, EventArgs e)
-    {
-      _patientPicturesManager.PreviousPatientPicture();
-      RefreshDisplayedPatientPicture();
-    }
-
-    #endregion Pictures
   }
 }
