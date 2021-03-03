@@ -396,7 +396,7 @@ namespace Patients.Forms
       var previousStatus = toothButton.BackColor.ConvertToToothStatus();
       var teethStatusForm = new TeethStatusForm(previousStatus);
 
-      if (teethStatusForm.ShowDialog() == DialogResult.OK)
+      if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.ToothStatus != previousStatus)
       {
         string diagnosis = $"Зуб №{toothButton.Name.Replace("button_", String.Empty)} " +
           $"сменил статус с: {previousStatus.GetDescription()} " +
