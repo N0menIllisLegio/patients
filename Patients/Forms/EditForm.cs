@@ -16,6 +16,7 @@ namespace Patients.Forms
   {
     private readonly IPatientsService _patientsService;
     private readonly IDiaryRecordsService _diaryRecordsService;
+    private readonly IPaymentsService _paymentsService;
 
     private readonly PatientPicturesManager _patientPicturesManager;
 
@@ -27,6 +28,7 @@ namespace Patients.Forms
     {
       _patientsService = Program.ServiceProvider.GetService<IPatientsService>();
       _diaryRecordsService = Program.ServiceProvider.GetService<IDiaryRecordsService>();
+      _paymentsService = Program.ServiceProvider.GetService<IPaymentsService>();
 
       InitializeComponent();
 
