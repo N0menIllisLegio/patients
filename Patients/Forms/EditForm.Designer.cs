@@ -209,8 +209,8 @@
       // 
       // editTabs
       // 
-      this.editTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.editTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.editTabs.Controls.Add(this.patientInfoTabPage);
       this.editTabs.Controls.Add(this.statusTabPage);
@@ -237,7 +237,7 @@
       // 
       // tableLayoutPanel1
       // 
-      this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.tableLayoutPanel1.ColumnCount = 2;
       this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -278,6 +278,7 @@
       this.paymentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
       this.paymentsTable.Size = new System.Drawing.Size(430, 113);
       this.paymentsTable.TabIndex = 23;
+      this.paymentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PaymentsTable_CellDoubleClick);
       // 
       // dataGridViewTextBoxColumn1
       // 
@@ -441,7 +442,7 @@
       // 
       // deleteMoneyButton
       // 
-      this.deleteMoneyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+      this.deleteMoneyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.deleteMoneyButton.BackColor = System.Drawing.Color.DarkRed;
       this.deleteMoneyButton.ForeColor = System.Drawing.Color.White;
@@ -456,7 +457,7 @@
       // 
       // addMoneyButton
       // 
-      this.addMoneyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.addMoneyButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.addMoneyButton.BackColor = System.Drawing.Color.DarkGreen;
       this.addMoneyButton.ForeColor = System.Drawing.Color.White;
@@ -485,7 +486,7 @@
       // 
       // addButton
       // 
-      this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.addButton.BackColor = System.Drawing.Color.DarkGreen;
       this.addButton.ForeColor = System.Drawing.Color.White;
@@ -500,7 +501,7 @@
       // 
       // deleteButton
       // 
-      this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+      this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
       this.deleteButton.ForeColor = System.Drawing.Color.White;
@@ -655,8 +656,8 @@
       this.diaryTable.AllowUserToAddRows = false;
       this.diaryTable.AllowUserToDeleteRows = false;
       this.diaryTable.AllowUserToResizeRows = false;
-      this.diaryTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.diaryTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.diaryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.diaryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -715,7 +716,7 @@
       // 
       // teethGroupBox
       // 
-      this.teethGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+      this.teethGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.teethGroupBox.BackColor = System.Drawing.Color.Transparent;
       this.teethGroupBox.Controls.Add(this.button_17);
@@ -2091,8 +2092,8 @@
       // 
       // diagnosisTextBox
       // 
-      this.diagnosisTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.diagnosisTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.diagnosisTextBox.Location = new System.Drawing.Point(8, 338);
       this.diagnosisTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -2199,8 +2200,8 @@
       // 
       // screenBox
       // 
-      this.screenBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+      this.screenBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.screenBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.screenBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("screenBox.InitialImage")));

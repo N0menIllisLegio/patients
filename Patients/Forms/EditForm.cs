@@ -35,6 +35,7 @@ namespace Patients.Forms
       RefreshDisplayedPatientPicture();
 
       _diary = new List<DiaryRecord>();
+      _payments = new List<Payment>();
 
       string[] storages = Enum.GetValues<Storage>()
         .Select(storage => storage.GetDescription()).ToArray();
@@ -58,13 +59,13 @@ namespace Patients.Forms
       secnameTextBox.Text = patient.SecondName;
       lastVisitDatePicker.Value = patient.LastVisitDate;
       dateOfBirthPicker.Value = patient.BirthDate;
+      addressTextBox.Text = patient.Address;
+      diagnosisTextBox.Text = patient.Diagnosis;
+      descriptionTextBox.Text = patient.Description;
 
       phoneNumberTextBox.Text = String.IsNullOrEmpty(patient.PhoneNumber?.Trim())
         ? phoneNumberTextBox.Text
         : patient.PhoneNumber;
-
-      addressTextBox.Text = patient.Address;
-      diagnosisTextBox.Text = patient.Diagnosis;
 
       switch (patient.Gender)
       {
@@ -209,7 +210,7 @@ namespace Patients.Forms
       }
       else
       {
-        MessageBox.Show(@"Не выбрана строка.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBox.Show(@"Не выбрана ни одна запись в дневнике.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
       }
     }
 
@@ -249,15 +250,88 @@ namespace Patients.Forms
 
     #endregion Diary
 
+    #region Payments
+
     private void RefreshPayments()
     {
       paymentsTable.Rows.Clear();
 
-      //foreach (var diaryRecord in _diary)
-      //{
-      //  diaryTable.Rows.Add(diaryRecord.ID, diaryRecord.Date.ToString("D"), diaryRecord.Diagnosis);
-      //}
+      foreach (var payment in _payments)
+      {
+        paymentsTable.Rows.Add(payment.ID, payment.Date.ToString("D"), payment.Amount.ToCurrency());
+      }
     }
+
+    private void AddPaymentButton_Click(object sender, EventArgs e)
+    {
+      var paymentForm = new PaymentForm();
+
+      if (paymentForm.ShowDialog() == DialogResult.OK)
+      {
+        _payments.Add(new Payment
+        {
+          ID = Guid.NewGuid(),
+          Date = paymentForm.Date,
+          Amount = paymentForm.Amount
+        });
+
+        RefreshPayments();
+      }
+    }
+
+    private void DeletePaymentButton_Click(object sender, EventArgs e)
+    {
+      if (paymentsTable.SelectedRows.Count > 0)
+      {
+        foreach (DataGridViewRow selectedRow in paymentsTable.SelectedRows)
+        {
+          switch (MessageBox.Show($"Вы действительно хотите удалить платеж " +
+            $"{(DateTime)selectedRow.Cells[1].Value:D} — {selectedRow.Cells[2].Value} у.е.?",
+              @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+          {
+            case DialogResult.Yes:
+              var paymentID = (Guid)selectedRow.Cells[0].Value;
+              _payments.Remove(_payments.First(payment => payment.ID == paymentID));
+              break;
+
+            default:
+              break;
+          }
+        }
+
+        RefreshPayments();
+      }
+      else
+      {
+        MessageBox.Show(@"Не выбран ни один платеж.", @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+    }
+
+    private void PaymentsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+    {
+      if (paymentsTable.SelectedRows.Count == 1)
+      {
+        var paymentID = (Guid)paymentsTable.SelectedRows[0].Cells[0].Value;
+        var payment = _payments.FirstOrDefault(p => p.ID == paymentID);
+
+        var paymentForm = new PaymentForm(payment.Date, payment.Amount);
+
+        if (paymentForm.ShowDialog() == DialogResult.OK)
+        {
+          payment.Date = paymentForm.Date;
+          payment.Amount = paymentForm.Amount;
+
+          RefreshPayments();
+        }
+      }
+      else
+      {
+        MessageBox.Show(@"Выбрана более чем один платеж.",
+            @"Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+      }
+    }
+
+    #endregion Payments
 
     private void ChangeToothStatus(object sender, EventArgs e)
     {
@@ -332,6 +406,8 @@ namespace Patients.Forms
 
       patient.Gender = maleRadioButton.Checked ? Gender.Male : Gender.Female;
       patient.Storage = (Storage)storageComboBox.SelectedIndex;
+
+      patient.Description = descriptionTextBox.Text;
 
       _patientPicturesManager.ApplyChanges();
 
@@ -469,13 +545,5 @@ namespace Patients.Forms
     }
 
     #endregion Pictures
-
-    private void AddMoneyButton_Click(object sender, EventArgs e)
-    {
-    }
-
-    private void DeleteMoneyButton_Click(object sender, EventArgs e)
-    {
-    }
   }
 }

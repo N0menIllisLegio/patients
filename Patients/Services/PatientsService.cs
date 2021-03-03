@@ -21,7 +21,7 @@ namespace Patients.Services
     public async Task<Patient> GetPatientAsync(Guid patientID)
     {
       return await _unitOfWork.Patients.GetFirstWhereAsync(patient => patient.ID == patientID,
-        patient => patient.Include(p => p.DentalRecord).Include(p => p.Diary));
+        patient => patient.Include(p => p.DentalRecord).Include(p => p.Diary).Include(p => p.Payments));
     }
 
     public async Task<List<Patient>> GetPatientsAsync()
