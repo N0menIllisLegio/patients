@@ -41,6 +41,7 @@ namespace Patients.Forms
       // 
       // paymentDatePicker
       // 
+      this.paymentDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
       this.paymentDatePicker.Location = new System.Drawing.Point(79, 12);
       this.paymentDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.paymentDatePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);

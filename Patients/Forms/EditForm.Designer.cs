@@ -622,12 +622,14 @@
       // dateOfBirthPicker
       // 
       this.dateOfBirthPicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.dateOfBirthPicker.Location = new System.Drawing.Point(201, 26);
+      this.dateOfBirthPicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+      this.dateOfBirthPicker.Location = new System.Drawing.Point(201, 16);
       this.dateOfBirthPicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dateOfBirthPicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.dateOfBirthPicker.Name = "dateOfBirthPicker";
       this.dateOfBirthPicker.Size = new System.Drawing.Size(220, 23);
       this.dateOfBirthPicker.TabIndex = 13;
+      this.dateOfBirthPicker.Leave += new System.EventHandler(this.DateOfBirthPicker_Leave);
       // 
       // groupBox7
       // 

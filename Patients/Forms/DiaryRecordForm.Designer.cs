@@ -51,6 +51,7 @@
       // 
       this.dateTimePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+      this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
       this.dateTimePicker.Location = new System.Drawing.Point(80, 25);
       this.dateTimePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dateTimePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
