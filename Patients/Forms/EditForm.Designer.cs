@@ -28,7 +28,10 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditForm));
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
       this.editTabs = new System.Windows.Forms.TabControl();
       this.patientInfoTabPage = new System.Windows.Forms.TabPage();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -58,6 +61,7 @@
       this.label5 = new System.Windows.Forms.Label();
       this.label8 = new System.Windows.Forms.Label();
       this.groupBox2 = new System.Windows.Forms.GroupBox();
+      this.ageLabel = new System.Windows.Forms.Label();
       this.lastVisitDatePicker = new System.Windows.Forms.DateTimePicker();
       this.label6 = new System.Windows.Forms.Label();
       this.label7 = new System.Windows.Forms.Label();
@@ -65,9 +69,6 @@
       this.groupBox7 = new System.Windows.Forms.GroupBox();
       this.descriptionTextBox = new System.Windows.Forms.RichTextBox();
       this.diaryTable = new System.Windows.Forms.DataGridView();
-      this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.statusTabPage = new System.Windows.Forms.TabPage();
       this.teethGroupBox = new System.Windows.Forms.GroupBox();
       this.button_17 = new System.Windows.Forms.Button();
@@ -189,6 +190,10 @@
       this.cancelButton = new System.Windows.Forms.Button();
       this.storageLabel = new System.Windows.Forms.Label();
       this.storageComboBox = new System.Windows.Forms.ComboBox();
+      this.toothStatusToolTip = new System.Windows.Forms.ToolTip(this.components);
+      this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.editTabs.SuspendLayout();
       this.patientInfoTabPage.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -291,6 +296,8 @@
       // dataGridViewTextBoxColumn2
       // 
       this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+      dataGridViewCellStyle1.Format = "dd MMMM yyyy";
+      this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
       this.dataGridViewTextBoxColumn2.HeaderText = "Дата";
       this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
       this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -573,6 +580,7 @@
       // 
       // groupBox2
       // 
+      this.groupBox2.Controls.Add(this.ageLabel);
       this.groupBox2.Controls.Add(this.lastVisitDatePicker);
       this.groupBox2.Controls.Add(this.label6);
       this.groupBox2.Controls.Add(this.label7);
@@ -587,21 +595,34 @@
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Даты";
       // 
+      // ageLabel
+      // 
+      this.ageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+      this.ageLabel.AutoSize = true;
+      this.ageLabel.Location = new System.Drawing.Point(9, 51);
+      this.ageLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+      this.ageLabel.Name = "ageLabel";
+      this.ageLabel.Size = new System.Drawing.Size(53, 15);
+      this.ageLabel.TabIndex = 15;
+      this.ageLabel.Text = "Возраст:";
+      // 
       // lastVisitDatePicker
       // 
       this.lastVisitDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-      this.lastVisitDatePicker.Location = new System.Drawing.Point(201, 56);
+      this.lastVisitDatePicker.CustomFormat = "dd MMMM yyyy";
+      this.lastVisitDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+      this.lastVisitDatePicker.Location = new System.Drawing.Point(201, 72);
       this.lastVisitDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.lastVisitDatePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
       this.lastVisitDatePicker.Name = "lastVisitDatePicker";
-      this.lastVisitDatePicker.Size = new System.Drawing.Size(220, 23);
+      this.lastVisitDatePicker.Size = new System.Drawing.Size(219, 23);
       this.lastVisitDatePicker.TabIndex = 14;
       // 
       // label6
       // 
       this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(9, 30);
+      this.label6.Location = new System.Drawing.Point(9, 22);
       this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(93, 15);
@@ -612,7 +633,7 @@
       // 
       this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(9, 60);
+      this.label7.Location = new System.Drawing.Point(9, 78);
       this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label7.Name = "label7";
       this.label7.Size = new System.Drawing.Size(168, 15);
@@ -678,32 +699,6 @@
       this.diaryTable.Size = new System.Drawing.Size(867, 215);
       this.diaryTable.TabIndex = 20;
       this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
-      // 
-      // ID
-      // 
-      this.ID.HeaderText = "ID";
-      this.ID.MinimumWidth = 6;
-      this.ID.Name = "ID";
-      this.ID.ReadOnly = true;
-      this.ID.Visible = false;
-      this.ID.Width = 125;
-      // 
-      // date
-      // 
-      this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-      this.date.HeaderText = "Дата";
-      this.date.MinimumWidth = 6;
-      this.date.Name = "date";
-      this.date.ReadOnly = true;
-      this.date.Width = 57;
-      // 
-      // data
-      // 
-      this.data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      this.data.HeaderText = "Диагноз, жалоба";
-      this.data.MinimumWidth = 6;
-      this.data.Name = "data";
-      this.data.ReadOnly = true;
       // 
       // statusTabPage
       // 
@@ -2267,6 +2262,34 @@
       this.storageComboBox.Size = new System.Drawing.Size(203, 23);
       this.storageComboBox.TabIndex = 4;
       // 
+      // ID
+      // 
+      this.ID.HeaderText = "ID";
+      this.ID.MinimumWidth = 6;
+      this.ID.Name = "ID";
+      this.ID.ReadOnly = true;
+      this.ID.Visible = false;
+      this.ID.Width = 125;
+      // 
+      // date
+      // 
+      this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+      dataGridViewCellStyle2.Format = "dd MMMM yyyy";
+      this.date.DefaultCellStyle = dataGridViewCellStyle2;
+      this.date.HeaderText = "Дата";
+      this.date.MinimumWidth = 6;
+      this.date.Name = "date";
+      this.date.ReadOnly = true;
+      this.date.Width = 57;
+      // 
+      // data
+      // 
+      this.data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      this.data.HeaderText = "Диагноз, жалоба";
+      this.data.MinimumWidth = 6;
+      this.data.Name = "data";
+      this.data.ReadOnly = true;
+      // 
       // EditForm
       // 
       this.AcceptButton = this.saveButton;
@@ -2462,9 +2485,6 @@
     private System.Windows.Forms.Button delButton;
     private System.Windows.Forms.Label storageLabel;
     private System.Windows.Forms.ComboBox storageComboBox;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-    private System.Windows.Forms.DataGridViewTextBoxColumn date;
-    private System.Windows.Forms.DataGridViewTextBoxColumn data;
     private System.Windows.Forms.MaskedTextBox phoneNumberTextBox;
     private System.Windows.Forms.GroupBox groupBox6;
     private System.Windows.Forms.GroupBox groupBox5;
@@ -2472,9 +2492,14 @@
     private System.Windows.Forms.Button addMoneyButton;
     private System.Windows.Forms.RichTextBox descriptionTextBox;
     private System.Windows.Forms.DataGridView paymentsTable;
+    private System.Windows.Forms.GroupBox groupBox7;
+    private System.Windows.Forms.Label ageLabel;
+    private System.Windows.Forms.ToolTip toothStatusToolTip;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-    private System.Windows.Forms.GroupBox groupBox7;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+    private System.Windows.Forms.DataGridViewTextBoxColumn date;
+    private System.Windows.Forms.DataGridViewTextBoxColumn data;
   }
 }

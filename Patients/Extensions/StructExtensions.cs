@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using Patients.Enums;
 
 namespace Patients.Extensions
@@ -18,6 +19,13 @@ namespace Patients.Extensions
         "White" => ToothStatus.Artificial,
         _ => ToothStatus.Healthy
       };
+    }
+
+    public static int Years(this DateTime start, DateTime end)
+    {
+      return end.Year - start.Year - 1 +
+          (((end.Month > start.Month) ||
+          ((end.Month == start.Month) && (end.Day >= start.Day))) ? 1 : 0);
     }
   }
 }

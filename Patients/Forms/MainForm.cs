@@ -100,7 +100,7 @@ namespace Patients.Forms
       {
         patientsTable.Rows.Add(patient.ID, ++rowNumber,
           patient.Surname, patient.Name, patient.SecondName, patient.PhoneNumber,
-          patient.LastVisitDate.ToString("dd MMMM yyyy"), patient.Storage.GetDescription());
+          patient.LastVisitDate, patient.Storage.GetDescription());
       }
     }
 

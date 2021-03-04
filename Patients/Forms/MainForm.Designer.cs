@@ -28,8 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
       this.patientsTable = new System.Windows.Forms.DataGridView();
+      this.addButton = new System.Windows.Forms.Button();
+      this.deleteButton = new System.Windows.Forms.Button();
+      this.searchField = new System.Windows.Forms.TextBox();
+      this.SurnameRadioButton = new System.Windows.Forms.RadioButton();
+      this.NameRadioButton = new System.Windows.Forms.RadioButton();
       this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -38,11 +44,6 @@
       this.phone = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.place = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.addButton = new System.Windows.Forms.Button();
-      this.deleteButton = new System.Windows.Forms.Button();
-      this.searchField = new System.Windows.Forms.TextBox();
-      this.SurnameRadioButton = new System.Windows.Forms.RadioButton();
-      this.NameRadioButton = new System.Windows.Forms.RadioButton();
       ((System.ComponentModel.ISupportInitialize)(this.patientsTable)).BeginInit();
       this.SuspendLayout();
       // 
@@ -74,62 +75,6 @@
       this.patientsTable.Size = new System.Drawing.Size(861, 699);
       this.patientsTable.TabIndex = 0;
       this.patientsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PatientsTable_CellDoubleClick);
-      // 
-      // ID
-      // 
-      this.ID.HeaderText = "ID";
-      this.ID.Name = "ID";
-      this.ID.ReadOnly = true;
-      this.ID.Visible = false;
-      // 
-      // dataGridViewTextBoxColumn1
-      // 
-      this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-      this.dataGridViewTextBoxColumn1.HeaderText = "№";
-      this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-      this.dataGridViewTextBoxColumn1.ReadOnly = true;
-      this.dataGridViewTextBoxColumn1.Width = 45;
-      // 
-      // surname
-      // 
-      this.surname.HeaderText = "Фамилия";
-      this.surname.Name = "surname";
-      this.surname.ReadOnly = true;
-      // 
-      // name
-      // 
-      this.name.HeaderText = "Имя";
-      this.name.Name = "name";
-      this.name.ReadOnly = true;
-      // 
-      // secName
-      // 
-      this.secName.HeaderText = "Отчество";
-      this.secName.Name = "secName";
-      this.secName.ReadOnly = true;
-      // 
-      // phone
-      // 
-      this.phone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      this.phone.HeaderText = "Телефон";
-      this.phone.Name = "phone";
-      this.phone.ReadOnly = true;
-      // 
-      // date
-      // 
-      this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-      this.date.HeaderText = "Дата посещения";
-      this.date.Name = "date";
-      this.date.ReadOnly = true;
-      this.date.Width = 113;
-      // 
-      // place
-      // 
-      this.place.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-      this.place.HeaderText = "Место хранения";
-      this.place.Name = "place";
-      this.place.ReadOnly = true;
-      this.place.Width = 112;
       // 
       // addButton
       // 
@@ -191,6 +136,65 @@
       this.NameRadioButton.TabIndex = 5;
       this.NameRadioButton.Text = "Имя";
       this.NameRadioButton.UseVisualStyleBackColor = true;
+      // 
+      // ID
+      // 
+      this.ID.HeaderText = "ID";
+      this.ID.Name = "ID";
+      this.ID.ReadOnly = true;
+      this.ID.Visible = false;
+      // 
+      // dataGridViewTextBoxColumn1
+      // 
+      this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+      this.dataGridViewTextBoxColumn1.HeaderText = "№";
+      this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+      this.dataGridViewTextBoxColumn1.ReadOnly = true;
+      this.dataGridViewTextBoxColumn1.Width = 45;
+      // 
+      // surname
+      // 
+      this.surname.HeaderText = "Фамилия";
+      this.surname.Name = "surname";
+      this.surname.ReadOnly = true;
+      // 
+      // name
+      // 
+      this.name.HeaderText = "Имя";
+      this.name.Name = "name";
+      this.name.ReadOnly = true;
+      // 
+      // secName
+      // 
+      this.secName.HeaderText = "Отчество";
+      this.secName.Name = "secName";
+      this.secName.ReadOnly = true;
+      // 
+      // phone
+      // 
+      this.phone.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      this.phone.HeaderText = "Телефон";
+      this.phone.Name = "phone";
+      this.phone.ReadOnly = true;
+      // 
+      // date
+      // 
+      this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+      dataGridViewCellStyle1.Format = "dd MMMM yyyy";
+      dataGridViewCellStyle1.NullValue = null;
+      this.date.DefaultCellStyle = dataGridViewCellStyle1;
+      this.date.HeaderText = "Дата посещения";
+      this.date.Name = "date";
+      this.date.ReadOnly = true;
+      this.date.Width = 113;
+      // 
+      // place
+      // 
+      this.place.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+      this.place.HeaderText = "Место хранения";
+      this.place.Name = "place";
+      this.place.ReadOnly = true;
+      this.place.Width = 112;
       // 
       // MainForm
       // 
