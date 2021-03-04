@@ -10,13 +10,25 @@
     <ApplicationIcon>Resources\reportorium.ico</ApplicationIcon>
     <CodeAnalysisRuleSet>..\Softteco.ruleset</CodeAnalysisRuleSet>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+
+    <BeautyLibsDir>libraries</BeautyLibsDir>
+    <BeautyHiddens>hostfxr;hostpolicy;*.deps.json;*.runtimeconfig*.json</BeautyHiddens>
+    <DisableBeauty>False</DisableBeauty>
+    <NoBeautyFlag>True</NoBeautyFlag>
+    <ForceBeauty>False</ForceBeauty>
+    <BeautyLogLevel>Error</BeautyLogLevel>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="..\stylecop.json" Link="stylecop.json" />
+    <RuntimeHostConfigurationOption Include="SubdirectoriesToProbe" Value="libraries" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>1701;1702;1591;SA1600;SA1601;SA1602;SA1412</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <NoWarn>1701;1702;1591;SA1600;SA1601;SA1602;SA1412</NoWarn>
   </PropertyGroup>
   <ItemGroup>
@@ -33,6 +45,7 @@
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
+    <PackageReference Include="nulastudio.NetCoreBeauty" Version="1.2.9.2" />
     <PackageReference Include="SQLite.CodeFirst">
       <Version>1.6.1.31</Version>
     </PackageReference>
@@ -55,7 +68,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="; Move all assemblies and related files to lib folder&#xD;&#xA;ROBOCOPY &quot;$(TargetDir) &quot; &quot;$(TargetDir)Libraries\ &quot; /XF *.exe *.config *.manifest *.json Patients.dll *.db /XD lib logs data ref runtimes Screens /E /IS /MOVE&#xD;&#xA;if %25errorlevel%25 leq 4 exit 0 else exit %25errorlevel%25" />
-  </Target>
 </Project>
