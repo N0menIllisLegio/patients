@@ -5,7 +5,7 @@
 |Снимок|Описание|
 |---|---|
 |<img src="../images/Picture1.png?raw=true" width="250" height="200">|Список всех пациентов|
-|<img src="../images/Picture2.png?raw=true" width="250" height="200">|Окно редактирование данных|
+|<img src="../images/Picture2.png?raw=true" width="250" height="200">|Окно редактирования данных|
 |<img src="../images/Picture3.png?raw=true" width="250" height="200">|Зубная карта|
 |<img src="../images/Picture5.png?raw=true" width="250" height="200">|Изменение статуса зуба|
 |<img src="../images/Picture6.png?raw=true" width="250" height="200">|Добавление записи в дневник|
