@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage;
 using Patients.Data.Repositories;
 using Patients.Data.Repositories.Interfaces;
@@ -29,18 +28,9 @@ namespace Patients.Data
     public ITeethRepository Teeth => _teethRepository ??= new TeethRepository(_context);
     public IPatientTeethRepository PatientTeeth => _patientTeethRepository ??= new PatientTeethRepository(_context);
 
-    public async Task<bool> SaveAsync()
+    public async Task SaveAsync()
     {
-      try
-      {
-        await _context.SaveChangesAsync();
-        return true;
-      }
-      catch (Exception ex)
-      {
-        Console.WriteLine(ex.Message);
-        return false;
-      }
+      await _context.SaveChangesAsync();
     }
 
     public IDbContextTransaction BeginTransaction()
