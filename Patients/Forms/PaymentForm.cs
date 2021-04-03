@@ -10,11 +10,12 @@ namespace Patients.Forms
       InitializeComponent();
     }
 
-    public PaymentForm(DateTime date, decimal amount)
+    public PaymentForm(DateTime date, decimal amount, string diagnosis)
       : this()
     {
       paymentDatePicker.Value = date;
       paymentAmountNumeric.Value = amount;
+      diagnosisRichTextBox.Text = diagnosis;
     }
 
     public DateTime Date { get; private set; }
