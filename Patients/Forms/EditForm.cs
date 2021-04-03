@@ -394,7 +394,7 @@ namespace Patients.Forms
 
       foreach (var payment in _payments)
       {
-        paymentsTable.Rows.Add(payment.ID, payment.Date, payment.Amount.ToCurrency());
+        paymentsTable.Rows.Add(payment.ID, payment.Date, payment.Amount.ToCurrency(), payment.Diagnosis);
       }
     }
 
@@ -408,7 +408,8 @@ namespace Patients.Forms
         {
           ID = Guid.NewGuid(),
           Date = paymentForm.Date,
-          Amount = paymentForm.Amount
+          Amount = paymentForm.Amount,
+          Diagnosis = paymentForm.Diagnosis
         });
 
         RefreshPayments();
@@ -450,12 +451,13 @@ namespace Patients.Forms
         var paymentID = (Guid)paymentsTable.SelectedRows[0].Cells[0].Value;
         var payment = _payments.FirstOrDefault(p => p.ID == paymentID);
 
-        var paymentForm = new PaymentForm(payment.Date, payment.Amount);
+        var paymentForm = new PaymentForm(payment.Date, payment.Amount, payment.Diagnosis);
 
         if (paymentForm.ShowDialog() == DialogResult.OK)
         {
           payment.Date = paymentForm.Date;
           payment.Amount = paymentForm.Amount;
+          payment.Diagnosis = paymentForm.Diagnosis;
 
           RefreshPayments();
         }
