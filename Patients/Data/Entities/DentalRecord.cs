@@ -1,16 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using Patients.Enums;
 
 namespace Patients.Data.Entities
 {
   public class DentalRecord
   {
-    [Key]
+    public Guid ID { get; set; }
+    public Guid PatientID { get; set; }
     public int ToothNumber { get; set; }
-
-    [ForeignKey("ToothNumber")]
-    public virtual Tooth Tooth { get; set; }
+    public virtual PatientTooth Tooth { get; set; }
 
     public ToothStatus FromStatus { get; set; }
     public ToothStatus ToStatus { get; set; }

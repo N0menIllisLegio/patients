@@ -23,6 +23,11 @@ namespace Patients.Data
       modelBuilder.Entity<PatientTooth>()
         .HasKey(table => new { table.PatientID, table.ToothNumber });
 
+      modelBuilder.Entity<DentalRecord>()
+        .HasOne(p => p.Tooth)
+        .WithMany()
+        .HasForeignKey(p => new { p.PatientID, p.ToothNumber });
+
       modelBuilder.Entity<Tooth>()
         .HasData(DatabaseSeeder.GetHumanTeeth());
     }

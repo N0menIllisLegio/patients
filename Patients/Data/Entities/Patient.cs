@@ -26,6 +26,6 @@ namespace Patients.Data.Entities
 
     public virtual ICollection<DiaryRecord> Diary { get; set; }
     public virtual ICollection<Payment> Payments { get; set; }
-    public virtual ICollection<PatientTooth> PatientTeeth { get; set; }
+    public virtual ICollection<PatientTooth> Teeth { get; set; }
   }
 }
