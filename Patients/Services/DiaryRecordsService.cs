@@ -16,7 +16,7 @@ namespace Patients.Services
       _unitOfWork = unitOfWork;
     }
 
-    public async Task UpdatePatientDairyRecordsAsync(Patient patient, IEnumerable<DiaryRecord> newDiaryRecords)
+    public async Task UpdatePatientDairyRecordsAsync(Patient patient, List<DiaryRecord> newDiaryRecords)
     {
       var oldDiaryRecords = patient.Diary.ToList();
 
@@ -28,16 +28,21 @@ namespace Patients.Services
         {
           _unitOfWork.DiaryRecords.Remove(oldDiaryRecord);
         }
-        else if (oldDiaryRecord.Diagnosis != newDiaryRecord.Diagnosis || oldDiaryRecord.Date != newDiaryRecord.Date)
+        else
         {
-          oldDiaryRecord.Diagnosis = newDiaryRecord.Diagnosis;
-          oldDiaryRecord.Date = newDiaryRecord.Date;
+          if (oldDiaryRecord.Diagnosis != newDiaryRecord.Diagnosis || oldDiaryRecord.Date != newDiaryRecord.Date)
+          {
+            oldDiaryRecord.Diagnosis = newDiaryRecord.Diagnosis;
+            oldDiaryRecord.Date = newDiaryRecord.Date;
+          }
+
+          newDiaryRecords.Remove(newDiaryRecord);
         }
       }
 
-      foreach (var newDiaryRecord in newDiaryRecords.Except(oldDiaryRecords))
+      foreach (var newDiaryRecord in newDiaryRecords)
       {
-        newDiaryRecord.PatientID = patient.ID;
+        newDiaryRecord.Patient = patient;
         _unitOfWork.DiaryRecords.Add(newDiaryRecord);
       }
 

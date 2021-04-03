@@ -6,6 +6,6 @@ namespace Patients.Services.Interfaces
 {
   interface IDiaryRecordsService
   {
-    Task UpdatePatientDairyRecordsAsync(Patient patient, IEnumerable<DiaryRecord> newDiaryRecords);
+    Task UpdatePatientDairyRecordsAsync(Patient patient, List<DiaryRecord> newDiaryRecords);
   }
 }
