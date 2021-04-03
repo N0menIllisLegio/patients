@@ -13,5 +13,6 @@ namespace Patients.Data.Entities
     public ToothStatus FromStatus { get; set; }
     public ToothStatus ToStatus { get; set; }
     public string Cause { get; set; }
+    public DateTime Date { get; set; }
   }
 }
