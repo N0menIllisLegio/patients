@@ -43,6 +43,8 @@ namespace Patients.Forms
             // 
             // paymentDatePicker
             // 
+            this.paymentDatePicker.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.paymentDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.paymentDatePicker.Location = new System.Drawing.Point(79, 12);
             this.paymentDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
@@ -72,6 +74,8 @@ namespace Patients.Forms
             // 
             // paymentAmountNumeric
             // 
+            this.paymentAmountNumeric.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.paymentAmountNumeric.DecimalPlaces = 2;
             this.paymentAmountNumeric.Location = new System.Drawing.Point(79, 38);
             this.paymentAmountNumeric.Maximum = new decimal(new int[] {
@@ -86,8 +90,9 @@ namespace Patients.Forms
             // 
             // AddPaymentButton
             // 
+            this.AddPaymentButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.AddPaymentButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.AddPaymentButton.Location = new System.Drawing.Point(79, 157);
+            this.AddPaymentButton.Location = new System.Drawing.Point(80, 189);
             this.AddPaymentButton.Name = "AddPaymentButton";
             this.AddPaymentButton.Size = new System.Drawing.Size(75, 23);
             this.AddPaymentButton.TabIndex = 18;
@@ -97,8 +102,9 @@ namespace Patients.Forms
             // 
             // CancelPaymentButton
             // 
+            this.CancelPaymentButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.CancelPaymentButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelPaymentButton.Location = new System.Drawing.Point(160, 157);
+            this.CancelPaymentButton.Location = new System.Drawing.Point(161, 189);
             this.CancelPaymentButton.Name = "CancelPaymentButton";
             this.CancelPaymentButton.Size = new System.Drawing.Size(75, 23);
             this.CancelPaymentButton.TabIndex = 19;
@@ -107,10 +113,13 @@ namespace Patients.Forms
             // 
             // diagnosisRichTextBox
             // 
+            this.diagnosisRichTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.diagnosisRichTextBox.Location = new System.Drawing.Point(79, 64);
             this.diagnosisRichTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.diagnosisRichTextBox.Name = "diagnosisRichTextBox";
-            this.diagnosisRichTextBox.Size = new System.Drawing.Size(231, 89);
+            this.diagnosisRichTextBox.Size = new System.Drawing.Size(231, 120);
             this.diagnosisRichTextBox.TabIndex = 20;
             this.diagnosisRichTextBox.Text = "";
             // 
@@ -129,7 +138,7 @@ namespace Patients.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelPaymentButton;
-            this.ClientSize = new System.Drawing.Size(334, 201);
+            this.ClientSize = new System.Drawing.Size(334, 224);
             this.ControlBox = false;
             this.Controls.Add(this.label3);
             this.Controls.Add(this.diagnosisRichTextBox);
@@ -139,10 +148,10 @@ namespace Patients.Forms
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.paymentDatePicker);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(350, 240);
             this.Name = "PaymentForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Оплата";

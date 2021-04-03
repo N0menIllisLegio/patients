@@ -28,10 +28,12 @@ namespace Patients.Services
         {
           _unitOfWork.Payments.Remove(oldPayment);
         }
-        else if (oldPayment.Amount != newPayment.Amount || oldPayment.Date != newPayment.Date)
+        else if (oldPayment.Amount != newPayment.Amount || oldPayment.Date != newPayment.Date
+          || oldPayment.Diagnosis != newPayment.Diagnosis)
         {
           oldPayment.Amount = newPayment.Amount;
           oldPayment.Date = newPayment.Date;
+          oldPayment.Diagnosis = newPayment.Diagnosis;
         }
       }
 
