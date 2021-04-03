@@ -24,8 +24,8 @@ namespace Patients.Data.Entities
 
     public string Description { get; set; }
 
-    public virtual DentalRecord DentalRecord { get; set; }
     public virtual ICollection<DiaryRecord> Diary { get; set; }
     public virtual ICollection<Payment> Payments { get; set; }
+    public virtual ICollection<PatientTooth> PatientTeeth { get; set; }
   }
 }

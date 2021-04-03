@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Patients.Data;
 
 namespace Patients.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210403134106_PatientToothMTMMigration")]
+    partial class PatientToothMTMMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,216 +159,6 @@ namespace Patients.Migrations
                     b.HasKey("Number");
 
                     b.ToTable("Teeth");
-
-                    b.HasData(
-                        new
-                        {
-                            Number = 11
-                        },
-                        new
-                        {
-                            Number = 12
-                        },
-                        new
-                        {
-                            Number = 13
-                        },
-                        new
-                        {
-                            Number = 14
-                        },
-                        new
-                        {
-                            Number = 15
-                        },
-                        new
-                        {
-                            Number = 16
-                        },
-                        new
-                        {
-                            Number = 17
-                        },
-                        new
-                        {
-                            Number = 18
-                        },
-                        new
-                        {
-                            Number = 21
-                        },
-                        new
-                        {
-                            Number = 22
-                        },
-                        new
-                        {
-                            Number = 23
-                        },
-                        new
-                        {
-                            Number = 24
-                        },
-                        new
-                        {
-                            Number = 25
-                        },
-                        new
-                        {
-                            Number = 26
-                        },
-                        new
-                        {
-                            Number = 27
-                        },
-                        new
-                        {
-                            Number = 28
-                        },
-                        new
-                        {
-                            Number = 31
-                        },
-                        new
-                        {
-                            Number = 32
-                        },
-                        new
-                        {
-                            Number = 33
-                        },
-                        new
-                        {
-                            Number = 34
-                        },
-                        new
-                        {
-                            Number = 35
-                        },
-                        new
-                        {
-                            Number = 36
-                        },
-                        new
-                        {
-                            Number = 37
-                        },
-                        new
-                        {
-                            Number = 38
-                        },
-                        new
-                        {
-                            Number = 41
-                        },
-                        new
-                        {
-                            Number = 42
-                        },
-                        new
-                        {
-                            Number = 43
-                        },
-                        new
-                        {
-                            Number = 44
-                        },
-                        new
-                        {
-                            Number = 45
-                        },
-                        new
-                        {
-                            Number = 46
-                        },
-                        new
-                        {
-                            Number = 47
-                        },
-                        new
-                        {
-                            Number = 48
-                        },
-                        new
-                        {
-                            Number = 51
-                        },
-                        new
-                        {
-                            Number = 52
-                        },
-                        new
-                        {
-                            Number = 53
-                        },
-                        new
-                        {
-                            Number = 54
-                        },
-                        new
-                        {
-                            Number = 55
-                        },
-                        new
-                        {
-                            Number = 61
-                        },
-                        new
-                        {
-                            Number = 62
-                        },
-                        new
-                        {
-                            Number = 63
-                        },
-                        new
-                        {
-                            Number = 64
-                        },
-                        new
-                        {
-                            Number = 65
-                        },
-                        new
-                        {
-                            Number = 71
-                        },
-                        new
-                        {
-                            Number = 72
-                        },
-                        new
-                        {
-                            Number = 73
-                        },
-                        new
-                        {
-                            Number = 74
-                        },
-                        new
-                        {
-                            Number = 75
-                        },
-                        new
-                        {
-                            Number = 81
-                        },
-                        new
-                        {
-                            Number = 82
-                        },
-                        new
-                        {
-                            Number = 83
-                        },
-                        new
-                        {
-                            Number = 84
-                        },
-                        new
-                        {
-                            Number = 85
-                        });
                 });
 
             modelBuilder.Entity("Patients.Data.Entities.DentalRecord", b =>
