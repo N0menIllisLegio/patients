@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using System.IO;
+using System.IO.Compression;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,8 +57,66 @@ namespace Patients
         Directory.CreateDirectory(PatientPicturesManager.TempScreensDirectory);
       }
 
+      string backupsDirectoryPath = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+        "PatientsBackUps");
+
+      string thisMonthBackupDirectory = Path.Combine(backupsDirectoryPath, $"{DateTime.Today:yyyy.MM}");
+
+      if (!Directory.Exists(thisMonthBackupDirectory))
+      {
+        Directory.CreateDirectory(thisMonthBackupDirectory);
+      }
+
+      var match = new Regex(@"Data Source=(.+);?")
+        .Match(ConfigurationManager.ConnectionStrings["DatabaseConnection"].ConnectionString);
+
+      if (!match.Success)
+      {
+        throw new ArgumentException("Неверная строка соединения с БД.");
+      }
+
+      string databasePath = match.Groups[1].Value;
+      string databaseFileName = Path.GetFileNameWithoutExtension(databasePath);
+      string databaseExtension = Path.GetExtension(databasePath);
+
+      string migrationBackupFilePath = Path.Combine(backupsDirectoryPath,
+        GenerateDBBackupFileName(databaseFileName, databaseExtension, migrationBackup: true));
+
+      if (!File.Exists(migrationBackupFilePath))
+      {
+        File.Copy(databasePath, migrationBackupFilePath);
+      }
+
       var context = ServiceProvider.GetService<AppDbContext>();
       context.Database.Migrate();
+
+      File.Delete(migrationBackupFilePath);
+
+      string standardBackupFilePath = Path.Combine(thisMonthBackupDirectory,
+        GenerateDBBackupFileName(databaseFileName, databaseExtension, migrationBackup: false));
+
+      File.Copy(databasePath, standardBackupFilePath);
+
+      string prevMonthBackupDirectory = Path.Combine(backupsDirectoryPath, $"{DateTime.Today.AddMonths(-1):yyyy.MM}");
+
+      if (Directory.Exists(prevMonthBackupDirectory))
+      {
+        string archiveFilePath = Path.Combine(backupsDirectoryPath, $"{Path.GetFileName(prevMonthBackupDirectory)}.zip");
+
+        if (!File.Exists(archiveFilePath))
+        {
+          ZipFile.CreateFromDirectory(prevMonthBackupDirectory, archiveFilePath);
+          Directory.Delete(prevMonthBackupDirectory, recursive: true);
+        }
+      }
+    }
+
+    private static string GenerateDBBackupFileName(string oldFileName, string extension, bool migrationBackup)
+    {
+      string backupNamePostfix = migrationBackup ? "_MigrationBackUp" : $"_{DateTime.Now:ddMMyyyyHHmmss}";
+
+      return oldFileName + backupNamePostfix + extension;
     }
   }
 }
