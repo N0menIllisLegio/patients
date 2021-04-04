@@ -6,7 +6,8 @@ namespace Patients.Services.Interfaces
 {
   public interface IPatientTeethService
   {
-    Task<List<PatientTooth>> CreateNewPatientTeethAsync();
+    Task<List<PatientTooth>> CreateNewPatientTeethAsync(Patient patient = null);
+    Task AddPatientTeethAsync(List<PatientTooth> newPatientTeeth);
     Task UpdatePatientTeethAsync(Patient patient, List<PatientTooth> newPatientTeeth);
   }
 }

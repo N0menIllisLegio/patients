@@ -200,7 +200,6 @@
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button cancelButton;
     private System.Windows.Forms.ComboBox fromToothStatusComboBox;
-    private System.Windows.Forms.ComboBox toToothStatus;
     private System.Windows.Forms.Label headerLabel;
     private System.Windows.Forms.Label label4;
     private System.Windows.Forms.Label label5;

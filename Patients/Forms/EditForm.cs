@@ -173,6 +173,12 @@ namespace Patients.Forms
       _payments = patient.Payments.ToList();
       _diary = patient.Diary.ToList();
 
+      if (_patientTeeth.Count == 0)
+      {
+        _patientTeeth = _patientTeethService.CreateNewPatientTeethAsync(patient).Result;
+        _patientTeethService.AddPatientTeethAsync(_patientTeeth);
+      }
+
       #region Set buttons colors
 
       button_11.BackColor = _patientTeeth[0].Status.ConvertToColor();

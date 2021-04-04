@@ -16,16 +16,23 @@ namespace Patients.Services
       _unitOfWork = unitOfWork;
     }
 
-    public async Task<List<PatientTooth>> CreateNewPatientTeethAsync()
+    public async Task<List<PatientTooth>> CreateNewPatientTeethAsync(Patient patient = null)
     {
       var teeth = await _unitOfWork.Teeth.GetAllAsync(disableTracking: false);
 
       return new List<PatientTooth>(teeth.Select(tooth => new PatientTooth
       {
+        Patient = patient,
         Status = Enums.ToothStatus.Healthy,
         Tooth = tooth,
         ToothNumber = tooth.Number
       }));
+    }
+
+    public async Task AddPatientTeethAsync(List<PatientTooth> newPatientTeeth)
+    {
+      _unitOfWork.PatientTeeth.AddRange(newPatientTeeth);
+      await _unitOfWork.SaveAsync();
     }
 
     public async Task UpdatePatientTeethAsync(Patient patient, List<PatientTooth> newPatientTeeth)
