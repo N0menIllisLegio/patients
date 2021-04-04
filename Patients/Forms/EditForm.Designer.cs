@@ -29,13 +29,21 @@
     private void InitializeComponent()
     {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.editTabs = new System.Windows.Forms.TabControl();
             this.patientInfoTabPage = new System.Windows.Forms.TabPage();
+            this.diaryTable = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.paymentsTable = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Diagnosis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.surnameTextBox = new System.Windows.Forms.TextBox();
@@ -46,12 +54,8 @@
             this.nameTextBox = new System.Windows.Forms.TextBox();
             this.secnameTextBox = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.deleteMoneyButton = new System.Windows.Forms.Button();
             this.addMoneyButton = new System.Windows.Forms.Button();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.addButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.phoneNumberTextBox = new System.Windows.Forms.MaskedTextBox();
             this.addressTextBox = new System.Windows.Forms.RichTextBox();
@@ -65,10 +69,9 @@
             this.dateOfBirthPicker = new System.Windows.Forms.DateTimePicker();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.descriptionTextBox = new System.Windows.Forms.RichTextBox();
-            this.diaryTable = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.deleteDiaryRecordButton = new System.Windows.Forms.Button();
+            this.addDiaryRecordButton = new System.Windows.Forms.Button();
             this.statusTabPage = new System.Windows.Forms.TabPage();
             this.teethGroupBox = new System.Windows.Forms.GroupBox();
             this.button_17 = new System.Windows.Forms.Button();
@@ -191,22 +194,17 @@
             this.storageLabel = new System.Windows.Forms.Label();
             this.storageComboBox = new System.Windows.Forms.ComboBox();
             this.toothStatusToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Diagnosis = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editTabs.SuspendLayout();
             this.patientInfoTabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.diaryTable)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.paymentsTable)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.diaryTable)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.statusTabPage.SuspendLayout();
             this.teethGroupBox.SuspendLayout();
             this.picturesTabPage.SuspendLayout();
@@ -230,8 +228,8 @@
             // 
             // patientInfoTabPage
             // 
-            this.patientInfoTabPage.Controls.Add(this.tableLayoutPanel1);
             this.patientInfoTabPage.Controls.Add(this.diaryTable);
+            this.patientInfoTabPage.Controls.Add(this.tableLayoutPanel1);
             this.patientInfoTabPage.Location = new System.Drawing.Point(4, 24);
             this.patientInfoTabPage.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.patientInfoTabPage.Name = "patientInfoTabPage";
@@ -241,19 +239,68 @@
             this.patientInfoTabPage.Text = "Пациент";
             this.patientInfoTabPage.UseVisualStyleBackColor = true;
             // 
+            // diaryTable
+            // 
+            this.diaryTable.AllowUserToAddRows = false;
+            this.diaryTable.AllowUserToDeleteRows = false;
+            this.diaryTable.AllowUserToResizeRows = false;
+            this.diaryTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.diaryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.diaryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Date,
+            this.dataGridViewTextBoxColumn4});
+            this.diaryTable.Location = new System.Drawing.Point(11, 409);
+            this.diaryTable.Name = "diaryTable";
+            this.diaryTable.ReadOnly = true;
+            this.diaryTable.RowHeadersVisible = false;
+            this.diaryTable.RowTemplate.Height = 25;
+            this.diaryTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.diaryTable.Size = new System.Drawing.Size(866, 212);
+            this.diaryTable.TabIndex = 23;
+            this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Date
+            // 
+            this.Date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle1.Format = "dd.MM.yyyy";
+            this.Date.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Date.HeaderText = "Дата";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 57;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Диагноз, жалоба";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.99999F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.00001F));
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.Controls.Add(this.paymentsTable, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.groupBox7, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 7);
             this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -275,16 +322,52 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.Diagnosis});
-            this.paymentsTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.paymentsTable.Location = new System.Drawing.Point(440, 229);
+            this.tableLayoutPanel1.SetColumnSpan(this.paymentsTable, 2);
+            this.paymentsTable.Location = new System.Drawing.Point(441, 229);
             this.paymentsTable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.paymentsTable.Name = "paymentsTable";
             this.paymentsTable.RowHeadersVisible = false;
             this.paymentsTable.RowHeadersWidth = 51;
             this.paymentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.paymentsTable.Size = new System.Drawing.Size(430, 164);
+            this.paymentsTable.Size = new System.Drawing.Size(429, 164);
             this.paymentsTable.TabIndex = 23;
             this.paymentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PaymentsTable_CellDoubleClick);
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            this.dataGridViewTextBoxColumn1.Width = 125;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridViewCellStyle2.Format = "dd MMMM yyyy";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Дата";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 57;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.dataGridViewTextBoxColumn3.HeaderText = "у.е.";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.Width = 50;
+            // 
+            // Diagnosis
+            // 
+            this.Diagnosis.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Diagnosis.HeaderText = "Диагноз";
+            this.Diagnosis.Name = "Diagnosis";
+            this.Diagnosis.ReadOnly = true;
             // 
             // groupBox1
             // 
@@ -301,7 +384,7 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox1.Size = new System.Drawing.Size(428, 107);
+            this.groupBox1.Size = new System.Drawing.Size(429, 107);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ФИО, Пол";
@@ -323,7 +406,7 @@
             this.surnameTextBox.Location = new System.Drawing.Point(83, 17);
             this.surnameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.surnameTextBox.Name = "surnameTextBox";
-            this.surnameTextBox.Size = new System.Drawing.Size(232, 23);
+            this.surnameTextBox.Size = new System.Drawing.Size(233, 23);
             this.surnameTextBox.TabIndex = 0;
             // 
             // label2
@@ -341,7 +424,7 @@
             // 
             this.femaleRadioButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.femaleRadioButton.AutoSize = true;
-            this.femaleRadioButton.Location = new System.Drawing.Point(345, 60);
+            this.femaleRadioButton.Location = new System.Drawing.Point(346, 60);
             this.femaleRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.femaleRadioButton.Name = "femaleRadioButton";
             this.femaleRadioButton.Size = new System.Drawing.Size(75, 19);
@@ -365,7 +448,7 @@
             this.maleRadioButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.maleRadioButton.AutoSize = true;
             this.maleRadioButton.Checked = true;
-            this.maleRadioButton.Location = new System.Drawing.Point(344, 30);
+            this.maleRadioButton.Location = new System.Drawing.Point(345, 30);
             this.maleRadioButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.maleRadioButton.Name = "maleRadioButton";
             this.maleRadioButton.Size = new System.Drawing.Size(77, 19);
@@ -380,7 +463,7 @@
             this.nameTextBox.Location = new System.Drawing.Point(83, 47);
             this.nameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.nameTextBox.Name = "nameTextBox";
-            this.nameTextBox.Size = new System.Drawing.Size(232, 23);
+            this.nameTextBox.Size = new System.Drawing.Size(233, 23);
             this.nameTextBox.TabIndex = 9;
             // 
             // secnameTextBox
@@ -389,36 +472,21 @@
             this.secnameTextBox.Location = new System.Drawing.Point(83, 77);
             this.secnameTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.secnameTextBox.Name = "secnameTextBox";
-            this.secnameTextBox.Size = new System.Drawing.Size(232, 23);
+            this.secnameTextBox.Size = new System.Drawing.Size(233, 23);
             this.secnameTextBox.TabIndex = 10;
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.groupBox6);
-            this.groupBox4.Controls.Add(this.groupBox5);
-            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox4.Location = new System.Drawing.Point(440, 116);
+            this.groupBox4.Controls.Add(this.deleteMoneyButton);
+            this.groupBox4.Controls.Add(this.addMoneyButton);
+            this.groupBox4.Location = new System.Drawing.Point(441, 116);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox4.Size = new System.Drawing.Size(430, 107);
+            this.groupBox4.Size = new System.Drawing.Size(210, 107);
             this.groupBox4.TabIndex = 21;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Управление";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.deleteMoneyButton);
-            this.groupBox6.Controls.Add(this.addMoneyButton);
-            this.groupBox6.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox6.Location = new System.Drawing.Point(223, 19);
-            this.groupBox6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox6.Size = new System.Drawing.Size(203, 85);
-            this.groupBox6.TabIndex = 4;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Деньги";
+            this.groupBox4.Text = "Управление движением денежных средств";
             // 
             // deleteMoneyButton
             // 
@@ -426,10 +494,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteMoneyButton.BackColor = System.Drawing.Color.DarkRed;
             this.deleteMoneyButton.ForeColor = System.Drawing.Color.White;
-            this.deleteMoneyButton.Location = new System.Drawing.Point(5, 52);
+            this.deleteMoneyButton.Location = new System.Drawing.Point(7, 72);
             this.deleteMoneyButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteMoneyButton.Name = "deleteMoneyButton";
-            this.deleteMoneyButton.Size = new System.Drawing.Size(192, 28);
+            this.deleteMoneyButton.Size = new System.Drawing.Size(195, 30);
             this.deleteMoneyButton.TabIndex = 1;
             this.deleteMoneyButton.Text = "Удалить";
             this.deleteMoneyButton.UseVisualStyleBackColor = false;
@@ -441,71 +509,28 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.addMoneyButton.BackColor = System.Drawing.Color.DarkGreen;
             this.addMoneyButton.ForeColor = System.Drawing.Color.White;
-            this.addMoneyButton.Location = new System.Drawing.Point(5, 20);
+            this.addMoneyButton.Location = new System.Drawing.Point(7, 38);
             this.addMoneyButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMoneyButton.Name = "addMoneyButton";
-            this.addMoneyButton.Size = new System.Drawing.Size(192, 28);
+            this.addMoneyButton.Size = new System.Drawing.Size(195, 30);
             this.addMoneyButton.TabIndex = 0;
             this.addMoneyButton.Text = "Добавить";
             this.addMoneyButton.UseVisualStyleBackColor = false;
             this.addMoneyButton.Click += new System.EventHandler(this.AddPaymentButton_Click);
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.addButton);
-            this.groupBox5.Controls.Add(this.deleteButton);
-            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox5.Location = new System.Drawing.Point(4, 19);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox5.Size = new System.Drawing.Size(203, 85);
-            this.groupBox5.TabIndex = 3;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Дневник";
-            // 
-            // addButton
-            // 
-            this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.addButton.BackColor = System.Drawing.Color.DarkGreen;
-            this.addButton.ForeColor = System.Drawing.Color.White;
-            this.addButton.Location = new System.Drawing.Point(7, 20);
-            this.addButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(189, 28);
-            this.addButton.TabIndex = 0;
-            this.addButton.Text = "Добавить";
-            this.addButton.UseVisualStyleBackColor = false;
-            this.addButton.Click += new System.EventHandler(this.AddDiaryRecordButton_Click);
-            // 
-            // deleteButton
-            // 
-            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteButton.BackColor = System.Drawing.Color.DarkRed;
-            this.deleteButton.ForeColor = System.Drawing.Color.White;
-            this.deleteButton.Location = new System.Drawing.Point(7, 52);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(189, 28);
-            this.deleteButton.TabIndex = 2;
-            this.deleteButton.Text = "Удалить";
-            this.deleteButton.UseVisualStyleBackColor = false;
-            this.deleteButton.Click += new System.EventHandler(this.DeleteDiaryRecordButton_Click);
-            // 
             // groupBox3
             // 
+            this.tableLayoutPanel1.SetColumnSpan(this.groupBox3, 2);
             this.groupBox3.Controls.Add(this.phoneNumberTextBox);
             this.groupBox3.Controls.Add(this.addressTextBox);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label8);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(440, 3);
+            this.groupBox3.Location = new System.Drawing.Point(441, 3);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox3.Size = new System.Drawing.Size(430, 107);
+            this.groupBox3.Size = new System.Drawing.Size(429, 107);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Контактная информация";
@@ -516,7 +541,7 @@
             this.phoneNumberTextBox.Location = new System.Drawing.Point(128, 27);
             this.phoneNumberTextBox.Mask = "+375 (00) 000-0000";
             this.phoneNumberTextBox.Name = "phoneNumberTextBox";
-            this.phoneNumberTextBox.Size = new System.Drawing.Size(294, 23);
+            this.phoneNumberTextBox.Size = new System.Drawing.Size(293, 23);
             this.phoneNumberTextBox.TabIndex = 14;
             this.phoneNumberTextBox.Enter += new System.EventHandler(this.MaskedTextBox_Enter);
             // 
@@ -526,7 +551,7 @@
             this.addressTextBox.Location = new System.Drawing.Point(128, 57);
             this.addressTextBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.addressTextBox.Name = "addressTextBox";
-            this.addressTextBox.Size = new System.Drawing.Size(294, 48);
+            this.addressTextBox.Size = new System.Drawing.Size(293, 48);
             this.addressTextBox.TabIndex = 13;
             this.addressTextBox.Text = "";
             // 
@@ -564,7 +589,7 @@
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.groupBox2.Size = new System.Drawing.Size(428, 107);
+            this.groupBox2.Size = new System.Drawing.Size(429, 107);
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Даты";
@@ -589,7 +614,7 @@
             this.lastVisitDatePicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.lastVisitDatePicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.lastVisitDatePicker.Name = "lastVisitDatePicker";
-            this.lastVisitDatePicker.Size = new System.Drawing.Size(219, 23);
+            this.lastVisitDatePicker.Size = new System.Drawing.Size(220, 23);
             this.lastVisitDatePicker.TabIndex = 14;
             // 
             // label6
@@ -622,7 +647,7 @@
             this.dateOfBirthPicker.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dateOfBirthPicker.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dateOfBirthPicker.Name = "dateOfBirthPicker";
-            this.dateOfBirthPicker.Size = new System.Drawing.Size(220, 23);
+            this.dateOfBirthPicker.Size = new System.Drawing.Size(221, 23);
             this.dateOfBirthPicker.TabIndex = 13;
             this.dateOfBirthPicker.Leave += new System.EventHandler(this.DateOfBirthPicker_Leave);
             // 
@@ -634,7 +659,7 @@
             this.groupBox7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox7.Size = new System.Drawing.Size(430, 166);
+            this.groupBox7.Size = new System.Drawing.Size(431, 166);
             this.groupBox7.TabIndex = 22;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Особые отметки";
@@ -647,60 +672,45 @@
             this.descriptionTextBox.Location = new System.Drawing.Point(10, 20);
             this.descriptionTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(413, 143);
+            this.descriptionTextBox.Size = new System.Drawing.Size(414, 143);
             this.descriptionTextBox.TabIndex = 25;
             this.descriptionTextBox.Text = "";
             // 
-            // diaryTable
+            // groupBox5
             // 
-            this.diaryTable.AllowUserToAddRows = false;
-            this.diaryTable.AllowUserToDeleteRows = false;
-            this.diaryTable.AllowUserToResizeRows = false;
-            this.diaryTable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.diaryTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.diaryTable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.date,
-            this.data});
-            this.diaryTable.Location = new System.Drawing.Point(10, 409);
-            this.diaryTable.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.diaryTable.Name = "diaryTable";
-            this.diaryTable.RowHeadersVisible = false;
-            this.diaryTable.RowHeadersWidth = 51;
-            this.diaryTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.diaryTable.Size = new System.Drawing.Size(867, 215);
-            this.diaryTable.TabIndex = 20;
-            this.diaryTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DiaryTable_CellDoubleClick);
+            this.groupBox5.Controls.Add(this.deleteDiaryRecordButton);
+            this.groupBox5.Controls.Add(this.addDiaryRecordButton);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox5.Location = new System.Drawing.Point(658, 116);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(213, 107);
+            this.groupBox5.TabIndex = 24;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Управление записями в дневнике";
             // 
-            // ID
+            // deleteDiaryRecordButton
             // 
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 6;
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            this.ID.Width = 125;
+            this.deleteDiaryRecordButton.BackColor = System.Drawing.Color.DarkRed;
+            this.deleteDiaryRecordButton.ForeColor = System.Drawing.Color.White;
+            this.deleteDiaryRecordButton.Location = new System.Drawing.Point(6, 72);
+            this.deleteDiaryRecordButton.Name = "deleteDiaryRecordButton";
+            this.deleteDiaryRecordButton.Size = new System.Drawing.Size(195, 30);
+            this.deleteDiaryRecordButton.TabIndex = 1;
+            this.deleteDiaryRecordButton.Text = "Удалить";
+            this.deleteDiaryRecordButton.UseVisualStyleBackColor = false;
+            this.deleteDiaryRecordButton.Click += new System.EventHandler(this.DeleteDiaryRecordButton_Click);
             // 
-            // date
+            // addDiaryRecordButton
             // 
-            this.date.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle2.Format = "dd MMMM yyyy";
-            this.date.DefaultCellStyle = dataGridViewCellStyle2;
-            this.date.HeaderText = "Дата";
-            this.date.MinimumWidth = 6;
-            this.date.Name = "date";
-            this.date.ReadOnly = true;
-            this.date.Width = 57;
-            // 
-            // data
-            // 
-            this.data.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.data.HeaderText = "Диагноз, жалоба";
-            this.data.MinimumWidth = 6;
-            this.data.Name = "data";
-            this.data.ReadOnly = true;
+            this.addDiaryRecordButton.BackColor = System.Drawing.Color.DarkGreen;
+            this.addDiaryRecordButton.ForeColor = System.Drawing.Color.White;
+            this.addDiaryRecordButton.Location = new System.Drawing.Point(6, 38);
+            this.addDiaryRecordButton.Name = "addDiaryRecordButton";
+            this.addDiaryRecordButton.Size = new System.Drawing.Size(195, 30);
+            this.addDiaryRecordButton.TabIndex = 0;
+            this.addDiaryRecordButton.Text = "Добавить";
+            this.addDiaryRecordButton.UseVisualStyleBackColor = false;
+            this.addDiaryRecordButton.Click += new System.EventHandler(this.AddDiaryRecordButton_Click);
             // 
             // statusTabPage
             // 
@@ -845,7 +855,7 @@
             this.button_17.Size = new System.Drawing.Size(30, 29);
             this.button_17.TabIndex = 13;
             this.button_17.UseVisualStyleBackColor = false;
-            this.button_17.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_17.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label43
             // 
@@ -869,7 +879,7 @@
             this.button_51.Size = new System.Drawing.Size(30, 29);
             this.button_51.TabIndex = 2;
             this.button_51.UseVisualStyleBackColor = false;
-            this.button_51.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_51.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label44
             // 
@@ -893,7 +903,7 @@
             this.button_52.Size = new System.Drawing.Size(30, 29);
             this.button_52.TabIndex = 3;
             this.button_52.UseVisualStyleBackColor = false;
-            this.button_52.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_52.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label45
             // 
@@ -917,7 +927,7 @@
             this.button_53.Size = new System.Drawing.Size(30, 29);
             this.button_53.TabIndex = 4;
             this.button_53.UseVisualStyleBackColor = false;
-            this.button_53.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_53.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label56
             // 
@@ -941,7 +951,7 @@
             this.button_54.Size = new System.Drawing.Size(30, 29);
             this.button_54.TabIndex = 5;
             this.button_54.UseVisualStyleBackColor = false;
-            this.button_54.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_54.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label57
             // 
@@ -966,7 +976,7 @@
             this.button_55.Size = new System.Drawing.Size(30, 29);
             this.button_55.TabIndex = 6;
             this.button_55.UseVisualStyleBackColor = false;
-            this.button_55.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_55.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label59
             // 
@@ -990,7 +1000,7 @@
             this.button_11.Size = new System.Drawing.Size(30, 29);
             this.button_11.TabIndex = 7;
             this.button_11.UseVisualStyleBackColor = false;
-            this.button_11.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_11.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label60
             // 
@@ -1014,7 +1024,7 @@
             this.button_12.Size = new System.Drawing.Size(30, 29);
             this.button_12.TabIndex = 8;
             this.button_12.UseVisualStyleBackColor = false;
-            this.button_12.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_12.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label61
             // 
@@ -1038,7 +1048,7 @@
             this.button_13.Size = new System.Drawing.Size(30, 29);
             this.button_13.TabIndex = 9;
             this.button_13.UseVisualStyleBackColor = false;
-            this.button_13.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_13.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label62
             // 
@@ -1062,7 +1072,7 @@
             this.button_14.Size = new System.Drawing.Size(30, 29);
             this.button_14.TabIndex = 10;
             this.button_14.UseVisualStyleBackColor = false;
-            this.button_14.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_14.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label63
             // 
@@ -1086,7 +1096,7 @@
             this.button_15.Size = new System.Drawing.Size(30, 29);
             this.button_15.TabIndex = 11;
             this.button_15.UseVisualStyleBackColor = false;
-            this.button_15.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_15.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label51
             // 
@@ -1110,7 +1120,7 @@
             this.button_16.Size = new System.Drawing.Size(30, 29);
             this.button_16.TabIndex = 12;
             this.button_16.UseVisualStyleBackColor = false;
-            this.button_16.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_16.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label52
             // 
@@ -1134,7 +1144,7 @@
             this.button_18.Size = new System.Drawing.Size(30, 29);
             this.button_18.TabIndex = 14;
             this.button_18.UseVisualStyleBackColor = false;
-            this.button_18.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_18.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label53
             // 
@@ -1158,7 +1168,7 @@
             this.button_41.Size = new System.Drawing.Size(30, 29);
             this.button_41.TabIndex = 15;
             this.button_41.UseVisualStyleBackColor = false;
-            this.button_41.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_41.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label54
             // 
@@ -1182,7 +1192,7 @@
             this.button_81.Size = new System.Drawing.Size(30, 29);
             this.button_81.TabIndex = 16;
             this.button_81.UseVisualStyleBackColor = false;
-            this.button_81.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_81.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label55
             // 
@@ -1206,7 +1216,7 @@
             this.button_82.Size = new System.Drawing.Size(30, 29);
             this.button_82.TabIndex = 17;
             this.button_82.UseVisualStyleBackColor = false;
-            this.button_82.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_82.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label46
             // 
@@ -1230,7 +1240,7 @@
             this.button_83.Size = new System.Drawing.Size(30, 29);
             this.button_83.TabIndex = 18;
             this.button_83.UseVisualStyleBackColor = false;
-            this.button_83.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_83.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label47
             // 
@@ -1254,7 +1264,7 @@
             this.button_84.Size = new System.Drawing.Size(30, 29);
             this.button_84.TabIndex = 19;
             this.button_84.UseVisualStyleBackColor = false;
-            this.button_84.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_84.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label48
             // 
@@ -1278,7 +1288,7 @@
             this.button_85.Size = new System.Drawing.Size(30, 29);
             this.button_85.TabIndex = 20;
             this.button_85.UseVisualStyleBackColor = false;
-            this.button_85.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_85.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label49
             // 
@@ -1302,7 +1312,7 @@
             this.button_42.Size = new System.Drawing.Size(30, 29);
             this.button_42.TabIndex = 21;
             this.button_42.UseVisualStyleBackColor = false;
-            this.button_42.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_42.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label50
             // 
@@ -1326,7 +1336,7 @@
             this.button_43.Size = new System.Drawing.Size(30, 29);
             this.button_43.TabIndex = 22;
             this.button_43.UseVisualStyleBackColor = false;
-            this.button_43.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_43.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label35
             // 
@@ -1350,7 +1360,7 @@
             this.button_44.Size = new System.Drawing.Size(30, 29);
             this.button_44.TabIndex = 23;
             this.button_44.UseVisualStyleBackColor = false;
-            this.button_44.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_44.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label36
             // 
@@ -1374,7 +1384,7 @@
             this.button_45.Size = new System.Drawing.Size(30, 29);
             this.button_45.TabIndex = 24;
             this.button_45.UseVisualStyleBackColor = false;
-            this.button_45.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_45.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label37
             // 
@@ -1398,7 +1408,7 @@
             this.button_46.Size = new System.Drawing.Size(30, 29);
             this.button_46.TabIndex = 25;
             this.button_46.UseVisualStyleBackColor = false;
-            this.button_46.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_46.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label38
             // 
@@ -1422,7 +1432,7 @@
             this.button_47.Size = new System.Drawing.Size(30, 29);
             this.button_47.TabIndex = 26;
             this.button_47.UseVisualStyleBackColor = false;
-            this.button_47.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_47.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label39
             // 
@@ -1446,7 +1456,7 @@
             this.button_48.Size = new System.Drawing.Size(30, 29);
             this.button_48.TabIndex = 27;
             this.button_48.UseVisualStyleBackColor = false;
-            this.button_48.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_48.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label40
             // 
@@ -1470,7 +1480,7 @@
             this.button_31.Size = new System.Drawing.Size(30, 29);
             this.button_31.TabIndex = 28;
             this.button_31.UseVisualStyleBackColor = false;
-            this.button_31.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_31.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label41
             // 
@@ -1494,7 +1504,7 @@
             this.button_71.Size = new System.Drawing.Size(30, 29);
             this.button_71.TabIndex = 29;
             this.button_71.UseVisualStyleBackColor = false;
-            this.button_71.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_71.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label42
             // 
@@ -1518,7 +1528,7 @@
             this.button_32.Size = new System.Drawing.Size(30, 29);
             this.button_32.TabIndex = 30;
             this.button_32.UseVisualStyleBackColor = false;
-            this.button_32.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_32.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label27
             // 
@@ -1542,7 +1552,7 @@
             this.button_72.Size = new System.Drawing.Size(30, 29);
             this.button_72.TabIndex = 31;
             this.button_72.UseVisualStyleBackColor = false;
-            this.button_72.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_72.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label28
             // 
@@ -1566,7 +1576,7 @@
             this.button_33.Size = new System.Drawing.Size(30, 29);
             this.button_33.TabIndex = 32;
             this.button_33.UseVisualStyleBackColor = false;
-            this.button_33.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_33.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label29
             // 
@@ -1590,7 +1600,7 @@
             this.button_73.Size = new System.Drawing.Size(30, 29);
             this.button_73.TabIndex = 33;
             this.button_73.UseVisualStyleBackColor = false;
-            this.button_73.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_73.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label30
             // 
@@ -1614,7 +1624,7 @@
             this.button_74.Size = new System.Drawing.Size(30, 29);
             this.button_74.TabIndex = 34;
             this.button_74.UseVisualStyleBackColor = false;
-            this.button_74.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_74.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label31
             // 
@@ -1638,7 +1648,7 @@
             this.button_34.Size = new System.Drawing.Size(30, 29);
             this.button_34.TabIndex = 35;
             this.button_34.UseVisualStyleBackColor = false;
-            this.button_34.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_34.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label32
             // 
@@ -1662,7 +1672,7 @@
             this.button_75.Size = new System.Drawing.Size(30, 29);
             this.button_75.TabIndex = 36;
             this.button_75.UseVisualStyleBackColor = false;
-            this.button_75.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_75.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label33
             // 
@@ -1686,7 +1696,7 @@
             this.button_35.Size = new System.Drawing.Size(30, 29);
             this.button_35.TabIndex = 37;
             this.button_35.UseVisualStyleBackColor = false;
-            this.button_35.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_35.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label34
             // 
@@ -1710,7 +1720,7 @@
             this.button_36.Size = new System.Drawing.Size(30, 29);
             this.button_36.TabIndex = 38;
             this.button_36.UseVisualStyleBackColor = false;
-            this.button_36.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_36.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label19
             // 
@@ -1734,7 +1744,7 @@
             this.button_37.Size = new System.Drawing.Size(30, 29);
             this.button_37.TabIndex = 39;
             this.button_37.UseVisualStyleBackColor = false;
-            this.button_37.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_37.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label20
             // 
@@ -1759,7 +1769,7 @@
             this.button_38.Size = new System.Drawing.Size(30, 29);
             this.button_38.TabIndex = 40;
             this.button_38.UseVisualStyleBackColor = false;
-            this.button_38.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_38.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label21
             // 
@@ -1783,7 +1793,7 @@
             this.button_21.Size = new System.Drawing.Size(30, 29);
             this.button_21.TabIndex = 41;
             this.button_21.UseVisualStyleBackColor = false;
-            this.button_21.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_21.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label22
             // 
@@ -1807,7 +1817,7 @@
             this.button_22.Size = new System.Drawing.Size(30, 29);
             this.button_22.TabIndex = 42;
             this.button_22.UseVisualStyleBackColor = false;
-            this.button_22.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_22.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label23
             // 
@@ -1831,7 +1841,7 @@
             this.button_23.Size = new System.Drawing.Size(30, 29);
             this.button_23.TabIndex = 43;
             this.button_23.UseVisualStyleBackColor = false;
-            this.button_23.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_23.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label24
             // 
@@ -1855,7 +1865,7 @@
             this.button_24.Size = new System.Drawing.Size(30, 29);
             this.button_24.TabIndex = 44;
             this.button_24.UseVisualStyleBackColor = false;
-            this.button_24.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_24.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label25
             // 
@@ -1879,7 +1889,7 @@
             this.button_25.Size = new System.Drawing.Size(30, 29);
             this.button_25.TabIndex = 45;
             this.button_25.UseVisualStyleBackColor = false;
-            this.button_25.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_25.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label26
             // 
@@ -1903,7 +1913,7 @@
             this.button_26.Size = new System.Drawing.Size(30, 29);
             this.button_26.TabIndex = 46;
             this.button_26.UseVisualStyleBackColor = false;
-            this.button_26.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_26.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label18
             // 
@@ -1927,7 +1937,7 @@
             this.button_27.Size = new System.Drawing.Size(30, 29);
             this.button_27.TabIndex = 47;
             this.button_27.UseVisualStyleBackColor = false;
-            this.button_27.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_27.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label17
             // 
@@ -1951,7 +1961,7 @@
             this.button_28.Size = new System.Drawing.Size(30, 29);
             this.button_28.TabIndex = 48;
             this.button_28.UseVisualStyleBackColor = false;
-            this.button_28.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_28.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label16
             // 
@@ -1975,7 +1985,7 @@
             this.button_61.Size = new System.Drawing.Size(30, 29);
             this.button_61.TabIndex = 49;
             this.button_61.UseVisualStyleBackColor = false;
-            this.button_61.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_61.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label15
             // 
@@ -1999,7 +2009,7 @@
             this.button_62.Size = new System.Drawing.Size(30, 29);
             this.button_62.TabIndex = 50;
             this.button_62.UseVisualStyleBackColor = false;
-            this.button_62.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_62.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label14
             // 
@@ -2023,7 +2033,7 @@
             this.button_63.Size = new System.Drawing.Size(30, 29);
             this.button_63.TabIndex = 51;
             this.button_63.UseVisualStyleBackColor = false;
-            this.button_63.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_63.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label13
             // 
@@ -2047,7 +2057,7 @@
             this.button_64.Size = new System.Drawing.Size(30, 29);
             this.button_64.TabIndex = 52;
             this.button_64.UseVisualStyleBackColor = false;
-            this.button_64.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_64.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label12
             // 
@@ -2071,7 +2081,7 @@
             this.button_65.Size = new System.Drawing.Size(30, 29);
             this.button_65.TabIndex = 53;
             this.button_65.UseVisualStyleBackColor = false;
-            this.button_65.Click += new System.EventHandler(this.ChangeToothStatus);
+            this.button_65.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ToothButtonMouseUp);
             // 
             // label11
             // 
@@ -2264,42 +2274,6 @@
             this.storageComboBox.Size = new System.Drawing.Size(203, 23);
             this.storageComboBox.TabIndex = 4;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            this.dataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridViewCellStyle1.Format = "dd MMMM yyyy";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewTextBoxColumn2.HeaderText = "Дата";
-            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 57;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.dataGridViewTextBoxColumn3.HeaderText = "у.е.";
-            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 50;
-            // 
-            // Diagnosis
-            // 
-            this.Diagnosis.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Diagnosis.HeaderText = "Диагноз";
-            this.Diagnosis.Name = "Diagnosis";
-            this.Diagnosis.ReadOnly = true;
-            // 
             // EditForm
             // 
             this.AcceptButton = this.saveButton;
@@ -2322,19 +2296,18 @@
             this.Text = "Редактор данных";
             this.editTabs.ResumeLayout(false);
             this.patientInfoTabPage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.diaryTable)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.paymentsTable)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.diaryTable)).EndInit();
+            this.groupBox5.ResumeLayout(false);
             this.statusTabPage.ResumeLayout(false);
             this.statusTabPage.PerformLayout();
             this.teethGroupBox.ResumeLayout(false);
@@ -2487,17 +2460,12 @@
     private System.Windows.Forms.GroupBox groupBox3;
     private System.Windows.Forms.GroupBox groupBox1;
     private System.Windows.Forms.GroupBox groupBox4;
-    private System.Windows.Forms.Button deleteButton;
-    private System.Windows.Forms.Button addButton;
-    private System.Windows.Forms.DataGridView diaryTable;
     private System.Windows.Forms.RichTextBox addressTextBox;
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     private System.Windows.Forms.Button delButton;
     private System.Windows.Forms.Label storageLabel;
     private System.Windows.Forms.ComboBox storageComboBox;
     private System.Windows.Forms.MaskedTextBox phoneNumberTextBox;
-    private System.Windows.Forms.GroupBox groupBox6;
-    private System.Windows.Forms.GroupBox groupBox5;
     private System.Windows.Forms.Button deleteMoneyButton;
     private System.Windows.Forms.Button addMoneyButton;
     private System.Windows.Forms.RichTextBox descriptionTextBox;
@@ -2505,12 +2473,16 @@
     private System.Windows.Forms.GroupBox groupBox7;
     private System.Windows.Forms.Label ageLabel;
     private System.Windows.Forms.ToolTip toothStatusToolTip;
-    private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-    private System.Windows.Forms.DataGridViewTextBoxColumn date;
-    private System.Windows.Forms.DataGridViewTextBoxColumn data;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
     private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     private System.Windows.Forms.DataGridViewTextBoxColumn Diagnosis;
+    private System.Windows.Forms.DataGridView diaryTable;
+    private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+    private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+    private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+    private System.Windows.Forms.GroupBox groupBox5;
+    private System.Windows.Forms.Button deleteDiaryRecordButton;
+    private System.Windows.Forms.Button addDiaryRecordButton;
   }
 }

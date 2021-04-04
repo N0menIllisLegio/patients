@@ -14,109 +14,126 @@ namespace Patients.Forms
 {
   public partial class EditForm: Form
   {
+    private static readonly string[] _storages;
+
     private readonly IPatientsService _patientsService;
     private readonly IDiaryRecordsService _diaryRecordsService;
+    private readonly IDentalRecordsService _dentalRecordsService;
+    private readonly IPatientTeethService _patientTeethService;
     private readonly IPaymentsService _paymentsService;
 
     private readonly PatientPicturesManager _patientPicturesManager;
 
     private readonly Guid? _patientID;
-    private readonly List<DiaryRecord> _diary;
+    private readonly List<PatientTooth> _patientTeeth;
     private readonly List<Payment> _payments;
+    private readonly List<DiaryRecord> _diary;
+    private List<DentalRecord> _dentalRecords;
 
-    public EditForm()
+    static EditForm()
+    {
+      _storages = Enum.GetValues<Storage>()
+        .Select(storage => storage.GetDescription()).ToArray();
+    }
+
+    public EditForm(bool newPatient = true)
     {
       _patientsService = Program.ServiceProvider.GetService<IPatientsService>();
       _diaryRecordsService = Program.ServiceProvider.GetService<IDiaryRecordsService>();
       _paymentsService = Program.ServiceProvider.GetService<IPaymentsService>();
+      _dentalRecordsService = Program.ServiceProvider.GetService<IDentalRecordsService>();
+      _patientTeethService = Program.ServiceProvider.GetService<IPatientTeethService>();
+
+      _patientPicturesManager = new PatientPicturesManager();
 
       InitializeComponent();
 
-      _patientPicturesManager = new PatientPicturesManager();
-      totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
-      RefreshDisplayedPatientPicture();
+      storageComboBox.Items.AddRange(_storages);
 
-      _diary = new List<DiaryRecord>();
-      _payments = new List<Payment>();
+      if (newPatient)
+      {
+        _payments = new List<Payment>();
+        _dentalRecords = new List<DentalRecord>();
+        _diary = new List<DiaryRecord>();
+        _patientTeeth = _patientTeethService.CreateNewPatientTeethAsync().Result;
 
-      string[] storages = Enum.GetValues<Storage>()
-        .Select(storage => storage.GetDescription()).ToArray();
+        #region Set buttons tooltips
 
-      storageComboBox.Items.AddRange(storages);
-      storageComboBox.SelectedIndex = 0;
+        string healthyToothStatusDescription = ToothStatus.Healthy.GetDescription();
 
-      #region Set buttons tooltips
+        toothStatusToolTip.SetToolTip(button_11, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_12, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_13, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_14, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_15, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_16, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_17, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_18, healthyToothStatusDescription);
 
-      string healthyToothStatusDescription = ToothStatus.Healthy.GetDescription();
+        toothStatusToolTip.SetToolTip(button_21, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_22, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_23, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_24, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_25, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_26, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_27, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_28, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_11, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_12, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_13, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_14, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_15, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_16, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_17, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_18, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_31, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_32, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_33, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_34, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_35, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_36, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_37, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_38, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_21, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_22, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_23, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_24, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_25, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_26, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_27, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_28, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_41, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_42, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_43, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_44, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_45, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_46, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_47, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_48, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_31, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_32, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_33, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_34, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_35, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_36, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_37, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_38, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_51, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_52, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_53, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_54, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_55, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_41, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_42, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_43, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_44, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_45, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_46, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_47, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_48, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_61, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_62, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_63, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_64, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_65, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_51, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_52, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_53, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_54, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_55, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_71, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_72, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_73, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_74, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_75, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_61, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_62, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_63, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_64, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_65, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_81, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_82, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_83, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_84, healthyToothStatusDescription);
+        toothStatusToolTip.SetToolTip(button_85, healthyToothStatusDescription);
 
-      toothStatusToolTip.SetToolTip(button_71, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_72, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_73, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_74, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_75, healthyToothStatusDescription);
+        #endregion Set buttons tooltips
 
-      toothStatusToolTip.SetToolTip(button_81, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_82, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_83, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_84, healthyToothStatusDescription);
-      toothStatusToolTip.SetToolTip(button_85, healthyToothStatusDescription);
+        storageComboBox.SelectedIndex = 0;
+        totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
+        dateOfBirthPicker.Value = dateOfBirthPicker.MinDate;
 
-      #endregion Set buttons tooltips
-
-      dateOfBirthPicker.Value = dateOfBirthPicker.MinDate;
-      RefreshAge();
+        RefreshDisplayedPatientPicture();
+        RefreshAge();
+      }
     }
 
     public EditForm(Guid patientID)
-      : this()
+      : this(newPatient: false)
     {
       _patientID = patientID;
       var patient = _patientsService.GetPatientAsync(patientID).Result;
@@ -151,141 +168,148 @@ namespace Patients.Forms
 
       storageComboBox.SelectedIndex = (int)patient.Storage;
 
-      var dentalRecord = patient.DentalRecord;
+      _patientTeeth = patient.Teeth.OrderBy(tooth => tooth.ToothNumber).ToList();
+      _dentalRecords = _dentalRecordsService.GetPatientDentalRecordsAsync(patient.ID).Result;
+      _payments = patient.Payments.ToList();
+      _diary = patient.Diary.ToList();
+
+      if (_patientTeeth.Count == 0)
+      {
+        _patientTeeth = _patientTeethService.CreateNewPatientTeethAsync(patient).Result;
+        _patientTeethService.AddPatientTeethAsync(_patientTeeth);
+      }
 
       #region Set buttons colors
 
-      button_11.BackColor = dentalRecord.Tooth11.ConvertToColor();
-      button_12.BackColor = dentalRecord.Tooth12.ConvertToColor();
-      button_13.BackColor = dentalRecord.Tooth13.ConvertToColor();
-      button_14.BackColor = dentalRecord.Tooth14.ConvertToColor();
-      button_15.BackColor = dentalRecord.Tooth15.ConvertToColor();
-      button_16.BackColor = dentalRecord.Tooth16.ConvertToColor();
-      button_17.BackColor = dentalRecord.Tooth17.ConvertToColor();
-      button_18.BackColor = dentalRecord.Tooth18.ConvertToColor();
+      button_11.BackColor = _patientTeeth[0].Status.ConvertToColor();
+      button_12.BackColor = _patientTeeth[1].Status.ConvertToColor();
+      button_13.BackColor = _patientTeeth[2].Status.ConvertToColor();
+      button_14.BackColor = _patientTeeth[3].Status.ConvertToColor();
+      button_15.BackColor = _patientTeeth[4].Status.ConvertToColor();
+      button_16.BackColor = _patientTeeth[5].Status.ConvertToColor();
+      button_17.BackColor = _patientTeeth[6].Status.ConvertToColor();
+      button_18.BackColor = _patientTeeth[7].Status.ConvertToColor();
 
-      button_21.BackColor = dentalRecord.Tooth21.ConvertToColor();
-      button_22.BackColor = dentalRecord.Tooth22.ConvertToColor();
-      button_23.BackColor = dentalRecord.Tooth23.ConvertToColor();
-      button_24.BackColor = dentalRecord.Tooth24.ConvertToColor();
-      button_25.BackColor = dentalRecord.Tooth25.ConvertToColor();
-      button_26.BackColor = dentalRecord.Tooth26.ConvertToColor();
-      button_27.BackColor = dentalRecord.Tooth27.ConvertToColor();
-      button_28.BackColor = dentalRecord.Tooth28.ConvertToColor();
+      button_21.BackColor = _patientTeeth[8].Status.ConvertToColor();
+      button_22.BackColor = _patientTeeth[9].Status.ConvertToColor();
+      button_23.BackColor = _patientTeeth[10].Status.ConvertToColor();
+      button_24.BackColor = _patientTeeth[11].Status.ConvertToColor();
+      button_25.BackColor = _patientTeeth[12].Status.ConvertToColor();
+      button_26.BackColor = _patientTeeth[13].Status.ConvertToColor();
+      button_27.BackColor = _patientTeeth[14].Status.ConvertToColor();
+      button_28.BackColor = _patientTeeth[15].Status.ConvertToColor();
 
-      button_31.BackColor = dentalRecord.Tooth31.ConvertToColor();
-      button_32.BackColor = dentalRecord.Tooth32.ConvertToColor();
-      button_33.BackColor = dentalRecord.Tooth33.ConvertToColor();
-      button_34.BackColor = dentalRecord.Tooth34.ConvertToColor();
-      button_35.BackColor = dentalRecord.Tooth35.ConvertToColor();
-      button_36.BackColor = dentalRecord.Tooth36.ConvertToColor();
-      button_37.BackColor = dentalRecord.Tooth37.ConvertToColor();
-      button_38.BackColor = dentalRecord.Tooth38.ConvertToColor();
+      button_31.BackColor = _patientTeeth[16].Status.ConvertToColor();
+      button_32.BackColor = _patientTeeth[17].Status.ConvertToColor();
+      button_33.BackColor = _patientTeeth[18].Status.ConvertToColor();
+      button_34.BackColor = _patientTeeth[19].Status.ConvertToColor();
+      button_35.BackColor = _patientTeeth[20].Status.ConvertToColor();
+      button_36.BackColor = _patientTeeth[21].Status.ConvertToColor();
+      button_37.BackColor = _patientTeeth[22].Status.ConvertToColor();
+      button_38.BackColor = _patientTeeth[23].Status.ConvertToColor();
 
-      button_41.BackColor = dentalRecord.Tooth41.ConvertToColor();
-      button_42.BackColor = dentalRecord.Tooth42.ConvertToColor();
-      button_43.BackColor = dentalRecord.Tooth43.ConvertToColor();
-      button_44.BackColor = dentalRecord.Tooth44.ConvertToColor();
-      button_45.BackColor = dentalRecord.Tooth45.ConvertToColor();
-      button_46.BackColor = dentalRecord.Tooth46.ConvertToColor();
-      button_47.BackColor = dentalRecord.Tooth47.ConvertToColor();
-      button_48.BackColor = dentalRecord.Tooth48.ConvertToColor();
+      button_41.BackColor = _patientTeeth[24].Status.ConvertToColor();
+      button_42.BackColor = _patientTeeth[25].Status.ConvertToColor();
+      button_43.BackColor = _patientTeeth[26].Status.ConvertToColor();
+      button_44.BackColor = _patientTeeth[27].Status.ConvertToColor();
+      button_45.BackColor = _patientTeeth[28].Status.ConvertToColor();
+      button_46.BackColor = _patientTeeth[29].Status.ConvertToColor();
+      button_47.BackColor = _patientTeeth[30].Status.ConvertToColor();
+      button_48.BackColor = _patientTeeth[31].Status.ConvertToColor();
 
-      button_51.BackColor = dentalRecord.Tooth51.ConvertToColor();
-      button_52.BackColor = dentalRecord.Tooth52.ConvertToColor();
-      button_53.BackColor = dentalRecord.Tooth53.ConvertToColor();
-      button_54.BackColor = dentalRecord.Tooth54.ConvertToColor();
-      button_55.BackColor = dentalRecord.Tooth55.ConvertToColor();
+      button_51.BackColor = _patientTeeth[32].Status.ConvertToColor();
+      button_52.BackColor = _patientTeeth[33].Status.ConvertToColor();
+      button_53.BackColor = _patientTeeth[34].Status.ConvertToColor();
+      button_54.BackColor = _patientTeeth[35].Status.ConvertToColor();
+      button_55.BackColor = _patientTeeth[36].Status.ConvertToColor();
 
-      button_61.BackColor = dentalRecord.Tooth61.ConvertToColor();
-      button_62.BackColor = dentalRecord.Tooth62.ConvertToColor();
-      button_63.BackColor = dentalRecord.Tooth63.ConvertToColor();
-      button_64.BackColor = dentalRecord.Tooth64.ConvertToColor();
-      button_65.BackColor = dentalRecord.Tooth65.ConvertToColor();
+      button_61.BackColor = _patientTeeth[37].Status.ConvertToColor();
+      button_62.BackColor = _patientTeeth[38].Status.ConvertToColor();
+      button_63.BackColor = _patientTeeth[39].Status.ConvertToColor();
+      button_64.BackColor = _patientTeeth[40].Status.ConvertToColor();
+      button_65.BackColor = _patientTeeth[41].Status.ConvertToColor();
 
-      button_71.BackColor = dentalRecord.Tooth71.ConvertToColor();
-      button_72.BackColor = dentalRecord.Tooth72.ConvertToColor();
-      button_73.BackColor = dentalRecord.Tooth73.ConvertToColor();
-      button_74.BackColor = dentalRecord.Tooth74.ConvertToColor();
-      button_75.BackColor = dentalRecord.Tooth75.ConvertToColor();
+      button_71.BackColor = _patientTeeth[42].Status.ConvertToColor();
+      button_72.BackColor = _patientTeeth[43].Status.ConvertToColor();
+      button_73.BackColor = _patientTeeth[44].Status.ConvertToColor();
+      button_74.BackColor = _patientTeeth[45].Status.ConvertToColor();
+      button_75.BackColor = _patientTeeth[46].Status.ConvertToColor();
 
-      button_81.BackColor = dentalRecord.Tooth81.ConvertToColor();
-      button_82.BackColor = dentalRecord.Tooth82.ConvertToColor();
-      button_83.BackColor = dentalRecord.Tooth83.ConvertToColor();
-      button_84.BackColor = dentalRecord.Tooth84.ConvertToColor();
-      button_85.BackColor = dentalRecord.Tooth85.ConvertToColor();
+      button_81.BackColor = _patientTeeth[47].Status.ConvertToColor();
+      button_82.BackColor = _patientTeeth[48].Status.ConvertToColor();
+      button_83.BackColor = _patientTeeth[49].Status.ConvertToColor();
+      button_84.BackColor = _patientTeeth[50].Status.ConvertToColor();
+      button_85.BackColor = _patientTeeth[51].Status.ConvertToColor();
 
       #endregion Set buttons colors
 
       #region Set buttons tooltips
 
-      toothStatusToolTip.SetToolTip(button_11, dentalRecord.Tooth11.GetDescription());
-      toothStatusToolTip.SetToolTip(button_12, dentalRecord.Tooth12.GetDescription());
-      toothStatusToolTip.SetToolTip(button_13, dentalRecord.Tooth13.GetDescription());
-      toothStatusToolTip.SetToolTip(button_14, dentalRecord.Tooth14.GetDescription());
-      toothStatusToolTip.SetToolTip(button_15, dentalRecord.Tooth15.GetDescription());
-      toothStatusToolTip.SetToolTip(button_16, dentalRecord.Tooth16.GetDescription());
-      toothStatusToolTip.SetToolTip(button_17, dentalRecord.Tooth17.GetDescription());
-      toothStatusToolTip.SetToolTip(button_18, dentalRecord.Tooth18.GetDescription());
+      toothStatusToolTip.SetToolTip(button_11, _patientTeeth[0].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_12, _patientTeeth[1].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_13, _patientTeeth[2].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_14, _patientTeeth[3].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_15, _patientTeeth[4].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_16, _patientTeeth[5].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_17, _patientTeeth[6].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_18, _patientTeeth[7].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_21, dentalRecord.Tooth21.GetDescription());
-      toothStatusToolTip.SetToolTip(button_22, dentalRecord.Tooth22.GetDescription());
-      toothStatusToolTip.SetToolTip(button_23, dentalRecord.Tooth23.GetDescription());
-      toothStatusToolTip.SetToolTip(button_24, dentalRecord.Tooth24.GetDescription());
-      toothStatusToolTip.SetToolTip(button_25, dentalRecord.Tooth25.GetDescription());
-      toothStatusToolTip.SetToolTip(button_26, dentalRecord.Tooth26.GetDescription());
-      toothStatusToolTip.SetToolTip(button_27, dentalRecord.Tooth27.GetDescription());
-      toothStatusToolTip.SetToolTip(button_28, dentalRecord.Tooth28.GetDescription());
+      toothStatusToolTip.SetToolTip(button_21, _patientTeeth[8].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_22, _patientTeeth[9].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_23, _patientTeeth[10].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_24, _patientTeeth[11].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_25, _patientTeeth[12].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_26, _patientTeeth[13].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_27, _patientTeeth[14].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_28, _patientTeeth[15].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_31, dentalRecord.Tooth31.GetDescription());
-      toothStatusToolTip.SetToolTip(button_32, dentalRecord.Tooth32.GetDescription());
-      toothStatusToolTip.SetToolTip(button_33, dentalRecord.Tooth33.GetDescription());
-      toothStatusToolTip.SetToolTip(button_34, dentalRecord.Tooth34.GetDescription());
-      toothStatusToolTip.SetToolTip(button_35, dentalRecord.Tooth35.GetDescription());
-      toothStatusToolTip.SetToolTip(button_36, dentalRecord.Tooth36.GetDescription());
-      toothStatusToolTip.SetToolTip(button_37, dentalRecord.Tooth37.GetDescription());
-      toothStatusToolTip.SetToolTip(button_38, dentalRecord.Tooth38.GetDescription());
+      toothStatusToolTip.SetToolTip(button_31, _patientTeeth[16].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_32, _patientTeeth[17].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_33, _patientTeeth[18].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_34, _patientTeeth[19].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_35, _patientTeeth[20].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_36, _patientTeeth[21].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_37, _patientTeeth[22].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_38, _patientTeeth[23].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_41, dentalRecord.Tooth41.GetDescription());
-      toothStatusToolTip.SetToolTip(button_42, dentalRecord.Tooth42.GetDescription());
-      toothStatusToolTip.SetToolTip(button_43, dentalRecord.Tooth43.GetDescription());
-      toothStatusToolTip.SetToolTip(button_44, dentalRecord.Tooth44.GetDescription());
-      toothStatusToolTip.SetToolTip(button_45, dentalRecord.Tooth45.GetDescription());
-      toothStatusToolTip.SetToolTip(button_46, dentalRecord.Tooth46.GetDescription());
-      toothStatusToolTip.SetToolTip(button_47, dentalRecord.Tooth47.GetDescription());
-      toothStatusToolTip.SetToolTip(button_48, dentalRecord.Tooth48.GetDescription());
+      toothStatusToolTip.SetToolTip(button_41, _patientTeeth[24].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_42, _patientTeeth[25].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_43, _patientTeeth[26].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_44, _patientTeeth[27].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_45, _patientTeeth[28].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_46, _patientTeeth[29].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_47, _patientTeeth[30].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_48, _patientTeeth[31].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_51, dentalRecord.Tooth51.GetDescription());
-      toothStatusToolTip.SetToolTip(button_52, dentalRecord.Tooth52.GetDescription());
-      toothStatusToolTip.SetToolTip(button_53, dentalRecord.Tooth53.GetDescription());
-      toothStatusToolTip.SetToolTip(button_54, dentalRecord.Tooth54.GetDescription());
-      toothStatusToolTip.SetToolTip(button_55, dentalRecord.Tooth55.GetDescription());
+      toothStatusToolTip.SetToolTip(button_51, _patientTeeth[32].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_52, _patientTeeth[33].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_53, _patientTeeth[34].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_54, _patientTeeth[35].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_55, _patientTeeth[36].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_61, dentalRecord.Tooth61.GetDescription());
-      toothStatusToolTip.SetToolTip(button_62, dentalRecord.Tooth62.GetDescription());
-      toothStatusToolTip.SetToolTip(button_63, dentalRecord.Tooth63.GetDescription());
-      toothStatusToolTip.SetToolTip(button_64, dentalRecord.Tooth64.GetDescription());
-      toothStatusToolTip.SetToolTip(button_65, dentalRecord.Tooth65.GetDescription());
+      toothStatusToolTip.SetToolTip(button_61, _patientTeeth[37].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_62, _patientTeeth[38].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_63, _patientTeeth[39].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_64, _patientTeeth[40].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_65, _patientTeeth[41].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_71, dentalRecord.Tooth71.GetDescription());
-      toothStatusToolTip.SetToolTip(button_72, dentalRecord.Tooth72.GetDescription());
-      toothStatusToolTip.SetToolTip(button_73, dentalRecord.Tooth73.GetDescription());
-      toothStatusToolTip.SetToolTip(button_74, dentalRecord.Tooth74.GetDescription());
-      toothStatusToolTip.SetToolTip(button_75, dentalRecord.Tooth75.GetDescription());
+      toothStatusToolTip.SetToolTip(button_71, _patientTeeth[42].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_72, _patientTeeth[43].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_73, _patientTeeth[44].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_74, _patientTeeth[45].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_75, _patientTeeth[46].Status.GetDescription());
 
-      toothStatusToolTip.SetToolTip(button_81, dentalRecord.Tooth81.GetDescription());
-      toothStatusToolTip.SetToolTip(button_82, dentalRecord.Tooth82.GetDescription());
-      toothStatusToolTip.SetToolTip(button_83, dentalRecord.Tooth83.GetDescription());
-      toothStatusToolTip.SetToolTip(button_84, dentalRecord.Tooth84.GetDescription());
-      toothStatusToolTip.SetToolTip(button_85, dentalRecord.Tooth85.GetDescription());
+      toothStatusToolTip.SetToolTip(button_81, _patientTeeth[47].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_82, _patientTeeth[48].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_83, _patientTeeth[49].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_84, _patientTeeth[50].Status.GetDescription());
+      toothStatusToolTip.SetToolTip(button_85, _patientTeeth[51].Status.GetDescription());
 
       #endregion Set buttons tooltips
 
-      _diary = patient.Diary.ToList();
-      _payments = patient.Payments.ToList();
-      RefreshDiary();
       RefreshPayments();
       RefreshAge();
+      RefreshDiary();
     }
 
     private bool NewPatient => !_patientID.HasValue;
@@ -475,24 +499,23 @@ namespace Patients.Forms
 
     private void AddPictureButton_Click(object sender, EventArgs e)
     {
-      using (var openFileDialog = new OpenFileDialog())
+      using var openFileDialog = new OpenFileDialog();
+
+      openFileDialog.InitialDirectory = "c:\\";
+      openFileDialog.Filter = @"Image Files(*.jpeg;*.jpg;*.png)|*.jpeg;*.jpg;*.png|All files (*.*)|*.*";
+      openFileDialog.FilterIndex = 2;
+      openFileDialog.RestoreDirectory = true;
+      openFileDialog.Multiselect = true;
+
+      if (openFileDialog.ShowDialog() == DialogResult.OK)
       {
-        openFileDialog.InitialDirectory = "c:\\";
-        openFileDialog.Filter = @"Image Files(*.jpeg;*.jpg;*.png)|*.jpeg;*.jpg;*.png|All files (*.*)|*.*";
-        openFileDialog.FilterIndex = 2;
-        openFileDialog.RestoreDirectory = true;
-        openFileDialog.Multiselect = true;
+        _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
+        totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
 
-        if (openFileDialog.ShowDialog() == DialogResult.OK)
+        if (_patientPicturesManager.DisplayedPatientPicturesCount == 1)
         {
-          _patientPicturesManager.AddPatientPictures(openFileDialog.FileNames);
-          totalImgCountLabel.Text = $"Всего снимков: {_patientPicturesManager.DisplayedPatientPicturesCount}";
-
-          if (_patientPicturesManager.DisplayedPatientPicturesCount == 1)
-          {
-            _patientPicturesManager.NextPatientPicture();
-            RefreshDisplayedPatientPicture();
-          }
+          _patientPicturesManager.NextPatientPicture();
+          RefreshDisplayedPatientPicture();
         }
       }
     }
@@ -534,44 +557,6 @@ namespace Patients.Forms
 
     #endregion Pictures
 
-    private void ChangeToothStatus(object sender, EventArgs e)
-    {
-      var toothButton = sender as Button;
-      var previousStatus = toothButton.BackColor.ConvertToToothStatus();
-      var teethStatusForm = new TeethStatusForm(previousStatus);
-
-      if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.ToothStatus != previousStatus)
-      {
-        string toothStatusDescription = teethStatusForm.ToothStatus.GetDescription();
-        toothStatusToolTip.SetToolTip(toothButton, toothStatusDescription);
-
-        string diagnosis = $"Зуб №{toothButton.Name.Replace("button_", String.Empty)} " +
-          $"сменил статус с: {previousStatus.GetDescription()} " +
-          $"на: {toothStatusDescription}.";
-
-        if (!String.IsNullOrEmpty(teethStatusForm.Cause.Trim()))
-        {
-          diagnosis += $" Причина: {teethStatusForm.Cause}";
-        }
-
-        toothButton.BackColor = teethStatusForm.ToothStatus.ConvertToColor();
-
-        var diaryRecordForm = new DiaryRecordForm(DateTime.Today, diagnosis);
-
-        if (diaryRecordForm.ShowDialog() == DialogResult.OK)
-        {
-          _diary.Add(new DiaryRecord
-          {
-            ID = Guid.NewGuid(),
-            Date = diaryRecordForm.Date,
-            Diagnosis = diaryRecordForm.Diagnosis
-          });
-
-          RefreshDiary();
-        }
-      }
-    }
-
     private void CancelButton_Click(object sender, EventArgs e)
     {
       string cancelWarning = NewPatient
@@ -595,7 +580,7 @@ namespace Patients.Forms
     {
       var patient = !NewPatient
         ? await _patientsService.GetPatientAsync(_patientID.Value)
-        : new Patient { DentalRecord = new DentalRecord() };
+        : new Patient();
 
       patient.Name = nameTextBox.Text.TrimLowerCapitalizeFirstLetter();
       patient.Surname = surnameTextBox.Text.TrimLowerCapitalizeFirstLetter();
@@ -618,81 +603,21 @@ namespace Patients.Forms
 
       _patientPicturesManager.ApplyChanges();
 
-      #region Get teeth statuses from buttons
-
-      patient.DentalRecord.Tooth11 = button_11.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth12 = button_12.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth13 = button_13.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth14 = button_14.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth15 = button_15.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth16 = button_16.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth17 = button_17.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth18 = button_18.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth21 = button_21.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth22 = button_22.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth23 = button_23.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth24 = button_24.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth25 = button_25.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth26 = button_26.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth27 = button_27.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth28 = button_28.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth31 = button_31.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth32 = button_32.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth33 = button_33.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth34 = button_34.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth35 = button_35.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth36 = button_36.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth37 = button_37.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth38 = button_38.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth41 = button_41.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth42 = button_42.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth43 = button_43.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth44 = button_44.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth45 = button_45.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth46 = button_46.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth47 = button_47.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth48 = button_48.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth51 = button_51.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth52 = button_52.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth53 = button_53.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth54 = button_54.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth55 = button_55.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth61 = button_61.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth62 = button_62.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth63 = button_63.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth64 = button_64.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth65 = button_65.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth71 = button_71.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth72 = button_72.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth73 = button_73.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth74 = button_74.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth75 = button_75.BackColor.ConvertToToothStatus();
-
-      patient.DentalRecord.Tooth81 = button_81.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth82 = button_82.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth83 = button_83.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth84 = button_84.BackColor.ConvertToToothStatus();
-      patient.DentalRecord.Tooth85 = button_85.BackColor.ConvertToToothStatus();
-
-      #endregion Get teeth statuses from buttons
-
       if (NewPatient)
       {
         patient.Diary = _diary;
+        patient.Teeth = _patientTeeth;
         patient.Payments = _payments;
         patient = await _patientsService.AddPatientAsync(patient);
 
+        await _dentalRecordsService.AddPatientDentalRecordsAsync(_dentalRecords);
         _patientPicturesManager.MoveDisplayedPicturesToPatientDirectory(patient.ID);
       }
       else
       {
         await _diaryRecordsService.UpdatePatientDairyRecordsAsync(patient, _diary);
+        await _dentalRecordsService.UpdatePatientDentalRecordsAsync(patient, _dentalRecords);
+        await _patientTeethService.UpdatePatientTeethAsync(patient, _patientTeeth);
         await _paymentsService.UpdatePatientPaymentsAsync(patient, _payments);
         await _patientsService.UpdatePatientAsync(patient);
       }
@@ -719,6 +644,57 @@ namespace Patients.Forms
     private void DateOfBirthPicker_Leave(object sender, EventArgs e)
     {
       RefreshAge();
+    }
+
+    private void ToothButtonMouseUp(object sender, MouseEventArgs e)
+    {
+      var toothButton = sender as Button;
+      int toothNumber = Int32.Parse(toothButton.Name.Replace("button_", String.Empty));
+      var tooth = _patientTeeth.First(t => t.ToothNumber == toothNumber);
+
+      if (e.Button == MouseButtons.Left)
+      {
+        var fromToothStatus = tooth.Status;
+
+        var teethStatusForm = new TeethStatusForm(fromToothStatus);
+
+        if (teethStatusForm.ShowDialog() == DialogResult.OK && teethStatusForm.ToothStatus != fromToothStatus)
+        {
+          var toToothStatus = teethStatusForm.ToothStatus;
+          string toothStatusDescription = toToothStatus.GetDescription();
+
+          toothStatusToolTip.SetToolTip(toothButton, toothStatusDescription);
+          toothButton.BackColor = toToothStatus.ConvertToColor();
+
+          tooth.Status = toToothStatus;
+
+          var diaryRecordForm = new EditDentalRecordForm(toothNumber, DateTime.Now, teethStatusForm.Cause,
+            fromToothStatus, toToothStatus);
+
+          if (diaryRecordForm.ShowDialog() == DialogResult.OK)
+          {
+            _dentalRecords.Add(new DentalRecord
+            {
+              ID = Guid.NewGuid(),
+              Cause = diaryRecordForm.Diagnosis,
+              Date = diaryRecordForm.Date,
+              FromStatus = diaryRecordForm.FromToothStatus,
+              ToStatus = diaryRecordForm.ToToothStatus,
+              Tooth = tooth,
+              ToothNumber = tooth.ToothNumber
+            });
+          }
+        }
+      }
+      else if (e.Button == MouseButtons.Right)
+      {
+        var toothDentalRecords = _dentalRecords.Where(dentalRecord => dentalRecord.ToothNumber == toothNumber).ToList();
+        var dentalRecordsForm = new DentalRecordsForm(tooth, toothDentalRecords);
+        dentalRecordsForm.ShowDialog();
+
+        _dentalRecords = _dentalRecords.Where(dentalRecord => dentalRecord.ToothNumber != toothNumber).ToList();
+        _dentalRecords.AddRange(dentalRecordsForm.DentalRecords);
+      }
     }
   }
 }

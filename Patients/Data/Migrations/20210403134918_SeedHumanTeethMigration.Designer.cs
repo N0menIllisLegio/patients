@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Patients.Data;
 
 namespace Patients.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210403134918_SeedHumanTeethMigration")]
+    partial class SeedHumanTeethMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -18,31 +20,19 @@ namespace Patients.Migrations
 
             modelBuilder.Entity("Patients.Data.Entities.DentalRecord", b =>
                 {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("ToothNumber")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Cause")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("FromStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("PatientID")
-                        .HasColumnType("TEXT");
-
                     b.Property<int>("ToStatus")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ToothNumber")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PatientID", "ToothNumber");
+                    b.HasKey("ToothNumber");
 
                     b.ToTable("DentalRecords");
                 });
@@ -383,9 +373,9 @@ namespace Patients.Migrations
 
             modelBuilder.Entity("Patients.Data.Entities.DentalRecord", b =>
                 {
-                    b.HasOne("Patients.Data.Entities.PatientTooth", "Tooth")
+                    b.HasOne("Patients.Data.Entities.Tooth", "Tooth")
                         .WithMany()
-                        .HasForeignKey("PatientID", "ToothNumber")
+                        .HasForeignKey("ToothNumber")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -406,7 +396,7 @@ namespace Patients.Migrations
             modelBuilder.Entity("Patients.Data.Entities.PatientTooth", b =>
                 {
                     b.HasOne("Patients.Data.Entities.Patient", "Patient")
-                        .WithMany("Teeth")
+                        .WithMany("PatientTeeth")
                         .HasForeignKey("PatientID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -437,9 +427,9 @@ namespace Patients.Migrations
                 {
                     b.Navigation("Diary");
 
-                    b.Navigation("Payments");
+                    b.Navigation("PatientTeeth");
 
-                    b.Navigation("Teeth");
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }
