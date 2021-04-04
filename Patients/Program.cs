@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
@@ -83,15 +84,21 @@ namespace Patients
       string migrationBackupFilePath = Path.Combine(backupsDirectoryPath,
         GenerateDBBackupFileName(databaseFileName, databaseExtension, migrationBackup: true));
 
-      if (!File.Exists(migrationBackupFilePath))
+      var context = ServiceProvider.GetService<AppDbContext>();
+
+      bool firstMigration = context.Database.GetAppliedMigrations().Count() == 0;
+
+      if (!firstMigration && !File.Exists(migrationBackupFilePath))
       {
         File.Copy(databasePath, migrationBackupFilePath);
       }
 
-      var context = ServiceProvider.GetService<AppDbContext>();
       context.Database.Migrate();
 
-      File.Delete(migrationBackupFilePath);
+      if (!firstMigration)
+      {
+        File.Delete(migrationBackupFilePath);
+      }
 
       string standardBackupFilePath = Path.Combine(thisMonthBackupDirectory,
         GenerateDBBackupFileName(databaseFileName, databaseExtension, migrationBackup: false));
